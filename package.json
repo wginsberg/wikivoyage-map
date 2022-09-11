@@ -1,0 +1,23 @@
+{
+  "type": "module",
+  "name": "wikivoyage-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "init-db": "sqlite3 data.db < scripts/init-db.sql",
+    "build-nodes": "node scripts/build_nodes.js",
+    "build-edges": "node scripts/build_edges.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^7.6.2",
+    "xml-flow": "^1.0.4",
+    "xml-query": "^1.5.0",
+    "xml-reader": "^2.4.3",
+    "xquery-cli": "^2.1.2"
+  }
+}
