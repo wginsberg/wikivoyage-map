@@ -8,7 +8,7 @@ CREATE TABLE redirect (
     title TEXT,
     canonical TEXT,
     PRIMARY KEY (title, canonical),
-    FOREIGN KEY (title) REFERENCES node (title)
+    FOREIGN KEY (canonical) REFERENCES node (title)
 );
 
 CREATE TABLE edge (

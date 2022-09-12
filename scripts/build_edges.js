@@ -2,6 +2,10 @@ import fs, { link } from 'fs'
 import flow from 'xml-flow'
 import Database from 'better-sqlite3';
 
+// Setup logging
+const CLEAR_OUTPUT = "\x1b[2J\x1b[;H"
+let lastPrintTime = 0
+
 // Init the database connection
 const db = new Database('data.db');
 
@@ -10,7 +14,8 @@ const inFile = fs.createReadStream('enwikivoyage-20220901-pages-articles-multist
 const xmlStream = flow(inFile)
 
 // Stream XML and insert into database
-const linksRe = /\[\[(.+?)(\||\]\])/g
+const goNextRegex = /==Go next==(.*?)({{routebox|$)/
+const linksRegex = /\[\[(.+?)(\||\]\])/g
 const insertEdge = db.prepare('INSERT INTO edge (origin, destination) VALUES (?, ?);')
 const selectRedirect = db.prepare('SELECT canonical FROM redirect WHERE title = ?;')
 
@@ -24,35 +29,41 @@ xmlStream.on('tag:page', page => {
 
     const title = page.title
     const text = page.revision.text["$text"] || ""
-    const index = text.indexOf("==Go next==")
-    const goNextText = text.slice(index)
-    const linkMatches = goNextText.matchAll(linksRe) || []
+    const goNextMatch = text.match(goNextRegex) || []
+    const goNextText = goNextMatch[1] || ""
+    const linkMatches = goNextText.matchAll(linksRegex) || []
 
     for (const match of linkMatches) {
         const link = match[1]
 
+        // Logging
+        const now = new Date().getTime()
+        if (now - lastPrintTime > 1000) {
+            console.log(CLEAR_OUTPUT)
+            console.log(`Adding edge (${title}, ${link}) ...`)
+            lastPrintTime = now
+        }
+
         try {
-            console.log(`${[title, link]}`)
             insert(title, link)
         }
         catch (err) {
             // Handle links with redirects
             if (err.code === 'SQLITE_CONSTRAINT_FOREIGNKEY') {
                 const canonicalLink = selectRedirect.get(link)?.canonical
-                if (!canonicalLink) {
-                    console.log(`   -> broken link: ${link}`)
-                    continue
-                }
+                if (!canonicalLink) continue
                 try {
-                    console.log(`   -> ${[title, canonicalLink]}`)
                     insert(title, canonicalLink)
                 } catch (err2) {
-                    if (err2.code === 'SQLITE_CONSTRAINT_FOREIGNKEY') {
-                        console.log(`   -> broken redirect: ${canonicalLink}`)
-                    } else {
-                        throw err2
-                    }
+                    // Ignore broken redirects
+                    if (err2.code === 'SQLITE_CONSTRAINT_FOREIGNKEY') continue
+                    // Ignore redirects that result in duplicate entries
+                    if (err2.code === 'SQLITE_CONSTRAINT_PRIMARYKEY') continue
+                    throw err2
                 }
+            } else if (err.code === 'SQLITE_CONSTRAINT_PRIMARYKEY') {
+                // Ignore duplicate entries
+                continue
             } else {
                 throw err
             }
