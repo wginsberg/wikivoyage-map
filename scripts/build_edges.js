@@ -10,40 +10,52 @@ const inFile = fs.createReadStream('enwikivoyage-20220901-pages-articles-multist
 const xmlStream = flow(inFile)
 
 // Stream XML and insert into database
-const linksRe = /\[\[(.+?)\]\]/g
+const linksRe = /\[\[(.+?)(\||\]\])/g
 const insertEdge = db.prepare('INSERT INTO edge (origin, destination) VALUES (?, ?);')
-let count = 0
+const selectRedirect = db.prepare('SELECT canonical FROM redirect WHERE title = ?;')
+
+function insert(origin, destination) {
+    const nodes = [origin, destination].sort()
+    insertEdge.run(...nodes)
+}
+
 xmlStream.on('tag:page', page => {
     if (page.redirect) return
 
     const title = page.title
-    const text = page.revision.text["$text"]
+    const text = page.revision.text["$text"] || ""
     const index = text.indexOf("==Go next==")
     const goNextText = text.slice(index)
     const linkMatches = goNextText.matchAll(linksRe) || []
 
-    console.log(page.title)
-
     for (const match of linkMatches) {
         const link = match[1]
-        console.log(` * ${link}`)
+
         try {
-            insertEdge.run(title, link)
+            console.log(`${[title, link]}`)
+            insert(title, link)
         }
         catch (err) {
-            // if (err.code === 'SQLITE_CONSTRAINT_PRIMARYKEY') {
-            //     console.log(`Ignoring edge (${title}, ${link})`)
-            //     return
-            // }
+            // Handle links with redirects
             if (err.code === 'SQLITE_CONSTRAINT_FOREIGNKEY') {
-                console.log(`Ignoring edge (${title}, ${link}) - SQLITE_CONSTRAINT_FOREIGNKEY`)
-                continue
+                const canonicalLink = selectRedirect.get(link)?.canonical
+                if (!canonicalLink) {
+                    console.log(`   -> broken link: ${link}`)
+                    continue
+                }
+                try {
+                    console.log(`   -> ${[title, canonicalLink]}`)
+                    insert(title, canonicalLink)
+                } catch (err2) {
+                    if (err2.code === 'SQLITE_CONSTRAINT_FOREIGNKEY') {
+                        console.log(`   -> broken redirect: ${canonicalLink}`)
+                    } else {
+                        throw err2
+                    }
+                }
+            } else {
+                throw err
             }
-            throw err
         }
     }
-
-
-    count += 1
-    if (count === 100) process.exit(0)
 })
