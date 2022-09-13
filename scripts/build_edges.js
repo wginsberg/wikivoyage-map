@@ -1,4 +1,4 @@
-import fs, { link } from 'fs'
+import fs from 'fs'
 import flow from 'xml-flow'
 import Database from 'better-sqlite3';
 
