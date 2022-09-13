@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Wikivoyage App</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>">
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/protomaps@1.19.0/dist/protomaps.min.js"></script>
+    </head>
+    <body>
+        <header>Where can I go?</header>
+        <div id="map"></div>
+        <script type="text/javascript">
+            const map = L.map('map')
+            const markers = {}
+            let polygon
+
+            const p = new protomaps.PMTiles("tiles.pmtiles")
+            p.metadata()
+            .then(m => {
+                let bounds_str = m.bounds.split(',')
+                let bounds = [[+bounds_str[1],+bounds_str[0]],[+bounds_str[3],+bounds_str[2]]]
+                layer = protomaps.leafletLayer({attribution:'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',url:p,bounds:bounds})
+                layer.addTo(map)
+                map.fitBounds(bounds)
+            })
+            .then(() => fetch("data/mexico.json").then(res => res.json()))
+            .then(({ nodes, edges }) => {
+                for (node of nodes) {
+                    const {lat, lng} = node
+                    const marker = L.circleMarker([lat, lng], {radius:5, opacity: 0, fill: 'blue', fillOpacity: 0.5, weight : 10})
+                    marker.addTo(map)
+                }
+                for (edge of edges) {
+                    const { origin, destination } = edge
+                    var latlngs = [[origin.lat, origin.lng], [destination.lat, destination.lng]];
+
+                    var polyline = L.polyline(latlngs, {color: 'black', opacity: 0.2}).addTo(map);
+                }
+            })
+        </script>
+    </body>
+</html>

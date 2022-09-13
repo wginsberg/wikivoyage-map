@@ -1,0 +1,33 @@
+body {
+    height:100vh;
+}
+
+#map {
+    height: 75vh;
+    margin: auto;
+    max-width: 1024px;
+    max-height: 720px;
+}
+
+html {
+    font-family: system-ui;
+}
+
+header {
+    font-size: larger;
+    text-align: center;
+    padding: 4px 8px 8px 8px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer ul li {
+    margin-bottom: 4px;
+}

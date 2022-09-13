@@ -10,6 +10,7 @@
     "build-redirects": "node scripts/build_redirects.js",
     "build-edges": "node scripts/build_edges.js",
     "build": "npm run init-db && npm run build-nodes && npm run build-redirects && npm run build_edges",
+    "build-mexico": "node scripts/build_mexico",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
