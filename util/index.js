@@ -21,7 +21,7 @@ export function getEdgesForBox([latA, lngA], [latB, lngB]) {
             JOIN edge ON node1.title = edge.origin
             JOIN node as node2 ON edge.destination = node2.title
         WHERE   (node1.lat > ? AND node1.lat < ? AND node1.lng > ? AND node1.lng < ?)
-            OR  (node2.lat > ? AND node2.lat < ? AND node2.lng > ? AND node2.lng < ?);
+            AND  (node2.lat > ? AND node2.lat < ? AND node2.lng > ? AND node2.lng < ?);
     `)
     const edges = selectEdges.all(latA, latB, lngA, lngB, latA, latB, lngA, lngB)
     return edges

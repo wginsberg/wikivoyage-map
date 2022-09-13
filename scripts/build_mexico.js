@@ -3,7 +3,7 @@ import { getNodesInBox, getEdgesForBox } from "../util/index.js";
 
 const TARGET = 'data/mexico.json'
 
-const mexicoBox = [ [17.207499916286604, -102.2534757511977], [22.35779771239463, -93.07562564894218]]
+const mexicoBox = [ [13.659697, -123.424037], [33.790873, -85.455287]]
 
 const nodes = getNodesInBox(...mexicoBox)
 const edges = getEdgesForBox(...mexicoBox)
