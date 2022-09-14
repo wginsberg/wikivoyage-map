@@ -3,6 +3,7 @@
   "name": "wikivoyage-app",
   "version": "1.0.0",
   "main": "index.js",
+  "homepage": ".",
   "scripts": {
     "init-db": "sqlite3 data.db < scripts/init-db.sql",
     "build-nodes": "node scripts/build_nodes.js",
