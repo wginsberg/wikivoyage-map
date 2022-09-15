@@ -1,5 +1,5 @@
 import { writeFile } from 'fs/promises'
-import { getNodesInBox, getEdgesForBox } from "../util/index.js";
+import { getNodesInBox, getEdgesForBox } from "./util.js";
 
 const TARGET = 'data/mexico.json'
 
