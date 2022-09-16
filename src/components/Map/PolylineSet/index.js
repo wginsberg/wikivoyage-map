@@ -1,11 +1,17 @@
 import { Polyline } from 'react-leaflet'
 
 function PolylineSet(props) {
-    const { edges = [] } = props
+    const { edges = [], active = false } = props
 
     const pathOptions = {
-        color: 'black',
-        opacity: 0.1
+        inactive: {
+            color: 'grey',
+            opacity: 0.1
+        },
+        active: {
+            color: 'black',
+            opacity: 0.5
+        }
     }
 
     const lines = edges
@@ -14,17 +20,12 @@ function PolylineSet(props) {
             [destination.lat, destination.lng]
         ])
 
-    // const uniqueLines = lines.reduce((lineSet, line) => {
-    //     lineSet.add(line)
-    //     return lineSet
-    // }, new Set())
-
     const keys = edges.map(({ origin, destination }) => [origin.title, destination.title])
 
     return lines.map((line, i) => (
         <Polyline
             positions={line}
-            pathOptions={pathOptions}
+            pathOptions={active ? pathOptions.active : pathOptions.inactive}
             key={keys[i]}
         />
     ))

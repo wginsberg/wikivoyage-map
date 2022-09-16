@@ -1,17 +1,30 @@
 import { CircleMarker } from 'react-leaflet'
 
 function MarkerSet(props) {
-    const { nodes = [] } = props
+    const { nodes = [], active = false, onClick } = props
 
     const pathOptions = {
-        stroke: false,
-        fillOpacity: 0.5
+        inactive: {
+            stroke: false,
+            color: 'blue',
+            fillOpacity: 0.2
+        },
+        active: {
+            stroke: false,
+            color: 'green',
+            fillOpacity: 0.8
+        }
     }
 
-    return nodes.map(({ title, lat, lng }) => (
+    const eventHandlers = onClick
+    ? { click: onClick }
+    : {}
+
+    return nodes.map(({ title, lat, lng }, i) => (
         <CircleMarker
             center={{lat, lng}}
-            pathOptions={pathOptions}
+            pathOptions={active ? pathOptions.active: pathOptions.inactive}
+            eventHandlers={eventHandlers}
             key={title}
         />
     ))
