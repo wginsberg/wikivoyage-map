@@ -2,14 +2,12 @@ function Footer(props) {
     const { activeNode = {}, activeEdges = [] } = props
     const activeTitle = activeNode.title
 
-    const titleSet = activeEdges.reduce((titles, edge) => {
-        titles.add(edge.origin.title)
-        titles.add(edge.destination.title)
-        return titles
-    }, new Set())
-    titleSet.delete(activeTitle)
-
-    const titles = [...titleSet].sort()
+    const titles = activeEdges
+        .map((edge) => [edge.origin.title, edge.destination.title])
+        .flat()
+        .filter(title => title !== activeTitle)
+        |> [...new Set(#)]
+        .sort()
 
     return (
         <ul>
