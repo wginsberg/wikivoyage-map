@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { MapContainer } from 'react-leaflet'
+import { useRef, useState, useEffect } from 'react';
+import { MapContainer, FeatureGroup } from 'react-leaflet'
 import Protomaps from './components/Map/Protomaps/index.js'
 import MarkerSet from './components/Map/MarkerSet/index.js'
 import PolylineSet from './components/Map/PolylineSet/index.js'
@@ -15,6 +15,9 @@ function App() {
       .then(res => res.json())
       .then(setData)
   }, [])
+
+  const mapRef = useRef()
+  const featureGroupRef = useRef()
 
   const handleClick = ({ latlng: {lat, lng} }) => {
     const nodeIndex = nodes.findIndex(node => node.lat === lat && node.lng === lng)
@@ -38,13 +41,24 @@ function App() {
       )
     : edges
 
+    // Zoom active node and edges into view
+    useEffect(() => {
+      const map = mapRef.current
+      const bounds = featureGroupRef.current?.getBounds()
+      if (!map) return
+      if (activeNode) map.setView(activeNode)
+      if (bounds.isValid()) map.flyToBounds(bounds)
+    }, [activeNode])
+
   return (
     <div className="App">
       <Header node={activeNode} />
-      <MapContainer id="map">
+      <MapContainer id="map" ref={mapRef}>
         <Protomaps />
         <PolylineSet edges={inactiveEdges} />
-        <PolylineSet edges={activeEdges} active={true} />
+        <FeatureGroup ref={featureGroupRef}>
+          <PolylineSet edges={activeEdges} active={true} />
+        </FeatureGroup>
         <MarkerSet
           nodes={inactiveNodes}
           onClick={handleClick}
