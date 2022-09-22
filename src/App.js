@@ -4,6 +4,7 @@ import Protomaps from './components/Map/Protomaps/index.js'
 import MarkerSet from './components/Map/MarkerSet/index.js'
 import PolylineSet from './components/Map/PolylineSet/index.js'
 import Header from './components/Header/index.js'
+import Footer from './components/Footer/index.js'
 
 function App() {
   const [{ nodes, edges }, setData] = useState({ nodes: [], edges: [] })
@@ -53,6 +54,7 @@ function App() {
           active={true}
         />
       </MapContainer>
+      <Footer activeNode={activeNode} activeEdges={activeEdges} />
     </div>
   );
 }
