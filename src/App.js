@@ -8,7 +8,8 @@ import Footer from './components/Footer/index.js'
 
 function App() {
   const [{ nodes, edges }, setData] = useState({ nodes: [], edges: [] })
-  const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [activeIndex, setActiveIndex] = useState(-1)
+  const [hoverIndex, setHoverIndex] = useState(-1)
 
   useEffect(() => {
     fetch("data/mexico.json")
@@ -19,16 +20,8 @@ function App() {
   const mapRef = useRef()
   const featureGroupRef = useRef()
 
-  const handleClick = ({ latlng: {lat, lng} }) => {
-    const nodeIndex = nodes.findIndex(node => node.lat === lat && node.lng === lng)
-    setSelectedIndex(nodeIndex)
-  }
-
-  const activeNode = nodes[selectedIndex]
-  const activeNodes = activeNode ? [activeNode] : []
-  const inactiveNodes = selectedIndex === -1
-    ? nodes
-    : [...nodes.slice(0, selectedIndex), ...nodes.slice(selectedIndex + 1)]
+  const activeNode = nodes[activeIndex]
+  const hoverNode = nodes[hoverIndex]
 
   const activeEdges = activeNode
     ? edges.filter(({ origin, destination }) => 
@@ -50,6 +43,33 @@ function App() {
       if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50]})
     }, [activeNode])
 
+    // event handlers
+
+    const handleClick = ({ latlng: {lat, lng} }) => {
+      const nodeIndex = nodes.findIndex(node => node.lat === lat && node.lng === lng)
+      setActiveIndex(nodeIndex)
+    }
+  
+    const handleFooterHover = (title) => {
+      const index = nodes.findIndex(node => node.title === title)
+      setHoverIndex(index)
+    }
+  
+    const handleMarkerHover = (e) => {
+      const { lat, lng } = e?.latlng || {}
+      const nodeIndex = nodes.findIndex(node => node.lat === lat && node.lng === lng)
+      const node = nodes[nodeIndex]
+      const isConnected = node && activeEdges.find(({ origin, destination }) => 
+        (origin.lat === node.lat && origin.lng === node.lng) ||
+        (destination.lat === node.lat && destination.lng === node.lng)
+      )
+      if (isConnected) {
+        setHoverIndex(nodeIndex)
+      } else {
+        setHoverIndex(-1)
+      }
+    }
+
   return (
     <div className="App">
       <Header node={activeNode} />
@@ -60,15 +80,21 @@ function App() {
           <PolylineSet edges={activeEdges} active={true} />
         </FeatureGroup>
         <MarkerSet
-          nodes={inactiveNodes}
+          nodes={nodes}
+          activeIndex={activeIndex}
+          hoverIndex={hoverIndex}
           onClick={handleClick}
-        />
-        <MarkerSet
-          nodes={activeNodes}
-          active={true}
+          onMouseOver={handleMarkerHover}
+          onMouseOut={() => handleMarkerHover({})}
         />
       </MapContainer>
-      <Footer activeNode={activeNode} activeEdges={activeEdges} />
+      <Footer
+        activeNode={activeNode}
+        activeEdges={activeEdges}
+        hoverNode={hoverNode}
+        onMouseEnter={handleFooterHover}
+        onMouseLeave={handleFooterHover}
+      />
     </div>
   );
 }

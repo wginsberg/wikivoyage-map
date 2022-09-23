@@ -1,6 +1,7 @@
 function Footer(props) {
-    const { activeNode = {}, activeEdges = [] } = props
+    const { activeNode = {}, activeEdges = [], hoverNode = {}, onMouseEnter, onMouseLeave } = props
     const activeTitle = activeNode.title
+    const hoverTitle = hoverNode.title
 
     const titles = activeEdges
         .map((edge) => [edge.origin.title, edge.destination.title])
@@ -18,6 +19,9 @@ function Footer(props) {
                             href={`https://en.wikivoyage.org/wiki/${title}`}
                             target="_blank"
                             rel="noreferrer"
+                            className={title === hoverTitle ? "active" : ""}
+                            onMouseEnter={() => onMouseEnter(title)}
+                            onMouseLeave={onMouseLeave}
                         >
                             {title}
                         </a>

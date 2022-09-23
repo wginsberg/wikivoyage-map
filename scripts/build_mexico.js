@@ -1,5 +1,4 @@
 const path = require('path')
-const { fileURLToPath } = require('url')
 const { readFileSync, writeFileSync } = require('fs')
 const { getEdges } = require("./util.js")
 const pointInPolygon = require('point-in-polygon')

@@ -42,6 +42,6 @@ footer ul li a {
     padding: 8px;
 }
 
-footer ul li:hover {
+footer ul li a.active {
     font-weight: bolder;
 }
