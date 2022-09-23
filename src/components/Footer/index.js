@@ -10,19 +10,21 @@ function Footer(props) {
         .sort()
 
     return (
-        <ul>
-            {titles.map(title => (
-                <li key={title}>
-                    <a
-                        href={`https://en.wikivoyage.org/wiki/${title}`}
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        {title}
-                    </a>
-                </li>
-            ))}
-        </ul>
+        <footer>
+            <ul>
+                {titles.map(title => (
+                    <li key={title}>
+                        <a
+                            href={`https://en.wikivoyage.org/wiki/${title}`}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            {title}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </footer>
     )
 }
 

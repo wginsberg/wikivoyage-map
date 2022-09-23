@@ -25,9 +25,23 @@ footer {
 }
 
 footer ul {
+    padding-left: 0;
+    max-width: 720px;
     list-style: none;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 footer ul li {
-    margin-bottom: 4px;
+    margin: 8px;
+}
+
+footer ul li a {
+    padding: 8px;
+}
+
+footer ul li:hover {
+    font-weight: bolder;
 }
