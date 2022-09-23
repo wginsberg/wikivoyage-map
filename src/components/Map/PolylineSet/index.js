@@ -26,6 +26,7 @@ function PolylineSet(props) {
         <Polyline
             positions={line}
             pathOptions={active ? pathOptions.active : pathOptions.inactive}
+            interactive={false}
             key={keys[i]}
         />
     ))
