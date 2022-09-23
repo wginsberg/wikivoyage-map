@@ -53,7 +53,7 @@ function App() {
   return (
     <div className="App">
       <Header node={activeNode} />
-      <MapContainer id="map" ref={mapRef}>
+      <MapContainer id="map" ref={mapRef} maxZoom={12}>
         <Protomaps />
         <PolylineSet edges={inactiveEdges} />
         <FeatureGroup ref={featureGroupRef}>
