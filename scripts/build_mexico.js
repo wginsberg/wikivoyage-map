@@ -1,23 +1,20 @@
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { readFile, writeFile } from 'fs/promises'
-// import { getNodesInBox, getEdgesForBox } from "./util.js";
-import { getNodes, getEdges } from "./util.js";
-import pointInPolygon from 'point-in-polygon'
+const path = require('path')
+const { fileURLToPath } = require('url')
+const { readFileSync, writeFileSync } = require('fs')
+const { getEdges } = require("./util.js")
+const pointInPolygon = require('point-in-polygon')
 
 const TARGET = 'public/data/mexico.json'
 
-const dirname = path.dirname(fileURLToPath(import.meta.url))
-const geojson = await readFile(path.resolve(dirname, './countries.geojson'))
-    .then(JSON.parse)
+const dirname = __dirname
+const fileName = path.resolve(dirname, './countries.geojson')
+const buffer = readFileSync(fileName)
+const geojson = JSON.parse(buffer)
 
 const [polygons] = geojson
     .features
     .filter(({ properties: { ISO_A3 }}) => ISO_A3 === "MEX")
     .map(({ geometry: { coordinates} }) => coordinates)
-
-// const nodes = getNodes()
-//     .filter(({ lat, lng }) => polygons.some(([polygon]) => pointInPolygon([lng, lat], polygon)))
 
 const edges = getEdges()
     .filter((edge) => {
@@ -53,4 +50,4 @@ const formattedResult = {
 }
 const resultString = JSON.stringify(formattedResult, null, 4)
 
-await writeFile(TARGET, resultString)
+writeFileSync(TARGET, resultString)
