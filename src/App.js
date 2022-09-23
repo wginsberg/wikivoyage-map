@@ -47,7 +47,7 @@ function App() {
       const bounds = featureGroupRef.current?.getBounds()
       if (!map) return
       if (activeNode) map.setView(activeNode)
-      if (bounds.isValid()) map.flyToBounds(bounds)
+      if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50]})
     }, [activeNode])
 
   return (
