@@ -12,7 +12,7 @@ function App() {
   const [hoverIndex, setHoverIndex] = useState(-1)
 
   useEffect(() => {
-    fetch("data/mexico.json")
+    fetch("data/mexico_central_america.json")
       .then(res => res.json())
       .then(setData)
   }, [])
@@ -79,7 +79,7 @@ function App() {
     <div className="App">
       <Header node={activeNode} />
       <MapContainer id="map" ref={mapRef} maxZoom={12}>
-        <Protomaps />
+        <Protomaps url="tiles-mexico-central-america.pmtiles"/>
         <PolylineSet edges={inactiveEdges} />
         <FeatureGroup ref={featureGroupRef}>
           <PolylineSet edges={activeEdges} active={true} />

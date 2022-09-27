@@ -14,7 +14,8 @@ const [polygons] = geojson
     .features
     .filter(({ properties: { ISO_A3 }}) => ISO_A3 === "MEX")
     .map(({ geometry: { coordinates} }) => coordinates)
-
+console.log(polygons)
+process.exit(1)
 const edges = getEdges()
     .filter((edge) => {
         const { originLng, originLat, destinationLng, destinationLat} = edge

@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 import { useMap } from 'react-leaflet'
 
-function Protomaps () {
+function Protomaps (props) {
     const map = useMap()
 
+    const { url } = props
+
     useEffect(() => {
-        const tiles = new window.protomaps.PMTiles("tiles.pmtiles")
+        const tiles = new window.protomaps.PMTiles(url)
         tiles.metadata()
             .then(metadata => {
                 const [b1, b2, b3, b4]  = metadata.bounds.split(',').map(Number)
@@ -17,7 +19,7 @@ function Protomaps () {
                 layer.addTo(map)
                 map.fitBounds(bounds)
             })
-    }, [map])
+    }, [map, url])
 }
 
 export default Protomaps
