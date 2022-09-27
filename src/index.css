@@ -39,9 +39,10 @@ footer ul li {
 }
 
 footer ul li button {
-    padding: 8px;
+    padding: 4px;
 }
 
 footer ul li button.active {
-    font-weight: bolder;
+    transform: scale(110%);
+    box-shadow: 2px 2px 2px black;
 }
