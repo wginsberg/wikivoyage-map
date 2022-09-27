@@ -9,7 +9,7 @@
     "build-redirects": "node scripts/build_redirects.js",
     "build-edges": "node scripts/build_edges.js",
     "build-data": "npm run init-db && npm run build-nodes && npm run build-redirects && npm run build-edges",
-    "extract-data-mexico": "node scripts/build_mexico.js",
+    "mexico": "node scripts/mexico.js",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
