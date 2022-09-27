@@ -45,8 +45,13 @@ function App() {
 
     // event handlers
 
-    const handleClick = ({ latlng: {lat, lng} }) => {
+    const handleNodeClick = ({ latlng: {lat, lng} }) => {
       const nodeIndex = nodes.findIndex(node => node.lat === lat && node.lng === lng)
+      setActiveIndex(nodeIndex)
+    }
+
+    const handleFooterClick = (title) => {
+      const nodeIndex = nodes.findIndex(node => node.title === title)
       setActiveIndex(nodeIndex)
     }
   
@@ -83,7 +88,7 @@ function App() {
           nodes={nodes}
           activeIndex={activeIndex}
           hoverIndex={hoverIndex}
-          onClick={handleClick}
+          onClick={handleNodeClick}
           onMouseOver={handleMarkerHover}
           onMouseOut={() => handleMarkerHover({})}
         />
@@ -92,6 +97,7 @@ function App() {
         activeNode={activeNode}
         activeEdges={activeEdges}
         hoverNode={hoverNode}
+        onClick={handleFooterClick}
         onMouseEnter={handleFooterHover}
         onMouseLeave={handleFooterHover}
       />

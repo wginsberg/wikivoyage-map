@@ -38,10 +38,10 @@ footer ul li {
     margin: 8px;
 }
 
-footer ul li a {
+footer ul li button {
     padding: 8px;
 }
 
-footer ul li a.active {
+footer ul li button.active {
     font-weight: bolder;
 }

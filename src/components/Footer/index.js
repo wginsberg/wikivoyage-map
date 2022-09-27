@@ -1,5 +1,5 @@
 function Footer(props) {
-    const { activeNode = {}, activeEdges = [], hoverNode = {}, onMouseEnter, onMouseLeave } = props
+    const { activeNode = {}, activeEdges = [], hoverNode = {}, onClick, onMouseEnter, onMouseLeave } = props
     const activeTitle = activeNode.title
     const hoverTitle = hoverNode.title
 
@@ -15,16 +15,14 @@ function Footer(props) {
             <ul>
                 {titles.map(title => (
                     <li key={title}>
-                        <a
-                            href={`https://en.wikivoyage.org/wiki/${title}`}
-                            target="_blank"
-                            rel="noreferrer"
+                        <button
                             className={title === hoverTitle ? "active" : ""}
+                            onClick={() => onClick(title)}
                             onMouseEnter={() => onMouseEnter(title)}
                             onMouseLeave={onMouseLeave}
                         >
                             {title}
-                        </a>
+                        </button>
                     </li>
                 ))}
             </ul>
