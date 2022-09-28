@@ -19,6 +19,18 @@ header {
     padding: 4px 8px 8px 8px;
 }
 
+header a {
+    display: inline-flex;
+}
+
+header a img {
+    margin-left: 3px;
+}
+
+header a:visited path {
+    fill: purple;
+}
+
 footer {
     display: flex;
     justify-content: center;
