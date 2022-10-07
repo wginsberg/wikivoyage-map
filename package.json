@@ -10,7 +10,6 @@
     "build-edges": "node scripts/build_edges.js",
     "build-data": "npm run init-db && npm run build-nodes && npm run build-redirects && npm run build-edges",
     "mexico": "node scripts/mexico.js",
-    "mexico-central-america": "node scripts/mexico_central_america.js",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",

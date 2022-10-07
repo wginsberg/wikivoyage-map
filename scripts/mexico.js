@@ -10,12 +10,17 @@ const fileName = path.resolve(dirname, './countries.geojson')
 const buffer = readFileSync(fileName)
 const geojson = JSON.parse(buffer)
 
-const [polygons] = geojson
+const countryCodes = new Set(["MEX", "GTM", "BLZ", "HND", "SLV", "NIC", "CRI", "PAN"])
+
+const polygons = geojson
     .features
-    .filter(({ properties: { ISO_A3 }}) => ISO_A3 === "MEX")
-    .map(({ geometry: { coordinates} }) => coordinates)
-console.log(polygons)
-process.exit(1)
+    .filter(({ properties: { ISO_A3 }}) => countryCodes.has(ISO_A3))
+    .map(({ geometry }) => geometry.coordinates)
+    .flat()
+
+// console.log(polygons)
+// process.exit(1)
+
 const edges = getEdges()
     .filter((edge) => {
         const { originLng, originLat, destinationLng, destinationLat} = edge
