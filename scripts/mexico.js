@@ -9,6 +9,7 @@ const BLOCKLIST = new Set([
     "Erlangen",
     "Oregon",
     "United States of America",
+    "Wikivoyage:Cruising Expedition/Structure for cruising articles/Puerto Vallarta"
 ])
 
 const TARGET = 'public/data/mexico.json'
