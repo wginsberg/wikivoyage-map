@@ -4,7 +4,7 @@ import { useMap } from 'react-leaflet'
 function Protomaps (props) {
     const map = useMap()
 
-    const { url } = props
+    const { url, onReady } = props
 
     useEffect(() => {
         const tiles = new window.protomaps.PMTiles(url)
@@ -18,8 +18,9 @@ function Protomaps (props) {
                 })
                 layer.addTo(map)
                 map.fitBounds(bounds)
+                onReady()
             })
-    }, [map, url])
+    }, [map, url, onReady])
 }
 
 export default Protomaps

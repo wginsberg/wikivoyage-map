@@ -10,6 +10,7 @@ function App() {
   const [{ nodes, edges }, setData] = useState({ nodes: [], edges: [] })
   const [activeIndex, setActiveIndex] = useState(-1)
   const [hoverIndex, setHoverIndex] = useState(-1)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     fetch("data/mexico.json")
@@ -79,19 +80,22 @@ function App() {
     <div className="App">
       <Header node={activeNode} />
       <MapContainer id="map" ref={mapRef} maxZoom={12}>
-        <Protomaps url="mexico.pmtiles"/>
+        {isLoading && <span className="loading">loading...</span>}
+        <Protomaps url="mexico.pmtiles" onReady={() => setIsLoading(false)}/>
         <PolylineSet edges={inactiveEdges} />
         <FeatureGroup ref={featureGroupRef}>
           <PolylineSet edges={activeEdges} active={true} />
         </FeatureGroup>
-        <MarkerSet
-          nodes={nodes}
-          activeIndex={activeIndex}
-          hoverIndex={hoverIndex}
-          onClick={handleNodeClick}
-          onMouseOver={handleMarkerHover}
-          onMouseOut={() => handleMarkerHover({})}
-        />
+        {!isLoading &&
+          <MarkerSet
+            nodes={nodes}
+            activeIndex={activeIndex}
+            hoverIndex={hoverIndex}
+            onClick={handleNodeClick}
+            onMouseOver={handleMarkerHover}
+            onMouseOut={() => handleMarkerHover({})}
+          />
+        }
       </MapContainer>
       <Footer
         activeNode={activeNode}
