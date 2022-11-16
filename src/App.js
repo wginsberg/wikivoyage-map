@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { MapContainer, FeatureGroup } from 'react-leaflet'
 import Protomaps from './components/Map/Protomaps/index.js'
 import MarkerSet from './components/Map/MarkerSet/index.js'
@@ -46,6 +46,8 @@ function App() {
 
     // event handlers
 
+    const handleReady = useCallback(() => setIsLoading(false), [setIsLoading])
+
     const handleNodeClick = ({ latlng: {lat, lng} }) => {
       const nodeIndex = nodes.findIndex(node => node.lat === lat && node.lng === lng)
       setActiveIndex(nodeIndex)
@@ -81,7 +83,7 @@ function App() {
       <Header node={activeNode} />
       <MapContainer id="map" ref={mapRef} maxZoom={12}>
         {isLoading && <span className="loading">loading...</span>}
-        <Protomaps url="mexico.pmtiles" onReady={() => setIsLoading(false)}/>
+        <Protomaps url="mexico.pmtiles" onReady={handleReady}/>
         <PolylineSet edges={inactiveEdges} />
         <FeatureGroup ref={featureGroupRef}>
           <PolylineSet edges={activeEdges} active={true} />
