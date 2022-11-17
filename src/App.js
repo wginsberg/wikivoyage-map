@@ -38,9 +38,16 @@ function App() {
     // Zoom active node and edges into view
     useEffect(() => {
       const map = mapRef.current
-      const bounds = featureGroupRef.current?.getBounds()
       if (!map) return
+
+      // scroll to top to make header link visible
+      window.scrollTo({ top: 0 });
+
+      // center map on selected node
       if (activeNode) map.setView(activeNode)
+
+      // zoom to fit connected nodes
+      const bounds = featureGroupRef.current?.getBounds()
       if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50]})
     }, [activeNode])
 
