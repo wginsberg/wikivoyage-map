@@ -90,7 +90,7 @@ function App() {
       <Header node={activeNode} />
       <MapContainer id="map" ref={mapRef} maxZoom={12}>
         {isLoading && <span className="loading">loading...</span>}
-        <Protomaps url="mexico.pmtiles" onReady={handleReady}/>
+        <Protomaps file="mexico.pmtiles" onReady={handleReady}/>
         <PolylineSet edges={inactiveEdges} />
         <FeatureGroup ref={featureGroupRef}>
           <PolylineSet edges={activeEdges} active={true} />

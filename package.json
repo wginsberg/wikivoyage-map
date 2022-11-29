@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "homepage": ".",
+  "proxy": "https://pub-5ba95de8cc2f4dada22bfe563b284734.r2.dev",
   "scripts": {
     "init-db": "sqlite3 data.db < scripts/init-db.sql",
     "build-nodes": "node scripts/build_nodes.js",

@@ -1,10 +1,13 @@
 import { useEffect } from 'react'
 import { useMap } from 'react-leaflet'
+import { getMapTileHost } from "../../../utils"
 
 function Protomaps (props) {
     const map = useMap()
 
-    const { url, onReady } = props
+    const { file, onReady } = props
+
+    const url = `${getMapTileHost()}/${file}`
 
     useEffect(() => {
         const tiles = new window.protomaps.PMTiles(url)
