@@ -10,7 +10,6 @@ function App() {
   const [{ nodes, edges }, setData] = useState({ nodes: [], edges: [] })
   const [activeIndex, setActiveIndex] = useState(-1)
   const [hoverIndex, setHoverIndex] = useState(-1)
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     fetch("data/mexico.json")
@@ -53,8 +52,6 @@ function App() {
 
     // event handlers
 
-    const handleReady = useCallback(() => setIsLoading(false), [setIsLoading])
-
     const handleNodeClick = ({ latlng: {lat, lng} }) => {
       const nodeIndex = nodes.findIndex(node => node.lat === lat && node.lng === lng)
       setActiveIndex(nodeIndex)
@@ -89,22 +86,20 @@ function App() {
     <div className="App">
       <Header node={activeNode} />
       <MapContainer id="map" ref={mapRef} maxZoom={12}>
-        {isLoading && <span className="loading">loading...</span>}
-        <Protomaps file="mexico.pmtiles" onReady={handleReady}/>
+        <span className="loading">loading...</span>
+        <Protomaps file="protomaps_vector_planet_odbl_z10.pmtiles" />
         <PolylineSet edges={inactiveEdges} />
         <FeatureGroup ref={featureGroupRef}>
           <PolylineSet edges={activeEdges} active={true} />
         </FeatureGroup>
-        {!isLoading &&
-          <MarkerSet
-            nodes={nodes}
-            activeIndex={activeIndex}
-            hoverIndex={hoverIndex}
-            onClick={handleNodeClick}
-            onMouseOver={handleMarkerHover}
-            onMouseOut={() => handleMarkerHover({})}
-          />
-        }
+        <MarkerSet
+          nodes={nodes}
+          activeIndex={activeIndex}
+          hoverIndex={hoverIndex}
+          onClick={handleNodeClick}
+          onMouseOver={handleMarkerHover}
+          onMouseOut={() => handleMarkerHover({})}
+        />
       </MapContainer>
       <Footer
         activeNode={activeNode}

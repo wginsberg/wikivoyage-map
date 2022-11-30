@@ -1,0 +1,8 @@
+{
+  "CORSRules":  [{
+    "AllowedHeaders": ["Range"],
+    "AllowedMethods": ["GET","HEAD"],
+    "AllowedOrigins": ["https://wikivoyage-app.pages.dev"],
+    "ExposeHeaders": ["ETag"]
+  }]
+}
