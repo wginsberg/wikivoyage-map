@@ -3,6 +3,15 @@ const Database = require('better-sqlite3')
 // Init the database connection
 const db = new Database('data.db');
 
+function getNodes() {
+    const selectNodes = db.prepare(`
+    SELECT *
+    FROM node
+`)
+const nodes = selectNodes.all()
+return nodes
+}
+
 function getEdges() {
     const selectEdges = db.prepare(`
         SELECT  origin,
@@ -20,5 +29,6 @@ function getEdges() {
 }
 
 module.exports = {
+    getNodes,
     getEdges
 }

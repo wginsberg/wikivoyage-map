@@ -19,8 +19,19 @@ function PolylineSet(props) {
             [origin.lat, origin.lng],
             [destination.lat, destination.lng]
         ])
+        .reduce((acc, edge) => {
+            // de-duplicate edges from A-> and B->A
+            const key = `${edge.map((latLng) => `${latLng}`).sort()}`
+            return {
+                ...acc,
+                [key]: edge
+            }
+        }, {})
+        |> Object.values(#)
 
     const keys = edges.map(({ origin, destination }) => [origin.title, destination.title])
+
+    if (active) console.log(keys)
 
     return lines.map((line, i) => (
         <Polyline

@@ -23,9 +23,9 @@ const HOVER_PATH_OPTIONS = {
     color: 'orange'
 }
 
-function getPathOptions(index, activeIndex, hoverIndex) {
-    const active = index === activeIndex
-    const hover = index === hoverIndex
+function getPathOptions(title, activeId, hoverId) {
+    const active = title === activeId
+    const hover = title === hoverId
 
     return {
         ...DEFAULT_PATH_OPTIONS,
@@ -34,17 +34,20 @@ function getPathOptions(index, activeIndex, hoverIndex) {
 }
 
 function MarkerSet(props) {
-    const { nodes = [], activeIndex = -1, hoverIndex = -1, onClick, onMouseOver, onMouseOut } = props
+    const { nodes = [], activeId, hoverId, onClick, onMouseOver, onMouseOut } = props
 
-    const eventHandlers = onClick
-        ? { click: onClick, mouseover: onMouseOver, mouseout: onMouseOut }
+    const getEventHandlers = title => onClick
+        ? {
+            click: () => onClick(title),
+            mouseover: () => onMouseOver(title),
+            mouseout: () => onMouseOut(title) }
         : {}
 
-    return nodes.map(({ title, lat, lng }, i) => (
+    return nodes.map(({ title, lat, lng }) => (
         <CircleMarker
             center={{lat, lng}}
-            pathOptions={getPathOptions(i, activeIndex, hoverIndex)}
-            eventHandlers={eventHandlers}
+            pathOptions={getPathOptions(title, activeId, hoverId)}
+            eventHandlers={getEventHandlers(title)}
             key={title}
         />
     ))
