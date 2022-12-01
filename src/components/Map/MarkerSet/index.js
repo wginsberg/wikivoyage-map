@@ -34,7 +34,7 @@ function getPathOptions(title, activeId, hoverId) {
 }
 
 function MarkerSet(props) {
-    const { nodes = [], activeId, hoverId, onClick, onMouseOver, onMouseOut } = props
+    const { nodes, activeId, hoverId, onClick, onMouseOver, onMouseOut } = props
 
     const getEventHandlers = title => onClick
         ? {
@@ -43,7 +43,9 @@ function MarkerSet(props) {
             mouseout: () => onMouseOut(title) }
         : {}
 
-    return nodes.map(({ title, lat, lng }) => (
+    const nodeList = nodes ? [...nodes] : []
+
+    return nodeList.map(({ title, lat, lng }) => (
         <CircleMarker
             center={{lat, lng}}
             pathOptions={getPathOptions(title, activeId, hoverId)}

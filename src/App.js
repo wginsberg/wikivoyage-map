@@ -18,11 +18,20 @@ function App() {
   const hoverNode = nodes[hoverId]
 
   const [sw_lng, sw_lat, ne_lng, ne_lat] = mapBounds.split(",")
-  const visibleNodes = Object.values(nodes)
-    .filter(({ lat, lng }) => {
+  const visibleFocusNodeIds = activeId
+    ? new Set([activeId, ...activeNode.edges])
+    : new Set()
+  const otherVisibleNodeIds = Object.keys(nodes)
+    .filter(title => !visibleFocusNodeIds.has(title))
+    .filter(title => {
+      const { lat, lng } = nodes[title]
       return sw_lng < lng && ne_lng > lng && sw_lat < lat && ne_lat > lat
     })
+  const allVisibleNodeIds = [...visibleFocusNodeIds, ...otherVisibleNodeIds]
     .slice(0, MAX_VISIBLE_NODES)
+    |> new Set(#)
+  const visibleNodes = [...allVisibleNodeIds]
+    .map(title => nodes[title])
 
   useEffect(() => {
     fetch("data/world.json")
@@ -58,6 +67,10 @@ function App() {
             })
       })
       .flat()
+      .filter(({ origin, destination }) => {
+        // only include edges between two visible markers
+        return allVisibleNodeIds.has(origin.title) && allVisibleNodeIds.has(destination.title)
+      })
 
     // Zoom active node and edges into view
     useEffect(() => {
