@@ -31,8 +31,6 @@ function PolylineSet(props) {
 
     const keys = edges.map(({ origin, destination }) => [origin.title, destination.title])
 
-    if (active) console.log(keys)
-
     return lines.map((line, i) => (
         <Polyline
             positions={line}

@@ -7,12 +7,13 @@ import Header from './components/Header/index.js'
 import Footer from './components/Footer/index.js'
 
 const MAX_VISIBLE_NODES = 100
+const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
 
 function App() {
   const [nodes, setNodes] = useState({})
   const [activeId, setActiveId] = useState()
   const [hoverId, setHoverId] = useState(-1)
-  const [mapBounds, setMapBounds] = useState("0,0,0,0")
+  const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
 
   const activeNode = nodes[activeId]
   const hoverNode = nodes[hoverId]
