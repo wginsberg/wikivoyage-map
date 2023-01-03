@@ -1,24 +1,21 @@
 import { CircleMarker } from 'react-leaflet'
 
 const DEFAULT_PATH_OPTIONS = {
+    radius: 10,
     stroke: false,
     fill: true,
     color: 'blue',
     fillOpacity: 0.2,
-
 }
 
 const ACTIVE_PATH_OPTIONS = {
-    stroke: false,
-    fill: true,
     color: 'green',
     fillOpacity: 0.8
 }
 
 const HOVER_PATH_OPTIONS = {
-    stroke: true,
-    fill: false,
-    opacity: 0.5,
+    radius: 15,
+    fillOpacity: 0.5,
     weight: 16,
     color: 'orange'
 }
