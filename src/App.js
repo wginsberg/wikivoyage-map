@@ -6,8 +6,9 @@ import PolylineSet from './components/Map/PolylineSet/index.js'
 import Header from './components/Header/index.js'
 import Footer from './components/Footer/index.js'
 
-const MAX_VISIBLE_NODES = 200
+const MAX_VISIBLE_NODES = 150
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
+const MAX_BOUNDS = [[-360, -360], [360, 360]]
 
 function App() {
   const [nodes, setNodes] = useState({})
@@ -94,11 +95,11 @@ function App() {
       const bounds = featureGroupRef.current?.getBounds()
       if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50]})
     }, [activeNode])
-
+    // console.log(mapRef.current?.getZoom())
   return (
     <div className="App">
       <Header node={activeNode} />
-      <MapContainer id="map" ref={mapRef} maxZoom={12}>
+      <MapContainer id="map" ref={mapRef} minZoom={1} maxZoom={12} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1}>
         <span className="loading">loading...</span>
         <Protomaps file="protomaps_vector_planet_odbl_z10.pmtiles" onBoundsChange={updateVisibleNodes} />
         <Pane name="edges" style={{ zIndex: 600 }}>
