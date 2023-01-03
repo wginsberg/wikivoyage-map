@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { MapContainer, FeatureGroup } from 'react-leaflet'
+import { MapContainer, FeatureGroup, Pane } from 'react-leaflet'
 import Protomaps from './components/Map/Protomaps/index.js'
 import MarkerSet from './components/Map/MarkerSet/index.js'
 import PolylineSet from './components/Map/PolylineSet/index.js'
@@ -95,18 +95,22 @@ function App() {
       <MapContainer id="map" ref={mapRef} maxZoom={12}>
         <span className="loading">loading...</span>
         <Protomaps file="protomaps_vector_planet_odbl_z10.pmtiles" onBoundsChange={updateVisibleNodes} />
-        <PolylineSet edges={inactiveEdges} />
-        <FeatureGroup ref={featureGroupRef}>
-          <PolylineSet edges={activeEdges} active={true} />
-        </FeatureGroup>
-        <MarkerSet
-          nodes={visibleNodes}
-          activeId={activeId}
-          hoverId={hoverId}
-          onClick={setActiveId}
-          onMouseOver={setHoverId}
-          onMouseOut={() => setHoverId()}
-        />
+        <Pane name="edges" style={{ zIndex: 600 }}>
+          <PolylineSet edges={inactiveEdges} />
+          <FeatureGroup ref={featureGroupRef}>
+            <PolylineSet edges={activeEdges} active={true} />
+          </FeatureGroup>
+        </Pane>
+        <Pane name="nodes" style={{ zIndex: 601 }}>
+          <MarkerSet
+            nodes={visibleNodes}
+            activeId={activeId}
+            hoverId={hoverId}
+            onClick={setActiveId}
+            onMouseOver={setHoverId}
+            onMouseOut={() => setHoverId()}
+          />
+        </Pane>
       </MapContainer>
       <Footer
         activeNode={activeNode}
