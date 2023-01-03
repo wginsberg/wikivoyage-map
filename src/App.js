@@ -6,7 +6,7 @@ import PolylineSet from './components/Map/PolylineSet/index.js'
 import Header from './components/Header/index.js'
 import Footer from './components/Footer/index.js'
 
-const MAX_VISIBLE_NODES = 100
+const MAX_VISIBLE_NODES = 200
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
 
 function App() {
@@ -14,6 +14,15 @@ function App() {
   const [activeId, setActiveId] = useState()
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
+
+  const mapRef = useRef()
+  const featureGroupRef = useRef()
+
+  useEffect(() => {
+    fetch("data/world.json")
+      .then(res => res.json())
+      .then(setNodes)
+  }, [])
 
   const activeNode = nodes[activeId]
   const hoverNode = nodes[hoverId]
@@ -25,23 +34,20 @@ function App() {
   const otherVisibleNodeIds = Object.keys(nodes)
     .filter(title => !visibleFocusNodeIds.has(title))
     .filter(title => {
+      // Avoid rendering nodes that are out of view
       const { lat, lng } = nodes[title]
       return sw_lng < lng && ne_lng > lng && sw_lat < lat && ne_lat > lat
+    }).filter(title => {
+      // Avoid rendering unconnected nodes at low zoom levels
+      if (!mapRef.current) return true
+      if (mapRef.current.getZoom() > 5) return true
+      return nodes[title].edges.length > 1
     })
   const allVisibleNodeIds = [...visibleFocusNodeIds, ...otherVisibleNodeIds]
     .slice(0, MAX_VISIBLE_NODES)
     |> new Set(#)
   const visibleNodes = [...allVisibleNodeIds]
     .map(title => nodes[title])
-
-  useEffect(() => {
-    fetch("data/world.json")
-      .then(res => res.json())
-      .then(setNodes)
-  }, [])
-
-  const mapRef = useRef()
-  const featureGroupRef = useRef()
 
   const updateVisibleNodes = useCallback(map => {
     if (!map) return
