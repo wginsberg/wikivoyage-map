@@ -10,7 +10,7 @@ let lastPrintTime = 0
 const db = new Database('data.db');
 
 // Init loading XML file
-const inFile = fs.createReadStream('enwikivoyage-20220901-pages-articles-multistream.xml')
+const inFile = fs.createReadStream('enwikivoyage-20221001-pages-articles-multistream.xml')
 const xmlStream = flow(inFile)
 
 // Stream XML and insert into database
