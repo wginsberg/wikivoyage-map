@@ -1,4 +1,4 @@
-# Wikivoyage App
+# Wikivoyage Map
 
 <img src="./screenshot.png">
 
