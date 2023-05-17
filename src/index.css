@@ -2,6 +2,10 @@ body {
     height:100vh;
 }
 
+#root, .App {
+    height: 100%;
+}
+
 #map {
     height: 75vh;
     margin: auto;
@@ -60,4 +64,9 @@ footer ul li button {
 footer ul li button.active {
     transform: scale(110%);
     box-shadow: 2px 2px 2px black;
+}
+
+.github {
+    display: flex;
+    justify-content: center;
 }

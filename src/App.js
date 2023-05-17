@@ -95,8 +95,8 @@ function App() {
       const bounds = featureGroupRef.current?.getBounds()
       if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50]})
     }, [activeNode])
-    // console.log(mapRef.current?.getZoom())
-  return (
+
+    return (
     <div className="App">
       <Header node={activeNode} />
       <MapContainer id="map" ref={mapRef} minZoom={1} maxZoom={12} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1}>
@@ -127,6 +127,9 @@ function App() {
         onMouseEnter={setHoverId}
         onMouseLeave={() => setHoverId()}
       />
+      <a className="github" href="https://github.com/wginsberg/wikivoyage-app" rel="noopener noreferrer" target="_blank">
+        <img src="github-mark/github-mark.png" alt="github" width={32} />
+      </a>
     </div>
   );
 }
