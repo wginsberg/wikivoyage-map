@@ -5,6 +5,7 @@ import MarkerSet from './components/Map/MarkerSet/index.js'
 import PolylineSet from './components/Map/PolylineSet/index.js'
 import Header from './components/Header/index.js'
 import Footer from './components/Footer/index.js'
+import usePersistentState from './hooks/usePersistentState.js';
 
 const MAX_VISIBLE_NODES = 150
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
@@ -12,7 +13,7 @@ const MAX_BOUNDS = [[-360, -360], [360, 360]]
 
 function App() {
   const [nodes, setNodes] = useState({})
-  const [activeId, setActiveId] = useState()
+  const [activeId, setActiveId] = usePersistentState("activeId")
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
 
@@ -29,7 +30,7 @@ function App() {
   const hoverNode = nodes[hoverId]
 
   const [sw_lng, sw_lat, ne_lng, ne_lat] = mapBounds.split(",")
-  const visibleFocusNodeIds = activeId
+  const visibleFocusNodeIds = activeNode
     ? new Set([activeId, ...activeNode.edges])
     : new Set()
   const otherVisibleNodeIds = Object.keys(nodes)
@@ -94,7 +95,7 @@ function App() {
       // zoom to fit connected nodes
       const bounds = featureGroupRef.current?.getBounds()
       if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50]})
-    }, [activeNode])
+    }, [mapRef, activeNode])
 
     return (
     <div className="App">
