@@ -10,6 +10,8 @@ import usePersistentState from './hooks/usePersistentState.js';
 const MAX_VISIBLE_NODES = 150
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
 const MAX_BOUNDS = [[-360, -360], [360, 360]]
+const MIN_ZOOM = 1
+const MAX_ZOOM = 12
 
 function App() {
   const [nodes, setNodes] = useState({})
@@ -89,18 +91,20 @@ function App() {
       // scroll to top to make header link visible
       window.scrollTo({ top: 0 });
 
-      // center map on selected node
-      if (activeNode) map.setView(activeNode)
-
-      // zoom to fit connected nodes
       const bounds = featureGroupRef.current?.getBounds()
-      if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50]})
+      if (bounds.isValid()) {
+        // zoom to fit connected nodes
+        map.fitBounds(bounds, { padding: [50, 50]})
+      } else {
+        // zoom to fit singleton node
+        map.setView(activeNode, MAX_ZOOM)
+      }
     }, [mapRef, activeNode])
 
     return (
     <div className="App">
       <Header node={activeNode} />
-      <MapContainer id="map" ref={mapRef} minZoom={1} maxZoom={12} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1}>
+      <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1}>
         <span className="loading">loading...</span>
         <Protomaps file="protomaps_vector_planet_odbl_z10.pmtiles" onBoundsChange={updateVisibleNodes} />
         <Pane name="edges" style={{ zIndex: 600 }}>
