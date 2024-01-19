@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom"
 import usePersistentState from "./hooks/usePersistentState"
+import useResetScrollPosition from "./hooks/useResetScrollPosition.js"
 import { GEOLOCATION_OPTION } from "./constants.js"
 
 function Settings() {
+    useResetScrollPosition()
     const [location, setLocation] = usePersistentState(GEOLOCATION_OPTION, false)
     const handleLocationChange = () => setLocation(!location)
+
     return (
         <div className="settings">
             <header>

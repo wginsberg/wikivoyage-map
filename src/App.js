@@ -8,6 +8,7 @@ import DeviceGeolocation from "./components/Map/DeviceGeolocation/index.js"
 import GeolocationButton from './components/Map/GeolocationButton/index.js';
 import Header from './components/Header/index.js'
 import Connections from './components/Connections/index.js'
+import useResetScrollPosition from "./hooks/useResetScrollPosition.js"
 import usePersistentState from './hooks/usePersistentState.js';
 import useGeolocation from './hooks/useGeolocation.js';
 
@@ -18,6 +19,7 @@ const MIN_ZOOM = 1
 const MAX_ZOOM = 12
 
 function App() {
+  useResetScrollPosition()
   const [nodes, setNodes] = useState({})
   const [activeId, setActiveId] = usePersistentState("activeId")
   const [hoverId, setHoverId] = useState(-1)
