@@ -38,6 +38,23 @@ header a:visited path {
     fill: purple;
 }
 
+button.geolocation {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    z-index: 700;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    & svg * {
+        stroke: midnightblue;
+    }
+}
+
 .connections {
     display: flex;
     justify-content: center;

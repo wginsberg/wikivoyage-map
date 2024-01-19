@@ -5,6 +5,7 @@ import Protomaps from './components/Map/Protomaps/index.js'
 import MarkerSet from './components/Map/MarkerSet/index.js'
 import PolylineSet from './components/Map/PolylineSet/index.js'
 import DeviceGeolocation from "./components/Map/DeviceGeolocation/index.js"
+import GeolocationButton from './components/Map/GeolocationButton/index.js';
 import Header from './components/Header/index.js'
 import Connections from './components/Connections/index.js'
 import usePersistentState from './hooks/usePersistentState.js';
@@ -105,6 +106,17 @@ function App() {
       }
     }, [mapRef, activeNode])
 
+    // Handle clicks on the geolocation button
+    const centerMapOnGeolocation = () => {
+      const map = mapRef.current
+      if (!map) return
+
+      const { latitude, longitude } = geolocation
+      if (!geolocation) return
+
+      map.setView([latitude, longitude], MAX_ZOOM)
+    }
+
     return (
     <div className="App">
       <Header node={activeNode} />
@@ -130,6 +142,7 @@ function App() {
         <Pane>
           <DeviceGeolocation geolocation={geolocation} />
         </Pane>
+        {geolocation && <GeolocationButton onClick={centerMapOnGeolocation} />}
       </MapContainer>
       <Connections
         activeNode={activeNode}
