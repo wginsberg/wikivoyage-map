@@ -66,7 +66,20 @@ header a:visited path {
     box-shadow: 2px 2px 2px black;
 }
 
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+    padding-bottom: 8px;
+}
+
 .github {
     display: flex;
     justify-content: center;
+}
+
+.settings header {
+    text-align: initial;
 }

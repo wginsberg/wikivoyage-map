@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { MapContainer, FeatureGroup, Pane } from 'react-leaflet'
+import { Link } from "react-router-dom"
 import Protomaps from './components/Map/Protomaps/index.js'
 import MarkerSet from './components/Map/MarkerSet/index.js'
 import PolylineSet from './components/Map/PolylineSet/index.js'
@@ -132,9 +133,14 @@ function App() {
         onMouseEnter={setHoverId}
         onMouseLeave={() => setHoverId()}
       />
-      <a className="github" href="https://github.com/wginsberg/wikivoyage-app" rel="noopener noreferrer" target="_blank">
-        <img src="github-mark/github-mark.png" alt="github" width={32} />
-      </a>
+      <footer>
+        <a className="github" href="https://github.com/wginsberg/wikivoyage-app" rel="noopener noreferrer" target="_blank">
+          <img src="github-mark/github-mark.png" alt="github" width={32} />
+        </a>
+        <Link to="settings">
+          ⚙️
+        </Link>
+      </footer>
     </div>
   );
 }
