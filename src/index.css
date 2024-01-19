@@ -80,6 +80,22 @@ footer {
     justify-content: center;
 }
 
+.settings {
+    margin: auto;
+    max-width: 480px;
+}
+
 .settings header {
     text-align: initial;
+}
+
+.settings form label {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px;
+
+    &:hover {
+        background-color: whitesmoke;
+    }
 }

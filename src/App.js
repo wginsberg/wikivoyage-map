@@ -7,6 +7,7 @@ import PolylineSet from './components/Map/PolylineSet/index.js'
 import Header from './components/Header/index.js'
 import Connections from './components/Connections/index.js'
 import usePersistentState from './hooks/usePersistentState.js';
+import useGeolocation from './hooks/useGeolocation.js';
 
 const MAX_VISIBLE_NODES = 150
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
@@ -19,6 +20,9 @@ function App() {
   const [activeId, setActiveId] = usePersistentState("activeId")
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
+  const geolocation = useGeolocation()
+  // TODO remove print statement here
+  console.log({geolocation})
 
   const mapRef = useRef()
   const featureGroupRef = useRef()
