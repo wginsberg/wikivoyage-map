@@ -38,12 +38,12 @@ header a:visited path {
     fill: purple;
 }
 
-footer {
+.connections {
     display: flex;
     justify-content: center;
 }
 
-footer ul {
+.connections ul {
     padding-left: 0;
     max-width: 720px;
     list-style: none;
@@ -53,15 +53,15 @@ footer ul {
     justify-content: space-evenly;
 }
 
-footer ul li {
+.connections ul li {
     margin: 8px;
 }
 
-footer ul li button {
+.connections ul li button {
     padding: 4px;
 }
 
-footer ul li button.active {
+.connections ul li button.active {
     transform: scale(110%);
     box-shadow: 2px 2px 2px black;
 }

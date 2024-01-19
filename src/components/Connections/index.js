@@ -1,4 +1,4 @@
-function Footer(props) {
+function Connections(props) {
     const { activeNode = {}, activeEdges = [], hoverNode = {}, onClick, onMouseEnter, onMouseLeave } = props
     const activeTitle = activeNode.title
     const hoverTitle = hoverNode.title
@@ -11,7 +11,7 @@ function Footer(props) {
         .sort()
 
     return (
-        <footer>
+        <div className="connections">
             <ul>
                 {titles.map(title => (
                     <li key={title}>
@@ -26,8 +26,8 @@ function Footer(props) {
                     </li>
                 ))}
             </ul>
-        </footer>
+        </div>
     )
 }
 
-export default Footer
+export default Connections

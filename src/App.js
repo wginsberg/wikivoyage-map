@@ -4,7 +4,7 @@ import Protomaps from './components/Map/Protomaps/index.js'
 import MarkerSet from './components/Map/MarkerSet/index.js'
 import PolylineSet from './components/Map/PolylineSet/index.js'
 import Header from './components/Header/index.js'
-import Footer from './components/Footer/index.js'
+import Connections from './components/Connections/index.js'
 import usePersistentState from './hooks/usePersistentState.js';
 
 const MAX_VISIBLE_NODES = 150
@@ -124,7 +124,7 @@ function App() {
           />
         </Pane>
       </MapContainer>
-      <Footer
+      <Connections
         activeNode={activeNode}
         activeEdges={activeEdges}
         hoverNode={hoverNode}
