@@ -75,9 +75,14 @@ footer {
     padding-bottom: 8px;
 }
 
-.github {
+footer .github {
     display: flex;
     justify-content: center;
+}
+
+footer a {
+    text-decoration: none;
+    font-size: 32px;
 }
 
 .settings {
