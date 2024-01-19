@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import Protomaps from './components/Map/Protomaps/index.js'
 import MarkerSet from './components/Map/MarkerSet/index.js'
 import PolylineSet from './components/Map/PolylineSet/index.js'
+import DeviceGeolocation from "./components/Map/DeviceGeolocation/index.js"
 import Header from './components/Header/index.js'
 import Connections from './components/Connections/index.js'
 import usePersistentState from './hooks/usePersistentState.js';
@@ -21,8 +22,6 @@ function App() {
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
   const geolocation = useGeolocation()
-  // TODO remove print statement here
-  console.log({geolocation})
 
   const mapRef = useRef()
   const featureGroupRef = useRef()
@@ -127,6 +126,9 @@ function App() {
             onMouseOver={setHoverId}
             onMouseOut={() => setHoverId()}
           />
+        </Pane>
+        <Pane>
+          <DeviceGeolocation geolocation={geolocation} />
         </Pane>
       </MapContainer>
       <Connections

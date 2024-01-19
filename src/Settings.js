@@ -15,7 +15,7 @@ function Settings() {
             <h1>Settings</h1>
             <form>
                 <label>
-                    <span>Use current device location</span>
+                    <span>Show my location on the map</span>
                     <input type="checkbox" checked={!!location} onChange={handleLocationChange} />
                 </label>
             </form>

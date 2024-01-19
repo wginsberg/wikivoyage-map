@@ -5,7 +5,6 @@ import { GEOLOCATION_OPTION } from "../constants.js"
 function useGeolocation() {
     const [enabled] = usePersistentState(GEOLOCATION_OPTION)
     const [position, setPosition] = useState()
-
     useEffect(() => {
         if (!enabled) return
 
