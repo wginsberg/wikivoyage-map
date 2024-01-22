@@ -12,6 +12,11 @@ import useResetScrollPosition from "./hooks/useResetScrollPosition.js"
 import usePersistentState from './hooks/usePersistentState.js';
 import useGeolocation from './hooks/useGeolocation.js';
 
+// TODO refactor out these imports
+import L from 'leaflet';
+import 'leaflet-doubletapdrag';
+import 'leaflet-doubletapdragzoom';
+
 const MAX_VISIBLE_NODES = 150
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
 const MAX_BOUNDS = [[-360, -360], [360, 360]]
@@ -122,7 +127,7 @@ function App() {
     return (
     <div className="App">
       <Header node={activeNode} />
-      <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1}>
+      <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleTapDragZoom='center' doubleTapDragZoomOptions={{ reverse: true }}>
         <span className="loading">loading...</span>
         <Protomaps file="protomaps_vector_planet_odbl_z10.pmtiles" onBoundsChange={updateVisibleNodes} />
         <Pane name="edges" style={{ zIndex: 600 }}>
