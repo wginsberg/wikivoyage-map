@@ -17,6 +17,8 @@ import L from 'leaflet';
 import 'leaflet-doubletapdrag';
 import 'leaflet-doubletapdragzoom';
 
+import nodes from "./world.json"
+
 const MAX_VISIBLE_NODES = 150
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
 const MAX_BOUNDS = [[-360, -360], [360, 360]]
@@ -25,7 +27,6 @@ const MAX_ZOOM = 12
 
 function App() {
   useResetScrollPosition()
-  const [nodes, setNodes] = useState({})
   const [activeId, setActiveId] = usePersistentState("activeId")
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
@@ -33,12 +34,6 @@ function App() {
 
   const mapRef = useRef()
   const featureGroupRef = useRef()
-
-  useEffect(() => {
-    fetch("data/world.json")
-      .then(res => res.json())
-      .then(setNodes)
-  }, [])
 
   const activeNode = nodes[activeId]
   const hoverNode = nodes[hoverId]
