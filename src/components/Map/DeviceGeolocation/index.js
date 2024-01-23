@@ -4,7 +4,7 @@ import { Marker } from "react-leaflet"
 const icon = new DivIcon({
     className: "arrowhead",
     html: `
-        <svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" viewBox="0 0 20 40">
+        <svg xmlns="http://www.w3.org/2000/svg" style="transform: scale(0.8) translate(-14px, -14px) rotate(15deg)" height="40" width="40" viewBox="0 0 20 40">
             <polygon points="10,0 20,40 10,30 0,40" fill="#4285f4" stroke="#ffffff" stroke-width="2"/>
         </svg>
     `
