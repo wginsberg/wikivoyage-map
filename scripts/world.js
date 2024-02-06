@@ -6,7 +6,7 @@ const BLOCKLIST = new Set([
     "Wikivoyage:Cruising Expedition/Structure for cruising articles/Puerto Vallarta",
 ])
 
-const TARGET = 'public/data/world.json'
+const TARGET = 'src/world.json'
 
 const dbNodes = getNodes()
 const nodes = {}

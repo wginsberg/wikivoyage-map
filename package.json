@@ -5,7 +5,7 @@
   "homepage": ".",
   "proxy": "https://pub-5ba95de8cc2f4dada22bfe563b284734.r2.dev",
   "scripts": {
-    "fetch-wiki-data": "curl -O https://dumps.wikimedia.org/enwikivoyage/20221001/enwikivoyage-20221001-pages-articles-multistream.xml.bz2 && bunzip2 enwikivoyage-20221001-pages-articles-multistream.xml.bz2",
+    "fetch-wiki-data": "curl -O https://dumps.wikimedia.org/enwikivoyage/latest/enwikivoyage-latest-pages-articles-multistream.xml.bz2 && bunzip2 enwikivoyage-latest-pages-articles-multistream.xml.bz2",
     "init-db": "rm -f data.db && sqlite3 data.db < scripts/init-db.sql",
     "build-nodes": "node scripts/build_nodes.js",
     "build-redirects": "node scripts/build_redirects.js",
