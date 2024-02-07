@@ -28,7 +28,19 @@ function getEdges() {
     return edges
 }
 
+function isSubPage(title) {
+    return sanitizeTitle(title) !== title
+}
+
+function sanitizeTitle(title) {
+    const [_, basePage, subPage] = title.match(/(.*?)\s*\/\s*(.*)/) || []
+    if (subPage) return basePage
+    return title
+}
+
 module.exports = {
     getNodes,
-    getEdges
+    getEdges,
+    isSubPage,
+    sanitizeTitle
 }

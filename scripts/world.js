@@ -1,5 +1,5 @@
 const { writeFileSync } = require('fs')
-const { getNodes, getEdges } = require("./util.js")
+const { getNodes, getEdges, sanitizeTitle, isSubPage } = require("./util.js")
 
 const BLOCKLIST = new Set([
     "Wikivoyage:Cruising Expedition/Structure for cruising articles/Puerto Vallarta",
@@ -11,30 +11,29 @@ const dbNodes = getNodes()
 const nodes = {}
 for (const node of dbNodes) {
     if (BLOCKLIST.has(node.title)) continue
+    if (isSubPage(node.title)) continue
     nodes[node.title] = {
         ...node,
-        edges: []
-    }
-}
-
-// Consolidate subpages
-// E.g. Toronto/Downtown into Toronto
-for (const node of dbNodes) {
-    const { title } = node
-    const [_, basePage] = title.match(/(.*?)\s*\/\s*(.*)/) || []
-
-    const basePageExists = !!nodes[basePage]
-    if (basePageExists) {
-        delete nodes[title]
+        edges: new Set()
     }
 }
 
 const dbEdges = getEdges()
 for (const edge of dbEdges) {
-    const { origin, destination } = edge
+    const origin = sanitizeTitle(edge.origin)
+    const destination = sanitizeTitle(edge.destination)    
     for (const [first, second] of [[origin, destination], [destination, origin]]) {
-        if (!nodes[first]) continue
-        nodes[first].edges = [...nodes[first].edges, second]
+        if (!nodes[first] || !nodes[second]) continue
+        nodes[first].edges.add(second)
+    }
+}
+
+// Convert edges from Set to Array
+for (const title in nodes) {
+    const node = nodes[title]
+    nodes[title] = {
+        ...node,
+        edges: [...node.edges]
     }
 }
 
