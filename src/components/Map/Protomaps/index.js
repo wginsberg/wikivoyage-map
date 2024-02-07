@@ -16,6 +16,8 @@ function Protomaps (props) {
         map.setView(INITIAL_CENTER, INITIAL_ZOOM)
         map.on("moveend", () => onBoundsChange(map))
     }, [map, file, onBoundsChange])
+
+    return ""
 }
 
 export default Protomaps

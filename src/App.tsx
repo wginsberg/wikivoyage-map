@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { MapContainer, FeatureGroup, Pane } from 'react-leaflet'
 import { Link } from "react-router-dom"
 import Protomaps from './components/Map/Protomaps/index.js'
@@ -9,37 +9,39 @@ import GeolocationButton from './components/Map/GeolocationButton/index.js';
 import Header from './components/Header/index.js'
 import Connections from './components/Connections/index.js'
 import useResetScrollPosition from "./hooks/useResetScrollPosition.js"
-import usePersistentState from './hooks/usePersistentState.js';
-import useGeolocation from './hooks/useGeolocation.js';
+import usePersistentState from './hooks/usePersistentState.ts';
+import useGeolocation from './hooks/useGeolocation.ts';
 
 // TODO refactor out these imports
-import L from 'leaflet';
+import L, { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple } from 'leaflet';
 import 'leaflet-doubletapdrag';
 import 'leaflet-doubletapdragzoom';
 
-import nodes from "./world.json"
+import nodes from "./nodes.ts"
 
 const MAX_VISIBLE_NODES = 150
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
-const MAX_BOUNDS = [[-360, -360], [360, 360]]
+const MAX_BOUNDS = [[-360, -360], [360, 360]] as LatLngTuple[]
 const MIN_ZOOM = 1
 const MAX_ZOOM = 12
 
 function App() {
   useResetScrollPosition()
-  const [activeId, setActiveId] = usePersistentState("activeId")
+  const [activeId, setActiveId] = usePersistentState("activeId", "")
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
   const geolocation = useGeolocation()
 
-  const mapRef = useRef()
-  const featureGroupRef = useRef()
+  const mapRef = useRef<LeafletMap>(null)
+  const featureGroupRef = useRef<LeafletFeatureGroup<any>>(null)
 
   const activeNode = nodes[activeId]
   const hoverNode = nodes[hoverId]
 
-  const [sw_lng, sw_lat, ne_lng, ne_lat] = mapBounds.split(",")
-  const visibleFocusNodeIds = activeNode
+  const [sw_lng, sw_lat, ne_lng, ne_lat] = mapBounds
+    .split(",")
+    .map(Number.parseFloat)
+  const visibleFocusNodeIds: Set<string> = activeNode
     ? new Set([activeId, ...activeNode.edges])
     : new Set()
   const otherVisibleNodeIds = Object.keys(nodes)
@@ -54,9 +56,10 @@ function App() {
       if (mapRef.current.getZoom() > 5) return true
       return nodes[title].edges.length > 1
     })
-  const allVisibleNodeIds = [...visibleFocusNodeIds, ...otherVisibleNodeIds]
-    .slice(0, MAX_VISIBLE_NODES)
-    |> new Set(#)
+  const allVisibleNodeIds = new Set(
+    [...visibleFocusNodeIds, ...otherVisibleNodeIds]
+      .slice(0, MAX_VISIBLE_NODES)
+  )
   const visibleNodes = [...allVisibleNodeIds]
     .map(title => nodes[title])
 
@@ -99,7 +102,7 @@ function App() {
       window.scrollTo({ top: 0 });
 
       const bounds = featureGroupRef.current?.getBounds()
-      if (bounds.isValid()) {
+      if (bounds?.isValid()) {
         // zoom to fit connected nodes
         map.fitBounds(bounds, { padding: [50, 50]})
       } else {
@@ -113,8 +116,8 @@ function App() {
       const map = mapRef.current
       if (!map) return
 
-      const { latitude, longitude } = geolocation
       if (!geolocation) return
+      const { latitude, longitude } = geolocation
 
       map.setView([latitude, longitude], MAX_ZOOM)
     }
@@ -122,6 +125,7 @@ function App() {
     return (
     <div className="App">
       <Header node={activeNode} />
+      {/* @ts-ignore: TS2322: Can't pass props doubleTapDragZoom, doubleTapDragZoomOptions, doubleClickZoom */}
       <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleTapDragZoom='center' doubleTapDragZoomOptions={{ reverse: true }} doubleClickZoom={false}>
         <span className="loading">loading...</span>
         <Protomaps file="protomaps_vector_planet_odbl_z10.pmtiles" onBoundsChange={updateVisibleNodes} />
@@ -138,10 +142,10 @@ function App() {
             hoverId={hoverId}
             onClick={setActiveId}
             onMouseOver={setHoverId}
-            onMouseOut={() => setHoverId()}
+            onMouseOut={() => setHoverId(-1)}
           />
         </Pane>
-        <Pane>
+        <Pane name="geolocation">
           <DeviceGeolocation geolocation={geolocation} />
         </Pane>
         {geolocation && <GeolocationButton onClick={centerMapOnGeolocation} />}
@@ -152,7 +156,7 @@ function App() {
         hoverNode={hoverNode}
         onClick={setActiveId}
         onMouseEnter={setHoverId}
-        onMouseLeave={() => setHoverId()}
+        onMouseLeave={() => setHoverId(-1)}
       />
       <footer>
         <a className="github" href="https://github.com/wginsberg/wikivoyage-app" rel="noopener noreferrer" target="_blank">

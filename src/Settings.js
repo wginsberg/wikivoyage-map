@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import usePersistentState from "./hooks/usePersistentState"
+import usePersistentState from "./hooks/usePersistentState.ts"
 import useResetScrollPosition from "./hooks/useResetScrollPosition.js"
 import { GEOLOCATION_OPTION } from "./constants.js"
 
