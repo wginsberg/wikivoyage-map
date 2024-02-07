@@ -1,7 +1,6 @@
 const { writeFileSync } = require('fs')
 const { getNodes, getEdges } = require("./util.js")
 
-// TODO - find a better way to store this data
 const BLOCKLIST = new Set([
     "Wikivoyage:Cruising Expedition/Structure for cruising articles/Puerto Vallarta",
 ])
@@ -15,6 +14,18 @@ for (const node of dbNodes) {
     nodes[node.title] = {
         ...node,
         edges: []
+    }
+}
+
+// Consolidate subpages
+// E.g. Toronto/Downtown into Toronto
+for (const node of dbNodes) {
+    const { title } = node
+    const [_, basePage] = title.match(/(.*?)\s*\/\s*(.*)/) || []
+
+    const basePageExists = !!nodes[basePage]
+    if (basePageExists) {
+        delete nodes[title]
     }
 }
 
