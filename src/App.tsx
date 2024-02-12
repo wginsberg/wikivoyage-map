@@ -9,7 +9,6 @@ import GeolocationButton from './components/Map/GeolocationButton/index.js';
 import Header from './components/Header/index.js'
 import Connections from './components/Connections/index.js'
 import useResetScrollPosition from "./hooks/useResetScrollPosition.js"
-import usePersistentState from './hooks/usePersistentState.ts';
 import useGeolocation from './hooks/useGeolocation.ts';
 
 // TODO refactor out these imports
@@ -18,6 +17,7 @@ import 'leaflet-doubletapdrag';
 import 'leaflet-doubletapdragzoom';
 
 import nodes from "./nodes.ts"
+import useActiveWikivoyagePage from './hooks/useActiveWikivoyagePage.ts';
 
 const MAX_VISIBLE_NODES = 150
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
@@ -27,7 +27,7 @@ const MAX_ZOOM = 12
 
 function App() {
   useResetScrollPosition()
-  const [activeId, setActiveId] = usePersistentState("activeId", "")
+  const [activeId, setActiveId] = useActiveWikivoyagePage()
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
   const geolocation = useGeolocation()
