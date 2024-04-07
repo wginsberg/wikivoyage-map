@@ -163,7 +163,7 @@ function App() {
           <img src="github-mark/github-mark.png" alt="github" width={32} />
         </a>
         <Link to="settings">
-          Settings
+          ⚙️
         </Link>
       </footer>
     </div>
