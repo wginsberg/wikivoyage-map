@@ -1,5 +1,6 @@
 body {
     height:100vh;
+    margin: 0;
 }
 
 #root, .App {
@@ -23,7 +24,7 @@ html {
 header {
     font-size: larger;
     text-align: center;
-    padding: 4px 8px 8px 8px;
+    padding: 8px;
 }
 
 header a {
@@ -85,30 +86,40 @@ button.geolocation {
 
 footer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    column-gap: 20px;
-    padding-bottom: 8px;
+    padding-top: 16px;
+}
+
+footer .links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
 }
 
 footer .github {
     display: flex;
-    justify-content: center;
 }
 
 footer a {
     text-decoration: none;
-    font-size: 32px;
+    font-size: 48px;
+    line-height: 48px;
 }
 
 .settings {
     margin: auto;
     max-width: 480px;
+    display: grid;
+    height: 100%;
+    grid-template-rows: 1fr auto;
 }
 
 .settings header {
     text-align: initial;
+    padding: 16px 0 0 0;
 }
 
 .settings form label {
@@ -120,4 +131,9 @@ footer a {
     &:hover {
         background-color: whitesmoke;
     }
+}
+
+#buy-me-a-coffee {
+    height: 48px;
+    margin: 24px auto 8px auto;
 }

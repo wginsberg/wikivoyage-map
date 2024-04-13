@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import usePersistentState from "./hooks/usePersistentState.ts"
 import useResetScrollPosition from "./hooks/useResetScrollPosition.js"
 import { GEOLOCATION_OPTION } from "./constants.js"
+import BuyMeACoffee from "./components/Support/BuyMeACoffee.tsx"
 
 function Settings() {
     useResetScrollPosition()
@@ -10,6 +11,8 @@ function Settings() {
 
     return (
         <div className="settings">
+            <div>
+
             <header>
                 <nav>
                     <Link to="/">Home</Link>
@@ -22,6 +25,8 @@ function Settings() {
                     <input type="checkbox" checked={!!location} onChange={handleLocationChange} />
                 </label>
             </form>
+            </div>
+            <BuyMeACoffee />
         </div>
     )
 }

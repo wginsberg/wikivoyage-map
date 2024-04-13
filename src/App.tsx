@@ -10,6 +10,7 @@ import Header from './components/Header/index.js'
 import Connections from './components/Connections/index.js'
 import useResetScrollPosition from "./hooks/useResetScrollPosition.js"
 import useGeolocation from './hooks/useGeolocation.ts';
+import BuyMeACoffee from './components/Support/BuyMeACoffee.tsx';
 
 // TODO refactor out these imports
 import L, { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple } from 'leaflet';
@@ -159,12 +160,15 @@ function App() {
         onMouseLeave={() => setHoverId(-1)}
       />
       <footer>
-        <a className="github" href="https://github.com/wginsberg/wikivoyage-app" rel="noopener noreferrer" target="_blank">
-          <img src="github-mark/github-mark.png" alt="github" width={32} />
-        </a>
-        <Link to="settings">
-          ⚙️
-        </Link>
+        <div className="links">
+          <a className="github" href="https://github.com/wginsberg/wikivoyage-app" rel="noopener noreferrer" target="_blank">
+            <img src="github-mark/github-mark.png" alt="github" width={48} />
+          </a>
+          <Link to="settings">
+            ⚙️
+          </Link>
+        </div>
+        <BuyMeACoffee />
       </footer>
     </div>
   );
