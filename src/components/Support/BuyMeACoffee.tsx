@@ -1,11 +1,6 @@
 import React from 'react'
-import useVisitCount from './useVisitCount.ts'
 
 function BuyMeACoffee() {
-    const { isReturningVisitor } = useVisitCount()
-
-    if (!isReturningVisitor) return ""
-    
     return (
         <a
             id="buy-me-a-coffee"
