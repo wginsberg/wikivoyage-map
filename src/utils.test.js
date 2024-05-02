@@ -1,4 +1,4 @@
-import { getMapTileHost } from "./utils"
+import { getMapTileHost } from "./utils.ts"
 
 test('getMapTileHost returns the production URL', () => {
     const expected = "https://pub-5ba95de8cc2f4dada22bfe563b284734.r2.dev"

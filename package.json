@@ -2,7 +2,7 @@
   "name": "wikivoyage-app",
   "version": "1.0.0",
   "main": "index.js",
-  "homepage": ".",
+  "homepage": "/",
   "proxy": "https://pub-5ba95de8cc2f4dada22bfe563b284734.r2.dev",
   "scripts": {
     "fetch-wiki-data": "curl -O https://dumps.wikimedia.org/enwikivoyage/latest/enwikivoyage-latest-pages-articles-multistream.xml.bz2 && bunzip2 enwikivoyage-latest-pages-articles-multistream.xml.bz2",
@@ -14,6 +14,7 @@
     "build-data": "npm run init-db && npm run build-nodes && npm run build-redirects && npm run build-edges && npm run build-world-json",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "postbuild": "react-snap",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
@@ -29,6 +30,7 @@
     "customize-cra": "^1.0.0",
     "point-in-polygon": "^1.1.0",
     "react-app-rewired": "^2.2.1",
+    "react-snap": "^1.23.0",
     "typescript": "^4.9.5",
     "xml-flow": "^1.0.4"
   },

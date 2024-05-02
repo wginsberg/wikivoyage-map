@@ -4,7 +4,7 @@ function BuyMeACoffee() {
     return (
         <a
             id="buy-me-a-coffee"
-            href="buy-me-a-coffee.html"
+            href="https://www.buymeacoffee.com/wginsberg"
             target="_blank"
             rel="noreferrer noopener"
         >
