@@ -12,15 +12,15 @@ import useResetScrollPosition from "./hooks/useResetScrollPosition.js"
 import useGeolocation from './hooks/useGeolocation.ts';
 import BuyMeACoffee from './components/Support/BuyMeACoffee.tsx';
 
-// TODO refactor out these imports
-import L, { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple } from 'leaflet';
+import { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple } from 'leaflet';
 import 'leaflet-doubletapdrag';
 import 'leaflet-doubletapdragzoom';
 
 import nodes from "./nodes.ts"
+import capitals from './capitals.ts';
 import useActiveWikivoyagePage from './hooks/useActiveWikivoyagePage.ts';
 
-const MAX_VISIBLE_NODES = 150
+const MAX_VISIBLE_NODES = 199
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
 const MAX_BOUNDS = [[-360, -360], [360, 360]] as LatLngTuple[]
 const MIN_ZOOM = 1
@@ -34,6 +34,8 @@ function App() {
   const geolocation = useGeolocation()
 
   const mapRef = useRef<LeafletMap>(null)
+  const isMapZoomedIn = mapRef.current && mapRef.current.getZoom() > 5
+
   const featureGroupRef = useRef<LeafletFeatureGroup<any>>(null)
 
   const activeNode = nodes[activeId]
@@ -45,17 +47,21 @@ function App() {
   const visibleFocusNodeIds: Set<string> = activeNode
     ? new Set([activeId, ...activeNode.edges])
     : new Set()
-  const otherVisibleNodeIds = Object.keys(nodes)
+
+  const otherNodesToShow = (isMapZoomedIn || !!activeId)
+    ? [...capitals, ...Object.keys(nodes)]
+    : [...capitals]
+
+  const otherVisibleNodeIds = otherNodesToShow
     .filter(title => !visibleFocusNodeIds.has(title))
     .filter(title => {
+      if (!nodes[title]) {
+        // console.log({title})
+        return false
+      }
       // Avoid rendering nodes that are out of view
       const { lat, lng } = nodes[title]
       return sw_lng < lng && ne_lng > lng && sw_lat < lat && ne_lat > lat
-    }).filter(title => {
-      // Avoid rendering unconnected nodes at low zoom levels
-      if (!mapRef.current) return true
-      if (mapRef.current.getZoom() > 5) return true
-      return nodes[title].edges.length > 1
     })
   const allVisibleNodeIds = new Set(
     [...visibleFocusNodeIds, ...otherVisibleNodeIds]

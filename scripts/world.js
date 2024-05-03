@@ -8,6 +8,11 @@ const NODE_BLOCKLIST = new Set([
 const EDGE_BLOCKLIST = {
     "Santiago": new Set([
         "French Polynesia"
+    ]),
+    "Washington, D.C.": new Set([
+        "Seoul",
+        "Beverly Hills",
+        "Reykjavík"
     ])
 }
 
