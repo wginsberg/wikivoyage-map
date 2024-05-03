@@ -14,7 +14,7 @@ const inFile = fs.createReadStream('enwikivoyage-latest-pages-articles-multistre
 const xmlStream = flow(inFile)
 
 // Stream XML and insert into database
-const geoRe = /{{geo\|([0-9-\.]+)\|([0-9-\.]+).*?}}/
+const geoRe = /{{geo\|([0-9-\.]+)\|([0-9-\.]+).*?}}/i
 const insertNode = db.prepare('INSERT INTO node (title, lat, lng) VALUES (?, ?, ?);')
 
 xmlStream.on('tag:page', page => {
