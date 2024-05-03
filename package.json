@@ -14,7 +14,6 @@
     "build-data": "npm run init-db && npm run build-nodes && npm run build-redirects && npm run build-edges && npm run prune-edges && npm run build-world-json",
     "start": "vite",
     "build": "tsc && vite build",
-    "postbuild": "react-snap",
     "serve": "vite preview",
     "test": "react-app-rewired test"
   },
@@ -23,7 +22,6 @@
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.18",
     "better-sqlite3": "^9.6.0",
-    "react-snap": "^1.23.0",
     "typescript": "^4.9.5",
     "xml-flow": "^1.0.4"
   },
