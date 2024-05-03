@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import usePersistentState from "./usePersistentState"
-import nodes from "../nodes"
+// import nodes from "../nodes"
 
 function useActiveWikivoyagePage() {
     const [activeId, _setActiveId] = usePersistentState("activeId", "")
@@ -10,9 +10,11 @@ function useActiveWikivoyagePage() {
         if (!hash) return
 
         const id = decodeURIComponent(hash)
-        if (!nodes[id]) {
-            return
-        }
+
+        // TODO - revisit this.
+        // if (!nodes[id]) {
+        //     return
+        // }
 
         _setActiveId(id)
     }, [_setActiveId])

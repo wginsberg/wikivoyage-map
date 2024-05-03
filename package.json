@@ -26,6 +26,7 @@
     "xml-flow": "^1.0.4"
   },
   "dependencies": {
+    "@types/node": "^20.12.8",
     "@vitejs/plugin-react-swc": "^3.6.0",
     "leaflet": "^1.8.0",
     "leaflet-doubletapdrag": "^0.1.1",

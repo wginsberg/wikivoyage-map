@@ -10,13 +10,14 @@ import Header from './components/Header/index'
 import Connections from './components/Connections/index'
 import useResetScrollPosition from "./hooks/useResetScrollPosition"
 import useGeolocation from './hooks/useGeolocation';
+import useWorldNodes from './hooks/useWorldNodes';
 import BuyMeACoffee from './components/Support/BuyMeACoffee';
 
 import { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple, Map } from 'leaflet';
 import 'leaflet-doubletapdrag';
 import 'leaflet-doubletapdragzoom';
 
-import nodes from "./nodes"
+// import nodes from "./nodes"
 import capitals from './capitals';
 import useActiveWikivoyagePage from './hooks/useActiveWikivoyagePage';
 
@@ -31,6 +32,7 @@ function App() {
   const [activeId, setActiveId] = useActiveWikivoyagePage()
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
+  const nodes = useWorldNodes()
   const geolocation = useGeolocation()
 
   const mapRef = useRef<LeafletMap>(null)

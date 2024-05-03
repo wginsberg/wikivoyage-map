@@ -1,7 +1,7 @@
 const { writeFileSync } = require('fs')
 const { getNodes, getEdges, sanitizeTitle, isSubPage } = require("./util.js")
 
-const TARGET = 'src/world.json'
+const TARGET = 'public/world.json'
 
 const dbNodes = getNodes()
 const nodes = {}
