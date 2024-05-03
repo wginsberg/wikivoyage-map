@@ -14,6 +14,7 @@ function Protomaps (props) {
         map.on("moveend", () => onBoundsChange(map))
 
         const mapTileHost = getMapTileHost()
+        console.log({mapTileHost})
         if (!isAllowedToAccessMapTileHost(mapTileHost)) return
 
         const url = `${getMapTileHost()}/${file}`
@@ -21,7 +22,7 @@ function Protomaps (props) {
         layer.addTo(map)
     }, [map, file, onBoundsChange])
 
-    return ""
+    return null
 }
 
 export default Protomaps

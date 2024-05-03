@@ -1,24 +1,24 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { MapContainer, FeatureGroup, Pane } from 'react-leaflet'
 import { Link } from "react-router-dom"
-import Protomaps from './components/Map/Protomaps/index.js'
-import MarkerSet from './components/Map/MarkerSet/index.js'
-import PolylineSet from './components/Map/PolylineSet/index.js'
-import DeviceGeolocation from "./components/Map/DeviceGeolocation/index.js"
-import GeolocationButton from './components/Map/GeolocationButton/index.js';
-import Header from './components/Header/index.js'
-import Connections from './components/Connections/index.js'
-import useResetScrollPosition from "./hooks/useResetScrollPosition.js"
-import useGeolocation from './hooks/useGeolocation.ts';
-import BuyMeACoffee from './components/Support/BuyMeACoffee.tsx';
+import Protomaps from './components/Map/Protomaps/index'
+import MarkerSet from './components/Map/MarkerSet/index'
+import PolylineSet from './components/Map/PolylineSet/index'
+import DeviceGeolocation from "./components/Map/DeviceGeolocation/index"
+import GeolocationButton from './components/Map/GeolocationButton/index';
+import Header from './components/Header/index'
+import Connections from './components/Connections/index'
+import useResetScrollPosition from "./hooks/useResetScrollPosition"
+import useGeolocation from './hooks/useGeolocation';
+import BuyMeACoffee from './components/Support/BuyMeACoffee';
 
-import { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple } from 'leaflet';
+import { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple, Map } from 'leaflet';
 import 'leaflet-doubletapdrag';
 import 'leaflet-doubletapdragzoom';
 
-import nodes from "./nodes.ts"
-import capitals from './capitals.ts';
-import useActiveWikivoyagePage from './hooks/useActiveWikivoyagePage.ts';
+import nodes from "./nodes"
+import capitals from './capitals';
+import useActiveWikivoyagePage from './hooks/useActiveWikivoyagePage';
 
 const MAX_VISIBLE_NODES = 199
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
@@ -56,7 +56,6 @@ function App() {
     .filter(title => !visibleFocusNodeIds.has(title))
     .filter(title => {
       if (!nodes[title]) {
-        // console.log({title})
         return false
       }
       // Avoid rendering nodes that are out of view
@@ -70,7 +69,7 @@ function App() {
   const visibleNodes = [...allVisibleNodeIds]
     .map(title => nodes[title])
 
-  const updateVisibleNodes = useCallback(map => {
+  const updateVisibleNodes = useCallback((map: Map) => {
     if (!map) return
     setMapBounds(map.getBounds().toBBoxString())
   }, [setMapBounds])

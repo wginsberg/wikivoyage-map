@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import usePersistentState from "./usePersistentState.ts";
-import { GEOLOCATION_OPTION } from "../constants.js"
+import usePersistentState from "./usePersistentState";
+import { GEOLOCATION_OPTION } from "../constants"
 
 const DEFAULT_HEADING = 15
 

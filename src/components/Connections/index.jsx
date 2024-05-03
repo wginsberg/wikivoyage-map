@@ -7,8 +7,10 @@ function Connections(props) {
         .map((edge) => [edge.origin.title, edge.destination.title])
         .flat()
         .filter(title => title !== activeTitle)
-        |> [...new Set(#)]
-        .sort()
+
+    const uniqueTitles = [...new Set(titles)]
+
+    const sortedTitles = uniqueTitles.sort()
 
     return (
         <div className="connections">

@@ -33,7 +33,7 @@ function DeviceGeolocation({ geolocation }) {
         svg.style.transform = getIconTransform(geolocation.heading)
     }, [geolocation])
 
-    if (!geolocation) return
+    if (!geolocation) return null
 
     const position = {
         lat: geolocation.latitude,

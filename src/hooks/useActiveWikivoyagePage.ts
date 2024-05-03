@@ -1,6 +1,6 @@
 import { useEffect } from "react"
-import usePersistentState from "./usePersistentState.ts"
-import nodes from "../nodes.ts"
+import usePersistentState from "./usePersistentState"
+import nodes from "../nodes"
 
 function useActiveWikivoyagePage() {
     const [activeId, _setActiveId] = usePersistentState("activeId", "")
@@ -17,7 +17,7 @@ function useActiveWikivoyagePage() {
         _setActiveId(id)
     }, [_setActiveId])
 
-    const setActiveId = id => {
+    const setActiveId = (id: string) => {
         const newUrl = window.location.href.split("#")[0] + "#" + id
         window.history.replaceState(null, "", newUrl)
         _setActiveId(id)

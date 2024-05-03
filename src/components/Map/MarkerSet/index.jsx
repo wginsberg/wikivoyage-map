@@ -42,14 +42,18 @@ function MarkerSet(props) {
 
     const nodeList = nodes ? [...nodes] : []
 
-    return nodeList.map(({ title, lat, lng }) => (
-        <CircleMarker
-            center={{lat, lng}}
-            pathOptions={getPathOptions(title, activeId, hoverId)}
-            eventHandlers={getEventHandlers(title)}
-            key={title}
-        />
-    ))
+    return (
+        <>
+            {nodeList.map(({ title, lat, lng }) => (
+                <CircleMarker
+                    center={{lat, lng}}
+                    pathOptions={getPathOptions(title, activeId, hoverId)}
+                    eventHandlers={getEventHandlers(title)}
+                    key={title}
+                />)
+            )}
+        </>
+    )
 }
 
 export default MarkerSet

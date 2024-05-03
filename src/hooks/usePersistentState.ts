@@ -10,7 +10,7 @@ export default function usePersistentState<T>(key: string, defaultValue: T) {
         }
     }, [key])
 
-    function setState(value) {
+    function setState(value: T) {
         setReactState(value)
         window.localStorage.setItem(key, JSON.stringify(value))
     }
