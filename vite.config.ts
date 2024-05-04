@@ -5,9 +5,6 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   base: '/',
   plugins: [react()],
-  build: {
-    sourcemap: 'inline'
-  },
   server: {
     port: 3000,
     proxy: {
