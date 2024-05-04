@@ -1,12 +1,5 @@
 import { useState, useEffect } from 'react'
-
-interface Node {
-    title: string;
-    lat: number;
-    lng: number;
-    edges: string[];
-    subs?: string[];
-}
+import { type Node } from '../types';
 
 interface NodeMap {
     [key: string]: Node;
