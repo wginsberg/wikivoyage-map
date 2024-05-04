@@ -77,10 +77,14 @@ button.geolocation {
 
 .connections ul li button {
     padding: 4px;
+    appearance: none;
+    border: 1px solid lightgrey;
+    background-color: whitesmoke;
+    border-radius: 4px;
 }
 
 .connections ul li button.active {
-    transform: scale(110%);
+    transform: scale(115%);
     box-shadow: 2px 2px 2px black;
 }
 
