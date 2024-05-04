@@ -1,7 +1,8 @@
 CREATE TABLE node (
     title TEXT PRIMARY KEY,
     lat NUMBER,
-    lng NUMBER
+    lng NUMBER,
+    byline TEXT
 );
 
 CREATE TABLE redirect (
