@@ -83,6 +83,7 @@ button.geolocation {
     border: 1px solid lightgrey;
     background-color: whitesmoke;
     border-radius: 4px;
+    color: black;
 }
 
 .connections ul li button.active {
