@@ -14,8 +14,6 @@ import useWorldNodes from './hooks/useWorldNodes';
 import BuyMeACoffee from './components/Support/BuyMeACoffee';
 
 import { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple, Map } from 'leaflet';
-import 'leaflet-doubletapdrag';
-import 'leaflet-doubletapdragzoom';
 
 // import nodes from "./nodes"
 import capitals from './capitals';
