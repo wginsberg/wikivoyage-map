@@ -1,4 +1,5 @@
 const Database = require('better-sqlite3')
+const wtf = require('wtf_wikipedia')
 
 // Init the database connection
 const db = new Database('data.db');
@@ -38,26 +39,9 @@ function sanitizeTitle(title) {
     return title
 }
 
-function sanitizeArticleText(text, maxLength) {
-    const pageBannerRe = /(({{.+?}}\s*)|(\[\[.+?\]\]\s*))*/
-    const bylineStartIndex = text.match(pageBannerRe)[0].length
-    const byline = text.slice(bylineStartIndex, bylineStartIndex + maxLength)
-
-    const cleanByline = byline
-        // Convert to a single line to make subsequent regex easier
-        .replaceAll(/\n/g, "")
-        // Remove any additional sections after the byline
-        .replace(/==.*/, "")
-        // Use alternate text for links with alternate text
-        .replaceAll(/\[\[.+?\|(.+?)\]\]/g, (match, group) => group)
-        // Otherwise strip the links
-        .replaceAll(/(\[\[)|(\]\])|(''')|('')/g, "")
-        .replaceAll(/\[.+?\s(.+?)\]/g, (match, group) => group)
-        .trim()
-        // Ensure it ends in "." or "..."
-        .replace(/(?<!\.)$/, "...")
-    
-    return cleanByline
+function getFirstSentence(text="") {
+    const parsed = wtf(text)
+    return parsed?.sentences()?.[0]?.text()
 }
 
 module.exports = {
@@ -65,5 +49,5 @@ module.exports = {
     getEdges,
     isSubPage,
     sanitizeTitle,
-    sanitizeArticleText
+    getFirstSentence
 }

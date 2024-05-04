@@ -1,9 +1,7 @@
 const fs = require('fs')
 const flow = require('xml-flow')
 const Database = require('better-sqlite3')
-const { sanitizeArticleText } = require('./util')
-
-MAX_BYLINE_LENGTH = 150
+const { getFirstSentence } = require('./util')
 
 // Setup logging
 const CLEAR_OUTPUT = "\x1b[2J\x1b[;H"
@@ -36,7 +34,7 @@ xmlStream.on('tag:page', page => {
     if (!geoMatch) return
     const [lat, lng] = geoMatch.slice(1, 3)
 
-    const cleanByline = sanitizeArticleText(text, MAX_BYLINE_LENGTH)
+    const cleanByline = getFirstSentence(text)
 
     // Logging
     const now = new Date().getTime()

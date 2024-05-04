@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "better-sqlite3": "^9.6.0",
+    "wtf_wikipedia": "^10.3.0",
     "xml-flow": "^1.0.4"
   },
   "dependencies": {
