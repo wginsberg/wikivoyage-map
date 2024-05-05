@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { MapContainer, FeatureGroup, Pane } from 'react-leaflet'
+import "./leaflet-doubletapdrag@0.1.1/Leaflet.DoubleTapDrag"
+import "./leaflet-doubletapdragzoom@0.3.1/Leaflet.DoubleTapDragZoom"
 import { Link } from "react-router-dom"
 import Protomaps from './components/Map/Protomaps/index'
 import MarkerSet from './components/Map/MarkerSet/index'
@@ -15,7 +17,6 @@ import BuyMeACoffee from './components/Support/BuyMeACoffee';
 
 import { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple, Map } from 'leaflet';
 
-// import nodes from "./nodes"
 import capitals from './capitals';
 import useActiveWikivoyagePage from './hooks/useActiveWikivoyagePage';
 
@@ -132,7 +133,7 @@ function App() {
     <div className="App">
       <Header node={activeNode} />
       {/* @ts-ignore: TS2322: Can't pass props doubleTapDragZoom, doubleTapDragZoomOptions, doubleClickZoom */}
-      <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleTapDragZoom='center' doubleTapDragZoomOptions={{ reverse: true }} doubleClickZoom={false}>
+      <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleClickZoom={false}>
         <span className="loading">loading...</span>
         <Protomaps file="protomaps_vector_planet_odbl_z10.pmtiles" onBoundsChange={updateVisibleNodes} />
         <Pane name="edges" style={{ zIndex: 600 }}>
