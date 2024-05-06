@@ -41,7 +41,11 @@ function sanitizeTitle(title) {
 
 function getFirstSentence(text="") {
     const parsed = wtf(text)
-    return parsed?.sentences()?.[0]?.text()
+    const sentenceText = parsed?.sentences()?.[0]?.text()
+    if (!sentenceText) return ""
+    // This is catches a few hundred articles that don't get parsed correctly
+    const sentenceTextWithoutTrailingSections =  sentenceText.split("==")[0]
+    return sentenceTextWithoutTrailingSections.trim()
 }
 
 module.exports = {
