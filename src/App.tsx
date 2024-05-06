@@ -131,32 +131,34 @@ function App() {
 
     return (
     <div className="App">
-      <Header node={activeNode} />
-      {/* @ts-ignore: TS2322: Can't pass props doubleTapDragZoom, doubleTapDragZoomOptions, doubleClickZoom */}
-      <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleClickZoom={false}>
-        <span className="loading">loading...</span>
-        <Protomaps file="20230918-z12.pmtiles" onBoundsChange={updateVisibleNodes} />
-        <Pane name="edges" style={{ zIndex: 600 }}>
-          <PolylineSet edges={inactiveEdges} />
-          <FeatureGroup ref={featureGroupRef}>
-            <PolylineSet edges={activeEdges} active={true} />
-          </FeatureGroup>
-        </Pane>
-        <Pane name="nodes" style={{ zIndex: 601 }}>
-          <MarkerSet
-            nodes={visibleNodes}
-            activeId={activeId}
-            hoverId={hoverId}
-            onClick={setActiveId}
-            onMouseOver={setHoverId}
-            onMouseOut={() => setHoverId(-1)}
-          />
-        </Pane>
-        <Pane name="geolocation">
-          <DeviceGeolocation geolocation={geolocation} />
-        </Pane>
-        {geolocation && <GeolocationButton onClick={centerMapOnGeolocation} />}
-      </MapContainer>
+      <div style={{ height: '100%', maxHeight: '75svh', display: 'flex', flexDirection: 'column' }}>
+        <Header node={activeNode} />
+        {/* @ts-ignore: TS2322: Can't pass props doubleTapDragZoom, doubleTapDragZoomOptions, doubleClickZoom */}
+        <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleClickZoom={false}>
+          <span className="loading">loading...</span>
+          <Protomaps file="20230918-z12.pmtiles" onBoundsChange={updateVisibleNodes} />
+          <Pane name="edges" style={{ zIndex: 600 }}>
+            <PolylineSet edges={inactiveEdges} />
+            <FeatureGroup ref={featureGroupRef}>
+              <PolylineSet edges={activeEdges} active={true} />
+            </FeatureGroup>
+          </Pane>
+          <Pane name="nodes" style={{ zIndex: 601 }}>
+            <MarkerSet
+              nodes={visibleNodes}
+              activeId={activeId}
+              hoverId={hoverId}
+              onClick={setActiveId}
+              onMouseOver={setHoverId}
+              onMouseOut={() => setHoverId(-1)}
+            />
+          </Pane>
+          <Pane name="geolocation">
+            <DeviceGeolocation geolocation={geolocation} />
+          </Pane>
+          {geolocation && <GeolocationButton onClick={centerMapOnGeolocation} />}
+        </MapContainer>
+      </div>
       <Connections
         activeNode={activeNode}
         activeEdges={activeEdges}

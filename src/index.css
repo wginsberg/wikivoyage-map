@@ -9,9 +9,10 @@ body {
 
 #map {
     height: 75vh;
-    margin: auto;
+    width: 100%;
     max-width: 1024px;
     max-height: 720px;
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
