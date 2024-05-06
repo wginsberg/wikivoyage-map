@@ -24,7 +24,7 @@ const MAX_VISIBLE_NODES = 199
 const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
 const MAX_BOUNDS = [[-360, -360], [360, 360]] as LatLngTuple[]
 const MIN_ZOOM = 1
-const MAX_ZOOM = 11
+const MAX_ZOOM = 12
 
 function App() {
   useResetScrollPosition()
@@ -135,7 +135,7 @@ function App() {
       {/* @ts-ignore: TS2322: Can't pass props doubleTapDragZoom, doubleTapDragZoomOptions, doubleClickZoom */}
       <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleClickZoom={false}>
         <span className="loading">loading...</span>
-        <Protomaps file="protomaps_vector_planet_odbl_z10.pmtiles" onBoundsChange={updateVisibleNodes} />
+        <Protomaps file="20230918-z12.pmtiles" onBoundsChange={updateVisibleNodes} />
         <Pane name="edges" style={{ zIndex: 600 }}>
           <PolylineSet edges={inactiveEdges} />
           <FeatureGroup ref={featureGroupRef}>
