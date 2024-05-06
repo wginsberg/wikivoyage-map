@@ -134,8 +134,8 @@ function App() {
     <div className="App">
       <div style={{ height: '100%', maxHeight: '75svh', display: 'flex', flexDirection: 'column' }}>
         <Header node={activeNode} />
-        {/* @ts-ignore: TS2322: Can't pass props doubleTapDragZoom, doubleTapDragZoomOptions, doubleClickZoom */}
-        <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleClickZoom={false}>
+        {/* @ts-ignore: TS2322: Can't pass props doubleTapDragZoom, doubleTapDragZoomOptions */}
+        <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleClickZoom={false} doubleTapDragZoom="center" doubleTapDragZoomOptions={{ reverse: true }}>
           <span className="loading">loading...</span>
           <Protomaps file="20230918-z12.pmtiles" onBoundsChange={updateVisibleNodes} />
           <Pane name="edges" style={{ zIndex: 600 }}>
