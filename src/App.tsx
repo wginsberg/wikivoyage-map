@@ -114,6 +114,7 @@ function App() {
         map.fitBounds(bounds, { padding: [50, 50]})
       } else {
         // zoom to fit singleton node
+        if (!activeNode) return
         map.setView(activeNode, MAX_ZOOM)
       }
     }, [mapRef, activeNode])

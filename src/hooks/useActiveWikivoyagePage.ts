@@ -11,11 +11,6 @@ function useActiveWikivoyagePage() {
 
         const id = decodeURIComponent(hash)
 
-        // TODO - revisit this.
-        // if (!nodes[id]) {
-        //     return
-        // }
-
         _setActiveId(id)
     }, [_setActiveId])
 
