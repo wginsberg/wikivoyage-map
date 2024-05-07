@@ -1,6 +1,6 @@
 To enable CORS on the cloudflare r2 bucket:
 ```
-aws s3api put-bucket-cors --endpoint-url https://eaa9530670776e296794e489f3a5024e.r2.cloudflarestorage.com --bucket pmtiles --cors-configuration file:///Users/Will/wikivoyage-app/cors_rules.json
+aws s3api put-bucket-cors --endpoint-url https://eaa9530670776e296794e489f3a5024e.r2.cloudflarestorage.com --bucket pmtiles --cors-configuration file://cors_rules.json
 ```
 
 To uplad a large file to the cloudflare r2 bucket:

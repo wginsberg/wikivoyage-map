@@ -1,4 +1,4 @@
-# [Wikivoyage Map](https://wginsberg.github.io/wikivoyage-map)
+# [Wikivoyage Map](https://whereugo.ing)
 
 Wikivoyage Map is a web application that visually maps all the pages of Wikivoyage.org onto an interactive map interface.
 
@@ -22,7 +22,7 @@ This repository contains a copy of all of the data it displays. To update the da
 ```
 > npm run fetch-wiki-data     # downloads raw data from Wikivoyage
 
-> npm run build-data          # processes data into the sqlite database ./data.db
-
-> npm run build-world-json    # finally formats the data into a big json file ./src/world.json
+> npm run build-data          # processes data into into an intermediate sqlite database and the final public/world.json file
 ```
+
+Note that text from Wikivoyage is licenced under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener noreferrer" target="_blank">Creative Commons Attribution-ShareAlike 3.0</a> and can be redistributed with attribution back to Wikivoyage directly.

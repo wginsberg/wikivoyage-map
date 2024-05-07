@@ -18,7 +18,9 @@ const About = () => {
                     </p>
                     <p>
                         The source code for this website is freely available <a href="https://github.com/wginsberg/wikivoyage-app
-" rel="noopener noreferrer" target="_blank">here</a>.
+" rel="noopener noreferrer" target="_blank">here on Github</a>. The travel information on this website is re-distributable under the <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener noreferrer" target="_blank">Creative Commons Attribution-ShareAlike 3.0 licence</a> and attribution should be given back directly to Wikivoyage.
+
+
                     </p>
                     <p>
                         If you have questions or feedback you can reach me <a href="mailto:will.j.ginsberg@gmail.com?subject=whereugo.ing">here</a>.
