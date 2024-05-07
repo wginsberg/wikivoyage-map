@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
-import usePersistentState from "./hooks/usePersistentState"
-import useResetScrollPosition from "./hooks/useResetScrollPosition"
-import { GEOLOCATION_OPTION } from "./constants"
-import BuyMeACoffee from "./components/Support/BuyMeACoffee"
+import usePersistentState from "~hooks/usePersistentState"
+import useResetScrollPosition from "~hooks/useResetScrollPosition"
+import { GEOLOCATION_OPTION } from "~constants"
+import BuyMeACoffee from "~components/Support/BuyMeACoffee"
 
 function Settings() {
     useResetScrollPosition()

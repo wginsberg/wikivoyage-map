@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import usePersistentState from "./usePersistentState"
-// import nodes from "../nodes"
 
 function useActiveWikivoyagePage() {
     const [activeId, _setActiveId] = usePersistentState("activeId", "")
