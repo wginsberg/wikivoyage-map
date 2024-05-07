@@ -15,6 +15,7 @@ import useResetScrollPosition from "~hooks/useResetScrollPosition"
 import useGeolocation from '~hooks/useGeolocation';
 import useWorldNodes from '~hooks/useWorldNodes';
 import useActiveWikivoyagePage from '~hooks/useActiveWikivoyagePage';
+import { Node } from '~types';
 
 import { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple, Map } from 'leaflet';
 
@@ -128,6 +129,20 @@ function App() {
       const { latitude, longitude } = geolocation
 
       map.setView([latitude, longitude], MAX_ZOOM)
+
+      // Select nearest marker
+      let closestNode = null
+      let closestDistance = NaN
+      for (const title in nodes) {
+        const node = nodes[title]
+        const distance = map.distance(node, { lat: latitude, lng: longitude })
+        if (!(closestDistance < distance)) {
+          closestNode = node
+          closestDistance = distance
+        }
+      }
+      const newActiveNodeId = closestNode ? closestNode.title: ""
+      setActiveId(newActiveNodeId)
     }
 
     return (

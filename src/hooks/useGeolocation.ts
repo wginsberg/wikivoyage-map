@@ -2,13 +2,9 @@ import { useEffect, useState } from "react";
 import usePersistentState from "./usePersistentState";
 import { GEOLOCATION_OPTION } from "../constants"
 
-const DEFAULT_HEADING = 15
-
 type Position = {
     latitude: number;
     longitude: number;
-    // TODO remove heading
-    heading: number;
 }
 
 function useGeolocation() {
@@ -19,8 +15,7 @@ function useGeolocation() {
 
         const onSuccess: PositionCallback = ({ coords }) => {
             const { latitude, longitude } = coords
-            const heading = coords.heading ?? DEFAULT_HEADING
-            setPosition({ latitude, longitude, heading })
+            setPosition({ latitude, longitude })
         }
         const watcherId = navigator.geolocation.watchPosition(onSuccess);
         return () => navigator.geolocation.clearWatch(watcherId)

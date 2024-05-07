@@ -24,15 +24,6 @@ const icon = new DivIcon({
 })
 
 function DeviceGeolocation({ geolocation }) {
-    useEffect(() => {
-        if (!geolocation) return
-
-        // This is hacky because: how else to rotate the marker in the map? ...
-        const svg = document.getElementById("device-marker")
-
-        svg.style.transform = getIconTransform(geolocation.heading)
-    }, [geolocation])
-
     if (!geolocation) return null
 
     const position = {
