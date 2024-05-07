@@ -25,4 +25,6 @@ This repository contains a copy of all of the data it displays. To update the da
 > npm run build-data          # processes data into into an intermediate sqlite database and the final public/world.json file
 ```
 
-Note that text from Wikivoyage is licenced under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener noreferrer" target="_blank">Creative Commons Attribution-ShareAlike 3.0</a> and can be redistributed with attribution back to Wikivoyage directly.
+Note that text from Wikivoyage is licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener noreferrer" target="_blank">Creative Commons Attribution-ShareAlike 3.0</a> and can be redistributed with attribution back to Wikivoyage directly.
+
+The code in this repository is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.en" rel="noopener noreferrer" target="_blank">Creative Commons Attribution-NonCommercial 4.0</a>.
