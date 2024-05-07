@@ -119,6 +119,7 @@ footer a {
 
 .settings {
     margin: auto;
+    padding: 0 8px;
     max-width: 480px;
     display: grid;
     height: 100%;
