@@ -107,17 +107,11 @@ footer .links {
     gap: 24px;
 }
 
-footer .github {
-    display: flex;
+footer a:visited {
+    color: LinkText;
 }
 
-footer a {
-    text-decoration: none;
-    font-size: 48px;
-    line-height: 48px;
-}
-
-.settings {
+.page {
     margin: auto;
     padding: 0 8px;
     max-width: 480px;
@@ -126,7 +120,7 @@ footer a {
     grid-template-rows: 1fr auto;
 }
 
-.settings header {
+.page header {
     text-align: initial;
     padding: 16px 0 0 0;
 }

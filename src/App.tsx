@@ -170,11 +170,11 @@ function App() {
       />
       <footer>
         <div className="links">
-          <a className="github" href="https://github.com/wginsberg/wikivoyage-app" rel="noopener noreferrer" target="_blank">
-            <img src="github-mark/github-mark.png" alt="github" width={48} height={48} />
-          </a>
           <Link to="settings">
-            ⚙️
+            Settings
+          </Link>
+          <Link to="about">
+            About
           </Link>
         </div>
         <BuyMeACoffee />
