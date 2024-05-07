@@ -6,11 +6,11 @@
   "scripts": {
     "fetch-wiki-data": "curl -O https://dumps.wikimedia.org/enwikivoyage/latest/enwikivoyage-latest-pages-articles-multistream.xml.bz2 && bunzip2 enwikivoyage-latest-pages-articles-multistream.xml.bz2",
     "init-db": "rm -f data.db && sqlite3 data.db < scripts/init-db.sql",
-    "build-nodes": "node scripts/build_nodes.js",
-    "build-redirects": "node scripts/build_redirects.js",
-    "build-edges": "node scripts/build_edges.js",
-    "prune-edges": "node scripts/prune_edges.js",
-    "build-world-json": "node scripts/world.js",
+    "build-nodes": "vite-node scripts/build_nodes.ts",
+    "build-redirects": "vite-node scripts/build_redirects.ts",
+    "build-edges": "vite-node scripts/build_edges.ts",
+    "prune-edges": "vite-node scripts/prune_edges.ts",
+    "build-world-json": "vite-node scripts/world.ts",
     "build-data": "npm run init-db && npm run build-nodes && npm run build-redirects && npm run build-edges && npm run prune-edges && npm run build-world-json",
     "start": "vite",
     "build": "tsc && vite build",
@@ -18,7 +18,10 @@
     "test": "react-app-rewired test"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.10",
+    "@types/xml-flow": "^1.0.4",
     "better-sqlite3": "^9.6.0",
+    "vite-node": "^1.6.0",
     "wtf_wikipedia": "^10.3.0",
     "xml-flow": "^1.0.4"
   },
@@ -34,7 +37,6 @@
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.0.2",
     "react-router-dom": "^6.21.3",
-    "typescript": "^5.4.5",
     "vite": "^5.2.11",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2"

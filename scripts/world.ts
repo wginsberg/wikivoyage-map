@@ -1,10 +1,21 @@
-const { writeFileSync } = require('fs')
-const { getNodes, getEdges, sanitizeTitle, isSubPage } = require("./util.js")
+import { writeFileSync } from "fs"
+import { Node } from './types'
+import { getNodes, getEdges, sanitizeTitle, isSubPage } from "./util"
+
+type Edge = any
+
+type NodePlusEdgeSet = Node & {
+    edges: Set<any>
+}
+
+type NodePlusEdgeArray = Node & {
+    edges: any[]
+}
 
 const TARGET = 'public/world.json'
 
 const dbNodes = getNodes()
-const nodes = {}
+const nodes: { [key: string]: NodePlusEdgeSet } = {}
 for (const node of dbNodes) {
     if (node.title.startsWith("Wikivoyage:")) continue
     if (isSubPage(node.title)) continue
@@ -26,14 +37,15 @@ for (const edge of dbEdges) {
 }
 
 // Convert edges from Set to Array
+const finalNodes: { [key: string]: NodePlusEdgeArray } = {}
 for (const title in nodes) {
     const node = nodes[title]
-    nodes[title] = {
+    finalNodes[title] = {
         ...node,
         edges: [...node.edges]
     }
 }
 
-const resultString = JSON.stringify(nodes, null, 4)
+const resultString = JSON.stringify(finalNodes, null, 4)
 
 writeFileSync(TARGET, resultString)

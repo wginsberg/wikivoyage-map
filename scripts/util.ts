@@ -1,19 +1,22 @@
-const Database = require('better-sqlite3')
-const wtf = require('wtf_wikipedia')
+import Database from 'better-sqlite3'
+// There's something weird going on with this package, only works like this ...
+// import 'wtf_wikipedia'
+import wtf from 'wtf_wikipedia'
+import { Node, Edge } from  './types'
 
 // Init the database connection
 const db = new Database('data.db');
 
-function getNodes() {
+function getNodes(): Node[] {
     const selectNodes = db.prepare(`
     SELECT *
     FROM node
 `)
 const nodes = selectNodes.all()
-return nodes
+return nodes as Node[]
 }
 
-function getEdges() {
+function getEdges(): Edge[] {
     const selectEdges = db.prepare(`
         SELECT  origin,
                 node1.lat AS originLat,
@@ -26,14 +29,14 @@ function getEdges() {
             JOIN node as node2 ON edge.destination = node2.title;
     `)
     const edges = selectEdges.all()
-    return edges
+    return edges as Edge[]
 }
 
-function isSubPage(title) {
+function isSubPage(title: string) {
     return sanitizeTitle(title) !== title
 }
 
-function sanitizeTitle(title) {
+function sanitizeTitle(title: string) {
     const [_, basePage, subPage] = title.match(/(.*?)\s*\/\s*(.*)/) || []
     if (subPage) return basePage
     return title
