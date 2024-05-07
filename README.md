@@ -1,6 +1,6 @@
-# [Wikivoyage Map](https://whereugo.ing)
+# [whereugo.ing](https://whereugo.ing)
 
-Wikivoyage Map is a web application that visually maps all the pages of Wikivoyage.org onto an interactive map interface.
+whereugo.ing is a web application that visually maps all the pages of Wikivoyage.org onto an interactive map interface.
 
 <img src="./screenshot.png">
 
