@@ -1,7 +1,7 @@
 import fs from 'fs'
 import flow from 'xml-flow'
 import Database from 'better-sqlite3'
-import { getCities, getFirstSentence } from './util'
+import { hasCities, getFirstSentence } from './util'
 
 // Setup logging
 const CLEAR_OUTPUT = "\x1b[2J\x1b[;H"
@@ -18,7 +18,7 @@ const xmlStream = flow(inFile)
 const geoRe = /{{geo\|([0-9-\.]+)\|([0-9-\.]+).*?}}/i
 const pageBannerRe = /(({{.+?}}\s*)|(\[\[.+?\]\]\s*))*/
 
-const insertNode = db.prepare('INSERT INTO node (title, lat, lng, byline) VALUES (?, ?, ?, ?);')
+const insertNode = db.prepare('INSERT INTO node (title, lat, lng, byline, is_region) VALUES (?, ?, ?, ?, ?);')
 
 let count = 0
 
@@ -34,6 +34,8 @@ xmlStream.on('tag:page', page => {
     if (!geoMatch) return
     const [lat, lng] = geoMatch.slice(1, 3)
 
+    const isRegion = hasCities(text)
+
     const cleanByline = getFirstSentence(text)
 
     // Logging
@@ -45,5 +47,5 @@ xmlStream.on('tag:page', page => {
     }
 
     // Add node to database
-    insertNode.run(page.title, lat, lng, cleanByline)
+    insertNode.run(page.title, lat, lng, cleanByline, Number(isRegion))
 })

@@ -6,5 +6,7 @@ export type Node = {
 }
 
 export type Edge = {
-
+    origin: string,
+    destination: string
 }
+

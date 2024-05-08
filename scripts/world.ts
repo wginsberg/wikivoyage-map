@@ -2,8 +2,6 @@ import { writeFileSync } from "fs"
 import { Node } from './types'
 import { getNodes, getEdges, sanitizeTitle, isSubPage } from "./util"
 
-type Edge = any
-
 type NodePlusEdgeSet = Node & {
     edges: Set<any>
 }
@@ -41,7 +39,10 @@ const finalNodes: { [key: string]: NodePlusEdgeArray } = {}
 for (const title in nodes) {
     const node = nodes[title]
     finalNodes[title] = {
-        ...node,
+        title: node.title,
+        lat: node.lat,
+        lng: node.lng,
+        byline: node.byline,
         edges: [...node.edges]
     }
 }

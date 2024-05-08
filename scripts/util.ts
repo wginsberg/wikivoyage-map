@@ -1,6 +1,5 @@
 import Database from 'better-sqlite3'
 // There's something weird going on with this package, only works like this ...
-// import 'wtf_wikipedia'
 import wtf from 'wtf_wikipedia'
 import { Node, Edge } from  './types'
 
@@ -51,10 +50,26 @@ function getFirstSentence(text="") {
     return sentenceTextWithoutTrailingSections.trim()
 }
 
-module.exports = {
+
+const CITIES_HEADER = "==Cities=="
+function hasCities(text=""): boolean {
+    const citiesIndex = text.indexOf(CITIES_HEADER)
+    if (citiesIndex === -1) return false
+
+    const nextSectionIndex = text.slice(citiesIndex + CITIES_HEADER.length)
+        .trimStart()
+        .indexOf("==")
+
+    if (nextSectionIndex > 0) return true
+
+    return false
+}
+
+export {
     getNodes,
     getEdges,
     isSubPage,
     sanitizeTitle,
-    getFirstSentence
+    getFirstSentence,
+    hasCities
 }
