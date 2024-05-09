@@ -112,11 +112,11 @@ function App() {
       const bounds = featureGroupRef.current?.getBounds()
       if (bounds?.isValid()) {
         // zoom to fit connected nodes
-        map.fitBounds(bounds, { padding: [50, 50]})
+        map.fitBounds(bounds, { padding: [50, 50], animate: true })
       } else {
         // zoom to fit singleton node
         if (!activeNode) return
-        map.setView(activeNode, MAX_ZOOM)
+        map.setView(activeNode, MAX_ZOOM, { animate: true })
       }
     }, [mapRef, activeNode])
 
@@ -128,7 +128,7 @@ function App() {
       if (!geolocation) return
       const { latitude, longitude } = geolocation
 
-      map.setView([latitude, longitude], MAX_ZOOM)
+      map.setView([latitude, longitude], MAX_ZOOM, { animate: true })
 
       // Select nearest marker
       let closestNode = null

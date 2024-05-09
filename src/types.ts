@@ -5,3 +5,8 @@ export interface Node {
     edges: string[];
     byline?: string;
 }
+
+export interface Edge {
+    origin: Node,
+    destination: Node
+}

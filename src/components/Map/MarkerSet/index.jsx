@@ -10,7 +10,7 @@ const DEFAULT_PATH_OPTIONS = {
 
 const ACTIVE_PATH_OPTIONS = {
     color: 'green',
-    fillOpacity: 0.8
+    fillOpacity: 0.4
 }
 
 const HOVER_PATH_OPTIONS = {

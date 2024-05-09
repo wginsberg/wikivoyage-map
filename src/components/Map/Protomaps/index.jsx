@@ -11,7 +11,7 @@ function Protomaps (props) {
     const map = useMap()
 
     useEffect(() => {
-        map.setView(INITIAL_CENTER, INITIAL_ZOOM)
+        map.setView(INITIAL_CENTER, INITIAL_ZOOM, { animate: true })
         map.on("moveend", () => onBoundsChange(map))
 
         const mapTileHost = getMapTileHost()
