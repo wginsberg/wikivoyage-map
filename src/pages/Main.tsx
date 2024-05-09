@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { MapContainer, FeatureGroup, Pane } from 'react-leaflet'
-import "~leaflet-doubletapdrag@0.1.1/Leaflet.DoubleTapDrag"
-import "~leaflet-doubletapdragzoom@0.3.1/Leaflet.DoubleTapDragZoom"
+import 'leaflet-doubletapdrag'
+import 'leaflet-doubletapdragzoom'
 import { Link } from "react-router-dom"
 import Protomaps from '~components/Map/Protomaps/index'
 import MarkerSet from '~components/Map/MarkerSet/index'
