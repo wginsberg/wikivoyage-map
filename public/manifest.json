@@ -1,6 +1,7 @@
 {
   "short_name": "whereugo.ing",
   "name": "whereugo.ing",
+  "description": "A simple map for travellers",
   "icons": [
     {
       "src": "favicon.ico",
