@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import usePersistentState from "./usePersistentState"
+import { parseFormattedName, getFormattedName } from "~utils"
 
 function useActiveWikivoyagePage() {
     const [activeId, _setActiveId] = usePersistentState("activeId", "")
@@ -8,13 +9,14 @@ function useActiveWikivoyagePage() {
         const hash = window.location.hash.slice(1)
         if (!hash) return
 
-        const id = decodeURIComponent(hash)
+        const id = parseFormattedName(decodeURIComponent(hash))
 
         _setActiveId(id)
     }, [_setActiveId])
 
     const setActiveId = (id: string) => {
-        const newUrl = window.location.href.split("#")[0] + "#" + id
+        const cleanId = getFormattedName(id)
+        const newUrl = window.location.href.split("#")[0] + "#" + cleanId
         window.history.replaceState(null, "", newUrl)
         _setActiveId(id)
     }

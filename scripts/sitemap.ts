@@ -1,5 +1,6 @@
 import { writeFileSync, appendFileSync } from "fs"
 import nodes from "../public/world.json"
+import { getFormattedName } from "../src/utils"
 
 const host = process.argv.slice(-1)[0]
 let url
@@ -38,9 +39,7 @@ writeFileSync(TARGET, HEAD)
 
 for (const key in nodes) {
     const node = nodes[key] as Node
-    const cleanKey = key
-        .replace(/ /g, "_")
-        .replace(/&/g, '%26')
+    const cleanKey = getFormattedName(key)
 
     const cardinality = node.edges.length
     const priority = cardinality < 3
