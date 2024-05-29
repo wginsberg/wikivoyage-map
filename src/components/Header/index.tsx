@@ -1,31 +1,29 @@
 import ExternalLinkIcon from "./ExternalLinkIcon"
 import { type Node } from "../../types";
+import HeaderContent from "./HeaderContent"
+import EmptyHeaderContent from "./EmptyHeaderContent";
+import VerboseHeader from "./VerboseHeader";
 
 type HeaderProps = {
+    verbose: boolean,
     node?: Node
 }
 
 function Header(props: HeaderProps) {
-    const { node } = props
+    const { verbose, node } = props
 
     if (!node) {
-        return <header>Click a location to see where you could go next</header>
+        return (
+            <header>
+                <EmptyHeaderContent />
+            </header>
+        )
     }
-
-    const { title, byline } = node
-    const href = `https://en.wikivoyage.org/wiki/${title}`
-
-    const trimmedByline = byline?.startsWith(title)
-        ? byline.slice(title.length).trimStart()
-        : byline
 
     return (
         <header>
-            <a href={href} target="_blank" rel="noreferrer">
-                {title}
-                <ExternalLinkIcon />
-            </a>
-            {trimmedByline}
+            {verbose && <VerboseHeader node={node} /> }
+            <HeaderContent node={node} />
         </header>
     )
 

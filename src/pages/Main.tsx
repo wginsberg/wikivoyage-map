@@ -29,10 +29,10 @@ const MAX_ZOOM = 12
 
 function App() {
   useResetScrollPosition()
-  const [activeId, setActiveId] = useActiveWikivoyagePage()
+  const { loadingActiveId, activeId, setActiveId, isFreshSession } = useActiveWikivoyagePage()
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
-  const nodes = useWorldNodes()
+  const { loadingNodes, nodes } = useWorldNodes()
   const geolocation = useGeolocation()
 
   const mapRef = useRef<LeafletMap>(null)
@@ -148,7 +148,11 @@ function App() {
     return (
     <div className="App">
       <div style={{ height: '100%', maxHeight: '75svh', display: 'flex', flexDirection: 'column' }}>
-        <Header node={activeNode} />
+        {
+          (!loadingNodes && !loadingActiveId)
+            &&
+          <Header node={activeNode} verbose={isFreshSession} />
+        }
         {/* @ts-ignore: TS2322: Can't pass props doubleTapDragZoom, doubleTapDragZoomOptions */}
         <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleClickZoom={false} doubleTapDragZoom="center" doubleTapDragZoomOptions={{ reverse: true }}>
           <span className="loading">loading...</span>

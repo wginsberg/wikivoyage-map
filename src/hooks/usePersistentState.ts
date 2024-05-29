@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 
 export default function usePersistentState<T>(key: string, defaultValue: T) {
     const [reactState, setReactState] = useState(defaultValue)
@@ -10,10 +10,10 @@ export default function usePersistentState<T>(key: string, defaultValue: T) {
         }
     }, [key])
 
-    function setState(value: T) {
+    const setState = useCallback((value: T) => {
         setReactState(value)
         window.localStorage.setItem(key, JSON.stringify(value))
-    }
+    }, [key, setReactState])
 
     return [reactState, setState] as [T, (t: T) => void]
 }
