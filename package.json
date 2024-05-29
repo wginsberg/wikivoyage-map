@@ -12,11 +12,12 @@
     "prune-edges": "vite-node scripts/prune_edges.ts",
     "prune-nodes": "vite-node scripts/prune_nodes.ts",
     "build-world-json": "vite-node scripts/world.ts",
-    "build-data": "npm run init-db && npm run build-nodes && npm run build-redirects && npm run build-edges && npm run prune-edges && npm run prune-nodes && npm run build-world-json",
+    "build-data": "npm run init-db && npm run build-nodes && npm run build-redirects && npm run build-edges && npm run prune-edges && npm run prune-nodes && npm run build-world-json && npm run build-sitemap",
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "build-sitemap": "vite-node scripts/sitemap.ts https://whereugo.ing"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.10",
