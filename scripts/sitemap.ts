@@ -42,12 +42,15 @@ for (const key in nodes) {
     const cleanKey = getFormattedName(key)
 
     const cardinality = node.edges.length
-    const priority = cardinality < 3
-        ? 0.25
-        : cardinality < 10
-            ? 0.5
-            : 1.0
+    const priority = cardinality === 0
+        ? 0
+        : cardinality < 3
+            ? 0.25
+            : cardinality < 10
+                ? 0.5
+                : 1.0
 
+    if (priority === 0) continue
     const xmlNode = getXMLNode(cleanKey, priority)
 
     appendFileSync(TARGET, xmlNode)
