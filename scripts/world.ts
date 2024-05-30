@@ -10,7 +10,11 @@ type NodePlusEdgeArray = Node & {
     edges: any[]
 }
 
-const TARGET = 'public/world.json'
+type NodeWithEdgesOutput = Omit<NodePlusEdgeArray, "byline">
+type NodeWithOnlyBylineOutput = Pick<Node, "byline">
+
+const TARGET_EDGES = 'public/world_edges.json'
+const TARGET_BYLINES = 'public/world_bylines.json'
 
 const dbNodes = getNodes()
 const nodes: { [key: string]: NodePlusEdgeSet } = {}
@@ -35,18 +39,31 @@ for (const edge of dbEdges) {
 }
 
 // Convert edges from Set to Array
-const finalNodes: { [key: string]: NodePlusEdgeArray } = {}
+const finalNodesWithEdges: { [key: string]: NodeWithEdgesOutput } = {}
 for (const title in nodes) {
     const node = nodes[title]
-    finalNodes[title] = {
+    finalNodesWithEdges[title] = {
         title: node.title,
         lat: node.lat,
         lng: node.lng,
-        byline: node.byline,
         edges: [...node.edges]
     }
 }
 
-const resultString = JSON.stringify(finalNodes, null, 4)
+{
+    const resultString = JSON.stringify(finalNodesWithEdges, null, 4)
+    writeFileSync(TARGET_EDGES, resultString)
+}
 
-writeFileSync(TARGET, resultString)
+const finalBylines: { [key: string]: NodeWithOnlyBylineOutput } = {}
+for (const title in nodes) {
+    const node = nodes[title]
+    finalBylines[title] = {
+        byline: node.byline
+    }
+}
+
+{
+    const resultString = JSON.stringify(finalBylines, null, 4)
+    writeFileSync(TARGET_BYLINES, resultString)
+}

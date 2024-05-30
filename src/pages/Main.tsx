@@ -13,6 +13,7 @@ import { type Map as LeafletMap, type FeatureGroup as LeafletFeatureGroup } from
 
 import capitals from '~capitals';
 import { MAX_ZOOM, MAX_VISIBLE_NODES, INITIAL_MAP_BOUNDS } from "~constants";
+import useWorldBylines from '~hooks/useWorldBylines';
 
 const Map = lazy(() => import("~components/Map"))
 
@@ -22,6 +23,7 @@ function App() {
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
   const { loadingNodes, nodes } = useWorldNodes()
+  const { loadingNodesWithByline, nodesWithByline } = useWorldBylines()
   const geolocation = useGeolocation()
 
   const mapRef = useRef<LeafletMap>(null)
@@ -138,9 +140,15 @@ function App() {
     <div className="App">
       <div style={{ height: '100%', maxHeight: '75svh', display: 'flex', flexDirection: 'column' }}>
         {
-          (!loadingNodes && !loadingActiveId)
+          (!loadingNodesWithByline && !loadingActiveId)
             &&
-          <Header node={activeNode} verbose={isFreshSession} />
+          <Header
+            node={{
+              ...(nodes[activeId] || {}),
+              ...nodesWithByline[activeId]
+            }}
+            verbose={isFreshSession}
+          />
         }
         <Suspense fallback={<div id="map" />}>
           <Map

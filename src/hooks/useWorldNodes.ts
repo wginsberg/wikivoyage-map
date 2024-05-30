@@ -11,7 +11,7 @@ const useWorldNodes = () => {
 
     useEffect(() => {
         // N.B. "credentials" and "mode" are required to make the prefetch of this resource work correctly (from the link tag in index.html)
-        fetch("world.json", { credentials: 'include', mode: 'no-cors' })
+        fetch("world_edges.json", { credentials: 'include', mode: 'no-cors' })
             .then(response => response.json())
             .then(json => {
                 setNodes(json)
