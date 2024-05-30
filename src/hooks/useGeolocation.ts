@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import usePersistentState from "./usePersistentState";
 import { GEOLOCATION_OPTION } from "../constants"
 
-type Position = {
+export type Position = {
     latitude: number;
     longitude: number;
 }

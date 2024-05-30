@@ -1,13 +1,5 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { MapContainer, FeatureGroup, Pane } from 'react-leaflet'
-import 'leaflet-doubletapdrag'
-import 'leaflet-doubletapdragzoom'
+import React, { useRef, useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { Link } from "react-router-dom"
-import Protomaps from '~components/Map/Protomaps/index'
-import MarkerSet from '~components/Map/MarkerSet/index'
-import PolylineSet from '~components/Map/PolylineSet/index'
-import DeviceGeolocation from "~components/Map/DeviceGeolocation/index"
-import GeolocationButton from '~components/Map/GeolocationButton/index';
 import Header from '~components/Header/index'
 import Connections from '~components/Connections/index'
 import BuyMeACoffee from '~components/Support/BuyMeACoffee';
@@ -17,15 +9,12 @@ import useWorldNodes from '~hooks/useWorldNodes';
 import useActiveWikivoyagePage from '~hooks/useActiveWikivoyagePage';
 import { Node } from '~types';
 
-import { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple, Map } from 'leaflet';
+import { type Map as LeafletMap, type FeatureGroup as LeafletFeatureGroup } from 'leaflet';
 
 import capitals from '~capitals';
+import { MAX_ZOOM, MAX_VISIBLE_NODES, INITIAL_MAP_BOUNDS } from "~constants";
 
-const MAX_VISIBLE_NODES = 199
-const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98437500000003,87.38445679076668"
-const MAX_BOUNDS = [[-360, -360], [360, 360]] as LatLngTuple[]
-const MIN_ZOOM = 1
-const MAX_ZOOM = 12
+const Map = lazy(() => import("~components/Map"))
 
 function App() {
   useResetScrollPosition()
@@ -71,7 +60,7 @@ function App() {
   const visibleNodes = [...allVisibleNodeIds]
     .map(title => nodes[title])
 
-  const updateVisibleNodes = useCallback((map: Map) => {
+  const updateVisibleNodes = useCallback((map: LeafletMap) => {
     if (!map) return
     setMapBounds(map.getBounds().toBBoxString())
   }, [setMapBounds])
@@ -153,31 +142,22 @@ function App() {
             &&
           <Header node={activeNode} verbose={isFreshSession} />
         }
-        {/* @ts-ignore: TS2322: Can't pass props doubleTapDragZoom, doubleTapDragZoomOptions */}
-        <MapContainer id="map" ref={mapRef} minZoom={MIN_ZOOM} maxZoom={MAX_ZOOM} maxBounds={MAX_BOUNDS} maxBoundsViscosity={1} doubleClickZoom={false} doubleTapDragZoom="center" doubleTapDragZoomOptions={{ reverse: true }}>
-          <span className="loading">loading...</span>
-          <Protomaps file="20230918-z12.pmtiles" onBoundsChange={updateVisibleNodes} />
-          <Pane name="edges" style={{ zIndex: 600 }}>
-            <PolylineSet edges={inactiveEdges} />
-            <FeatureGroup ref={featureGroupRef}>
-              <PolylineSet edges={activeEdges} active={true} />
-            </FeatureGroup>
-          </Pane>
-          <Pane name="nodes" style={{ zIndex: 601 }}>
-            <MarkerSet
-              nodes={visibleNodes}
-              activeId={activeId}
-              hoverId={hoverId}
-              onClick={setActiveId}
-              onMouseOver={setHoverId}
-              onMouseOut={() => setHoverId(-1)}
-            />
-          </Pane>
-          <Pane name="geolocation">
-            <DeviceGeolocation geolocation={geolocation} />
-          </Pane>
-          {geolocation && <GeolocationButton onClick={centerMapOnGeolocation} />}
-        </MapContainer>
+        <Suspense fallback={<div id="map" />}>
+          <Map
+            mapRef={mapRef}
+            featureGroupRef={featureGroupRef}
+            geolocation={geolocation}
+            updateVisibleNodes={updateVisibleNodes}
+            activeEdges={activeEdges}
+            inactiveEdges={inactiveEdges}
+            visibleNodes={visibleNodes}
+            activeId={activeId}
+            hoverId={hoverId}
+            setActiveId={setActiveId}
+            setHoverId={setHoverId}
+            centerMapOnGeolocation={centerMapOnGeolocation}
+          />
+        </Suspense>
       </div>
       <Connections
         activeNode={activeNode}
