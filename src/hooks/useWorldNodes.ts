@@ -36,6 +36,23 @@ const useWorldNodes = (nodeId: string) => {
                     ...prev
                 }))
                 setLoading(false)
+                return loadedNodes[nodeId].edges
+            })
+            .then((relatedNodeIds: string[]) => {
+                // Also load all the related nodes for that node
+                // with the same code copied and pasted. what?
+                relatedNodeIds.forEach(relatedNodeId => {
+                    if (nodes[relatedNodeId]) return
+                    const firstThreeChars = relatedNodeId.slice(0, 3)
+                    fetch(`nodes/${firstThreeChars}.json`)
+                        .then(response => response.json())
+                        .then(loadedNodes => {
+                            setNodes(prev => ({
+                                ...loadedNodes,
+                                ...prev
+                            }))
+                        })
+                })
             })
     }, [nodeId])
 
