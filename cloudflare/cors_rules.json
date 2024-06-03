@@ -2,7 +2,7 @@
   "CORSRules":  [{
     "AllowedHeaders": ["Range"],
     "AllowedMethods": ["GET","HEAD"],
-    "AllowedOrigins": ["https://wikivoyage-app.pages.dev", "https://whereugo.ing"],
+    "AllowedOrigins": ["https://wikivoyage-app.pages.dev", "https://whereugo.ing", "https://www.whereugo.ing"],
     "ExposeHeaders": ["ETag"]
   }]
 }
