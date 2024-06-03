@@ -14,6 +14,7 @@ import { type Map as LeafletMap, type FeatureGroup as LeafletFeatureGroup } from
 import capitals from '~capitals';
 import { MAX_ZOOM, MAX_VISIBLE_NODES, INITIAL_MAP_BOUNDS } from "~constants";
 import MetaDescription from '~components/Meta/Description';
+import MetaTitle from '~components/Meta/Title';
 
 const Map = lazy(() => import("~components/Map"))
 
@@ -139,6 +140,7 @@ function App() {
 
     return (
     <>
+    <MetaTitle node={activeNode} />
     <MetaDescription node={activeNode} />
     <div className="App">
       <div style={{ height: '100%', maxHeight: '75svh', display: 'flex', flexDirection: 'column' }}>
