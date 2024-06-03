@@ -1,0 +1,1 @@
+<mapframe latitude="14.888667" longitude="120.925462" zoom="5" width="400" height="300" />Bocaue is a town of about 141,000 (2020) in Bulacan.

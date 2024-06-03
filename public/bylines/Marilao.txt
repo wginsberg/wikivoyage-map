@@ -1,0 +1,1 @@
+<mapframe latitude="14.761603" longitude="120.946426" zoom="5" width="200" height="100" />Marilao is a municipality in Bulacan.

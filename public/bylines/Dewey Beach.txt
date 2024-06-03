@@ -1,0 +1,1 @@
+<mapframe latitude="38.696111" longitude="-75.076389" zoom="14" width="400" height="300" align="right" />Dewey Beach is in the US state of Delaware.

@@ -23,7 +23,7 @@ function App() {
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
   const { loadingNodes, nodes } = useWorldNodes()
-  const { loadingNodesWithByline, nodesWithByline } = useWorldBylines()
+  const { loadingNodesWithByline, nodesWithByline } = useWorldBylines(activeId)
   const geolocation = useGeolocation()
 
   const mapRef = useRef<LeafletMap>(null)

@@ -1,0 +1,1 @@
+Europa-Park is a theme park in Rust, Germany between Freiburg-im-Breisgau and Strasbourg (France).

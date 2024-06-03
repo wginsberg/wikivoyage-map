@@ -1,0 +1,1 @@
+<mapframe latitude="16.520695" longitude="121.181259" zoom="5" width="200" height="100" />Solano is the largest town in Nueva Vizcaya.

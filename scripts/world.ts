@@ -67,3 +67,10 @@ for (const title in nodes) {
     const resultString = JSON.stringify(finalBylines, null, 4)
     writeFileSync(TARGET_BYLINES, resultString)
 }
+
+// stupid hack to make this faster despite having tens of thousands of records
+for (const title in finalBylines) {
+    const { byline } = finalBylines[title]
+    const path = `public/bylines/${title}.txt`
+    writeFileSync(path, byline)
+}
