@@ -13,6 +13,7 @@ import { type Map as LeafletMap, type FeatureGroup as LeafletFeatureGroup } from
 
 import capitals from '~capitals';
 import { MAX_ZOOM, MAX_VISIBLE_NODES, INITIAL_MAP_BOUNDS } from "~constants";
+import MetaDescription from '~components/Meta/Description';
 
 const Map = lazy(() => import("~components/Map"))
 
@@ -137,14 +138,16 @@ function App() {
     }
 
     return (
+    <>
+    <MetaDescription node={activeNode} />
     <div className="App">
       <div style={{ height: '100%', maxHeight: '75svh', display: 'flex', flexDirection: 'column' }}>
         {
           !loadingNodes &&
           <Header
-            nodeTitle={activeId}
-            node={activeNode}
-            verbose={isFreshSession}
+          nodeTitle={activeId}
+          node={activeNode}
+          verbose={isFreshSession}
           />
         }
         <Suspense fallback={<div id="map" />}>
@@ -161,7 +164,7 @@ function App() {
             setActiveId={setActiveId}
             setHoverId={setHoverId}
             centerMapOnGeolocation={centerMapOnGeolocation}
-          />
+            />
         </Suspense>
       </div>
       <Connections
@@ -172,7 +175,7 @@ function App() {
         onClick={setActiveId}
         onMouseEnter={setHoverId}
         onMouseLeave={() => setHoverId(-1)}
-      />
+        />
       <footer>
         <div className="links">
           <Link to="settings">
@@ -185,6 +188,7 @@ function App() {
         <BuyMeACoffee />
       </footer>
     </div>
+    </>
   );
 }
 
