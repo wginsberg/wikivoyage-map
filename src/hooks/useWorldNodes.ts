@@ -5,7 +5,7 @@ interface NodeMap {
     [key: string]: Node;
 }
 
-const useWorldNodes = () => {
+const useWorldNodes = (nodeId: string) => {
     const [loading, setLoading] = useState(true)
     const [nodes, setNodes] = useState<NodeMap>({})
 
@@ -18,6 +18,26 @@ const useWorldNodes = () => {
                 setLoading(false)
             })
     }, [])
+
+    useEffect(() => {
+        if (!nodeId) return
+        if (nodes[nodeId]) return
+
+        setLoading(true)
+
+        // disgusting optimization time
+        const firstThreeChars = nodeId.slice(0, 3)
+
+        fetch(`nodes/${firstThreeChars}.json`)
+            .then(response => response.json())
+            .then(loadedNodes => {
+                setNodes(prev => ({
+                    ...loadedNodes,
+                    ...prev
+                }))
+                setLoading(false)
+            })
+    }, [nodeId])
 
     return {
         loadingNodes: loading,

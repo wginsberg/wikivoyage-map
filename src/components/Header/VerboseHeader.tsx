@@ -2,11 +2,11 @@ import { Node } from "~types"
 import Header from "./index"
 
 type HeaderProps = {
-    node: Node
+    nodeTitle: string
 }
 
 export default function VerboseHeader(props: HeaderProps) {
     return (
-        <h1>Where to go after {props.node.title}</h1>
+        <h1>Where to go after {props.nodeTitle}</h1>
     )
 }

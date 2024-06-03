@@ -6,13 +6,14 @@ import VerboseHeader from "./VerboseHeader";
 
 type HeaderProps = {
     verbose: boolean,
-    node: Node
+    nodeTitle?: string,
+    node?: Node
 }
 
 function Header(props: HeaderProps) {
-    const { verbose, node } = props
+    const { verbose, nodeTitle, node } = props
 
-    if (!node.title) {
+    if (!node) {
         return (
             <header>
                 <EmptyHeaderContent />
@@ -22,7 +23,7 @@ function Header(props: HeaderProps) {
 
     return (
         <header>
-            {verbose && <VerboseHeader node={node} /> }
+            {verbose && nodeTitle && <VerboseHeader nodeTitle={nodeTitle} /> }
             <HeaderContent node={node} />
         </header>
     )

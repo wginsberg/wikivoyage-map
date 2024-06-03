@@ -10,11 +10,9 @@ type NodePlusEdgeArray = Node & {
     edges: any[]
 }
 
-type NodeWithEdgesOutput = Omit<NodePlusEdgeArray, "byline">
 type NodeWithOnlyBylineOutput = Pick<Node, "byline">
 
 const TARGET_EDGES = 'public/world_edges.json'
-const TARGET_BYLINES = 'public/world_bylines.json'
 
 const dbNodes = getNodes()
 const nodes: { [key: string]: NodePlusEdgeSet } = {}
@@ -39,13 +37,14 @@ for (const edge of dbEdges) {
 }
 
 // Convert edges from Set to Array
-const finalNodesWithEdges: { [key: string]: NodeWithEdgesOutput } = {}
+const finalNodesWithEdges: { [key: string]: NodePlusEdgeArray } = {}
 for (const title in nodes) {
     const node = nodes[title]
     finalNodesWithEdges[title] = {
         title: node.title,
         lat: node.lat,
         lng: node.lng,
+        byline: node.byline,
         edges: [...node.edges]
     }
 }
@@ -55,15 +54,32 @@ for (const title in nodes) {
     writeFileSync(TARGET_EDGES, resultString)
 }
 
-const finalBylines: { [key: string]: NodeWithOnlyBylineOutput } = {}
-for (const title in nodes) {
-    const node = nodes[title]
-    finalBylines[title] = {
-        byline: node.byline
+// stupid hacks to make this faster despite having tens of thousands of records
+const firstThreeCharNodeLookup: {
+    [key: string]: {
+        [key: string]: NodePlusEdgeArray
     }
+} = {}
+for (const title in finalNodesWithEdges) {
+    const firstTwoChars = title.slice(0, 3)
+
+    const finalNode = {
+        ...finalNodesWithEdges[title],
+        byline: nodes[title].byline
+    }
+
+    // Don't bother optimizing for unconnected nodes
+    if (finalNode.edges.length === 0) continue
+
+    if (!firstThreeCharNodeLookup[firstTwoChars]) {
+        firstThreeCharNodeLookup[firstTwoChars] = {}
+    }
+    firstThreeCharNodeLookup[firstTwoChars][title] = finalNode
 }
 
-{
-    const resultString = JSON.stringify(finalBylines, null, 4)
-    writeFileSync(TARGET_BYLINES, resultString)
+for (const prefix in firstThreeCharNodeLookup) {
+    const chunk = firstThreeCharNodeLookup[prefix]
+
+    const path = `public/nodes/${prefix}.json`
+    writeFileSync(path, JSON.stringify(chunk))
 }

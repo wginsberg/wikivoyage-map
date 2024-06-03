@@ -13,7 +13,6 @@ import { type Map as LeafletMap, type FeatureGroup as LeafletFeatureGroup } from
 
 import capitals from '~capitals';
 import { MAX_ZOOM, MAX_VISIBLE_NODES, INITIAL_MAP_BOUNDS } from "~constants";
-import useWorldBylines from '~hooks/useWorldBylines';
 
 const Map = lazy(() => import("~components/Map"))
 
@@ -22,8 +21,7 @@ function App() {
   const { loadingActiveId, activeId, setActiveId, isFreshSession } = useActiveWikivoyagePage()
   const [hoverId, setHoverId] = useState(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
-  const { loadingNodes, nodes } = useWorldNodes()
-  const { loadingNodesWithByline, nodesWithByline } = useWorldBylines()
+  const { loadingNodes, nodes } = useWorldNodes(activeId)
   const geolocation = useGeolocation()
 
   const mapRef = useRef<LeafletMap>(null)
@@ -61,6 +59,7 @@ function App() {
   )
   const visibleNodes = [...allVisibleNodeIds]
     .map(title => nodes[title])
+    .filter(Boolean)
 
   const updateVisibleNodes = useCallback((map: LeafletMap) => {
     if (!map) return
@@ -68,6 +67,7 @@ function App() {
   }, [setMapBounds])
 
   const activeEdges = (activeNode?.edges || [])
+    .filter(otherId => nodes[otherId])
     .map(otherId => ({
       origin: activeNode,
       destination: nodes[otherId]
@@ -109,7 +109,7 @@ function App() {
         if (!activeNode) return
         map.setView(activeNode, MAX_ZOOM, { animate: true })
       }
-    }, [mapRef, activeNode])
+    }, [mapRef.current, activeNode])
 
     // Handle clicks on the geolocation button
     const centerMapOnGeolocation = () => {
@@ -140,13 +140,10 @@ function App() {
     <div className="App">
       <div style={{ height: '100%', maxHeight: '75svh', display: 'flex', flexDirection: 'column' }}>
         {
-          (!loadingNodesWithByline && !loadingActiveId)
-            &&
+          !loadingNodes &&
           <Header
-            node={{
-              ...(nodes[activeId] || {}),
-              ...nodesWithByline[activeId]
-            }}
+            nodeTitle={activeId}
+            node={activeNode}
             verbose={isFreshSession}
           />
         }
