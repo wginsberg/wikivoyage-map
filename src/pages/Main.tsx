@@ -19,7 +19,7 @@ const Map = lazy(() => import("~components/Map"))
 function App() {
   useResetScrollPosition()
   const { loadingActiveId, activeId, setActiveId, isFreshSession } = useActiveWikivoyagePage()
-  const [hoverId, setHoverId] = useState(-1)
+  const [hoverId, setHoverId] = useState<string | -1>(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
   const { loadingNodes, nodes } = useWorldNodes(activeId)
   const geolocation = useGeolocation()
@@ -165,6 +165,7 @@ function App() {
         </Suspense>
       </div>
       <Connections
+        verbose={isFreshSession}
         activeNode={activeNode}
         activeEdges={activeEdges}
         hoverNode={hoverNode}

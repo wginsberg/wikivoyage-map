@@ -23,9 +23,9 @@ type MapComponentProps = {
     inactiveEdges: { origin: Node, destination: Node }[]
     visibleNodes: Node[]
     activeId: string
-    hoverId: number
+    hoverId: string | -1
     setActiveId: (id: string) => void
-    setHoverId: (id: number) => void
+    setHoverId: (id: string | -1) => void
     centerMapOnGeolocation: () => void
 }
 

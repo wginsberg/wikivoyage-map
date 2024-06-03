@@ -60,11 +60,18 @@ button.geolocation {
 }
 
 .connections {
+    margin-top: 1em;
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
+.connections p {
+    margin-top: 0;
+}
+
 .connections ul {
+    margin-top: 0;
     padding-left: 0;
     max-width: 720px;
     list-style: none;
