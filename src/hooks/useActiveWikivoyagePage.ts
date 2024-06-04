@@ -20,7 +20,7 @@ function useActiveWikivoyagePage() {
 
     const setActiveId = (id: string) => {
         const cleanId = getFormattedName(id)
-        const newUrl = window.location.href.split("#")[0] + "#" + cleanId
+        const newUrl = window.location.origin + "#" + cleanId
         window.history.replaceState(null, "", newUrl)
         _setActiveId(id)
         setIsFreshSession(false)
