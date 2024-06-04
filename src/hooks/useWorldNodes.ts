@@ -14,7 +14,10 @@ const useWorldNodes = (nodeId: string) => {
         fetch("world_edges.json", { credentials: 'include', mode: 'no-cors' })
             .then(response => response.json())
             .then(json => {
-                setNodes(json)
+                setNodes(prev => ({
+                    ...json,
+                    ...prev
+                }))
                 setLoading(false)
             })
     }, [])
