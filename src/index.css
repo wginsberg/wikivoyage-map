@@ -64,6 +64,7 @@ button.geolocation {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .connections p {
