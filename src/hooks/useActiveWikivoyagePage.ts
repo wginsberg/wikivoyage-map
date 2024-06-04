@@ -8,11 +8,11 @@ function useActiveWikivoyagePage() {
     const [isFreshSession, setIsFreshSession] = useState(false)
 
     useEffect(() => {
-        const hash = window.location.hash.slice(1)
+        const slug = window.location.hash.slice(1) || window.location.pathname.slice(1)
         setLoadingActiveId(false)
-        if (!hash) return
+        if (!slug) return
 
-        const id = parseFormattedName(decodeURIComponent(hash))
+        const id = parseFormattedName(decodeURIComponent(slug))
 
         _setActiveId(id)
         setIsFreshSession(true)
