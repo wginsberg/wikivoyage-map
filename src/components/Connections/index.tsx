@@ -27,9 +27,9 @@ function Connections(props: ConnectionsProps) {
     return (
         <div className="connections">
             {
-                verbose &&
+                verbose && activeNode?.title &&
                 <p style={{ textAlign: "center" }}>
-                    After visiting {activeNode?.title} you could go next to
+                    After visiting {activeNode.title} you could go next to
                 </p>
             }
             <ul>
