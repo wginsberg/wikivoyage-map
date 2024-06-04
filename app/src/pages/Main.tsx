@@ -16,7 +16,11 @@ import { MAX_ZOOM, MAX_VISIBLE_NODES, INITIAL_MAP_BOUNDS } from "~constants";
 import MetaDescription from '~components/Meta/Description';
 import MetaTitle from '~components/Meta/Title';
 
-const Map = lazy(() => import("~components/Map"))
+// const Map = lazy(() => import("~components/Map/index.client"))
+// import { ClientOnly } from "~components/client-only"
+import { ClientOnly } from "remix-utils/client-only";
+
+// import Map from "~components/Map/index.client"
 
 function App() {
   useResetScrollPosition()
@@ -152,8 +156,11 @@ function App() {
           verbose={isFreshSession}
           />
         }
-        <Suspense fallback={<div id="map" />}>
-          <Map
+        <ClientOnly fallback={<p>fallback</p>}>
+          {
+            () => <p>client</p>
+          }
+          {/* {() => <Map
             mapRef={mapRef}
             featureGroupRef={featureGroupRef}
             geolocation={geolocation}
@@ -166,8 +173,8 @@ function App() {
             setActiveId={setActiveId}
             setHoverId={setHoverId}
             centerMapOnGeolocation={centerMapOnGeolocation}
-            />
-        </Suspense>
+            />} */}
+        </ClientOnly>
       </div>
       <Connections
         verbose={isFreshSession}

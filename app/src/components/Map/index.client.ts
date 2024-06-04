@@ -1,5 +1,7 @@
 // disgusting super component so that we can lazy load and make the website a tiny bit faster
 
+// Hey I'm from the future. Maybe this can be less disgusting with remix now ... in the mix
+
 import { type Ref } from "react"
 import { MapContainer, FeatureGroup, Pane } from 'react-leaflet'
 import { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple, Map } from 'leaflet';
