@@ -32,9 +32,18 @@ export default function() {
     const [allNodes, setAllNodes] = useState<NodeMap>({})
 
     useEffect(() => {
-        fetch('/nodes')
-            .then(response => response.json())
-            .then(nodes => setAllNodes(nodes))
+        const splitRequests = [
+            fetch('/nodes?limit=5000'),
+            fetch('/nodes?offset=5000&limit=10000'),
+            fetch('/nodes?offset=10000&limit=15000'),
+            fetch('/nodes?offset=15000&limit=20000'),
+            fetch('/nodes?offset=20000'),
+        ]
+        Promise.all(splitRequests.map((promise) => 
+            promise
+                .then(response => response.json())
+                .then(nodes => setAllNodes(prev => ({ ...nodes, ...prev })))
+        ))
     }, [])
 
     const nodes = {

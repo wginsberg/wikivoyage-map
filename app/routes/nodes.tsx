@@ -3,7 +3,18 @@ import { json } from "@remix-run/react";
 import nodes from "~nodes"
 import { type NodeMap } from '~types';
 
-// For now we'll just return all data. In the future we can probably do something more slick
-export async function loader({ request }: LoaderFunctionArgs) {
-    return json(nodes as NodeMap)
+export async function loader({ request, params }: LoaderFunctionArgs) {
+    const nodeList = Object.entries(nodes)
+
+    const url = new URL(request.url)
+    const limit = Number(url.searchParams.get("limit")) || nodeList.length
+    const offset = Number(url.searchParams.get("offset")) || 0
+
+    const responseNodes: NodeMap = {}
+    for (let i = Number(offset); i < Number(limit); i ++) {
+        const [nodeId, node] = nodeList[i]
+        responseNodes[nodeId] = node
+    }
+
+    return json(responseNodes as NodeMap)
 }
