@@ -10,3 +10,7 @@ export interface Edge {
     origin: Node,
     destination: Node
 }
+
+export interface NodeMap {
+    [key: string]: Node;
+}

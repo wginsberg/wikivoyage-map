@@ -1,7 +1,5 @@
-// 
-
-import  type Leaflet, {type type LatLngBounds, type type LatLngTuple} from "leaflet";
-import { useCallback, useEffect, useRef } from "react"
+import { type LatLngBounds, type LatLngTuple} from "leaflet";
+import { useEffect, useRef } from "react"
 import { Polyline } from "react-leaflet"
 
 type SimpleLineProps = {
@@ -26,7 +24,7 @@ const NODE_RADIUS =  10
 
 const SimpleLine = (props: SimpleLineProps) => {
     const { active, positions, mapBounds } = props
-    const ref = useRef<Leaflet.Polyline>(null)
+    const ref = useRef<Polyline>(null)
 
     // This is a little hack to make lines render nicely without intersecting the circle
     useEffect(() => {

@@ -13,16 +13,18 @@ import { MAX_ZOOM, MAX_VISIBLE_NODES, INITIAL_MAP_BOUNDS } from "~constants";
 import useActiveWikivoyagePage from '~hooks/useActiveWikivoyagePage';
 import useGeolocation from '~hooks/useGeolocation';
 import useResetScrollPosition from "~hooks/useResetScrollPosition"
-import useWorldNodes from '~hooks/useWorldNodes';
-import { Node } from '~types';
+import { type NodeMap } from "~types";
 
+type MainPageComponentProps = {
+  nodes: NodeMap,
+  loadingNodes: Boolean
+}
 
-function App() {
+function App({ nodes, loadingNodes }: MainPageComponentProps) {
   useResetScrollPosition()
   const { loadingActiveId, activeId, setActiveId, isFreshSession } = useActiveWikivoyagePage()
   const [hoverId, setHoverId] = useState<string | -1>(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
-  const { loadingNodes, nodes } = useWorldNodes(activeId)
   const geolocation = useGeolocation()
 
   const mapRef = useRef<LeafletMap>(null)
