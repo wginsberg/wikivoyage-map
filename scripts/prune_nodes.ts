@@ -3,7 +3,7 @@
 // 2. Not connected to any other node
 
 import Database from 'better-sqlite3'
-import { Node } from './types';
+import { type Node } from './types';
 
 // Setup logging
 const CLEAR_OUTPUT = "\x1b[2J\x1b[;H"

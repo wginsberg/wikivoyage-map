@@ -1,5 +1,5 @@
 import { writeFileSync } from "fs"
-import { Node } from './types'
+import { type Node } from './types'
 import { getNodes, getEdges, sanitizeTitle, isSubPage } from "./util"
 
 type NodePlusEdgeSet = Node & {
@@ -9,8 +9,6 @@ type NodePlusEdgeSet = Node & {
 type NodePlusEdgeArray = Node & {
     edges: any[]
 }
-
-type NodeWithOnlyBylineOutput = Pick<Node, "byline">
 
 const TARGET_EDGES = 'public/world_edges.json'
 

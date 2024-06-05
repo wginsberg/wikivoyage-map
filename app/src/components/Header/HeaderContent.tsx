@@ -1,5 +1,5 @@
-import ExternalLinkIcon from "./ExternalLinkIcon"
 import { type Node } from "../../types";
+import ExternalLinkIcon from "./ExternalLinkIcon"
 
 type HeaderProps = {
     node: Node

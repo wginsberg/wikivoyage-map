@@ -1,26 +1,21 @@
-import React, { useRef, useState, useEffect, useCallback, Suspense, lazy } from 'react';
-import { Link } from "react-router-dom"
-import Header from '~components/Header/index'
-import Connections from '~components/Connections/index'
-import BuyMeACoffee from '~components/Support/BuyMeACoffee';
-import useResetScrollPosition from "~hooks/useResetScrollPosition"
-import useGeolocation from '~hooks/useGeolocation';
-import useWorldNodes from '~hooks/useWorldNodes';
-import useActiveWikivoyagePage from '~hooks/useActiveWikivoyagePage';
-import { Node } from '~types';
-
 import { type Map as LeafletMap, type FeatureGroup as LeafletFeatureGroup } from 'leaflet';
-
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { Link } from "react-router-dom"
+import { ClientOnly } from "remix-utils/client-only";
 import capitals from '~capitals';
-import { MAX_ZOOM, MAX_VISIBLE_NODES, INITIAL_MAP_BOUNDS } from "~constants";
+import Connections from '~components/Connections/index'
+import Header from '~components/Header/index'
+import Map from "~components/Map/index.client"
 import MetaDescription from '~components/Meta/Description';
 import MetaTitle from '~components/Meta/Title';
+import BuyMeACoffee from '~components/Support/BuyMeACoffee';
+import { MAX_ZOOM, MAX_VISIBLE_NODES, INITIAL_MAP_BOUNDS } from "~constants";
+import useActiveWikivoyagePage from '~hooks/useActiveWikivoyagePage';
+import useGeolocation from '~hooks/useGeolocation';
+import useResetScrollPosition from "~hooks/useResetScrollPosition"
+import useWorldNodes from '~hooks/useWorldNodes';
+import { Node } from '~types';
 
-// const Map = lazy(() => import("~components/Map/index.client"))
-// import { ClientOnly } from "~components/client-only"
-import { ClientOnly } from "remix-utils/client-only";
-
-import Map from "~components/Map/index.client"
 
 function App() {
   useResetScrollPosition()

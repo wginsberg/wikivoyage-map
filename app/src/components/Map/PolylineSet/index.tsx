@@ -1,7 +1,7 @@
+import { type LatLngBounds, type LatLngTuple, type Map } from 'leaflet'
 import { useState } from 'react'
-import { LatLngBounds, LatLngTuple, Map } from 'leaflet'
 import { Polyline, useMapEvent } from 'react-leaflet'
-import { Edge } from "~types"
+import { type Edge } from "~types"
 import SimpleLine from './SimpleLine'
 export type SimpleLine = [LatLngTuple, LatLngTuple]
 

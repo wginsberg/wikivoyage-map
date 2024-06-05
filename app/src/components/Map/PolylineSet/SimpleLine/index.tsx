@@ -1,6 +1,6 @@
 // 
 
-import Leaflet, { LatLngBounds, LatLngTuple } from "leaflet"
+import  type Leaflet, {type type LatLngBounds, type type LatLngTuple} from "leaflet";
 import { useCallback, useEffect, useRef } from "react"
 import { Polyline } from "react-leaflet"
 

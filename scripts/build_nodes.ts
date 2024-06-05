@@ -1,6 +1,6 @@
 import fs from 'fs'
-import flow from 'xml-flow'
 import Database from 'better-sqlite3'
+import flow from 'xml-flow'
 import { hasCities, getFirstSentence } from './util'
 
 // Setup logging

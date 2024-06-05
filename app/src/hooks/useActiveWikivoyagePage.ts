@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import usePersistentState from "./usePersistentState"
 import { parseFormattedName, getFormattedName } from "~utils"
+import usePersistentState from "./usePersistentState"
 
 function useActiveWikivoyagePage() {
     const [loadingActiveId, setLoadingActiveId] = useState(true)

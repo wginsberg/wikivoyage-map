@@ -1,6 +1,6 @@
 const fs = require('fs')
-const flow = require('xml-flow')
 const Database = require('better-sqlite3')
+const flow = require('xml-flow')
 
 // Setup logging
 const CLEAR_OUTPUT = "\x1b[2J\x1b[;H"

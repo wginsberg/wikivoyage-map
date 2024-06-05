@@ -1,7 +1,7 @@
-import ExternalLinkIcon from "./ExternalLinkIcon"
 import { type Node } from "../../types";
-import HeaderContent from "./HeaderContent"
 import EmptyHeaderContent from "./EmptyHeaderContent";
+import ExternalLinkIcon from "./ExternalLinkIcon"
+import HeaderContent from "./HeaderContent"
 import VerboseHeader from "./VerboseHeader";
 
 type HeaderProps = {

@@ -1,4 +1,4 @@
-import { Edge, type Node } from "~types"
+import { type Edge, type Node } from "~types"
 
 type ConnectionsProps = {
     verbose: boolean

@@ -2,19 +2,19 @@
 
 // Hey I'm from the future. Maybe this can be less disgusting with remix now ... in the mix
 
+import { type Map as LeafletMap, type FeatureGroup as LeafletFeatureGroup, LatLngTuple, Map } from 'leaflet';
 import { type Ref } from "react"
 import { MapContainer, FeatureGroup, Pane } from 'react-leaflet'
-import { Map as LeafletMap, FeatureGroup as LeafletFeatureGroup, LatLngTuple, Map } from 'leaflet';
 import 'leaflet-doubletapdrag'
 import 'leaflet-doubletapdragzoom'
-import Protomaps from '~components/Map/Protomaps/index'
-import MarkerSet from '~components/Map/MarkerSet/index'
-import PolylineSet from '~components/Map/PolylineSet/index'
 import DeviceGeolocation from "~components/Map/DeviceGeolocation/index"
 import GeolocationButton from '~components/Map/GeolocationButton/index';
-import { type Position } from "~hooks/useGeolocation";
+import MarkerSet from '~components/Map/MarkerSet/index'
+import PolylineSet from '~components/Map/PolylineSet/index'
+import Protomaps from '~components/Map/Protomaps/index'
 import { MIN_ZOOM, MAX_ZOOM, MAX_BOUNDS } from "~constants";
-import { Node } from "~types";
+import { type Position } from "~hooks/useGeolocation";
+import { type Node } from "~types";
 
 type MapComponentProps = {
     mapRef: Ref<LeafletMap>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Node } from "~types"
+import { type Node } from "~types"
 
 type MetaDescriptionProps = {
     node: Node

@@ -1,7 +1,7 @@
 import Database from 'better-sqlite3'
 // There's something weird going on with this package, only works like this ...
 import wtf from 'wtf_wikipedia'
-import { Node, Edge } from  './types'
+import { type Node, type Edge } from  './types'
 
 // Init the database connection
 const db = new Database('data.db');
@@ -36,6 +36,7 @@ function isSubPage(title: string) {
 }
 
 function sanitizeTitle(title: string) {
+    
     const [_, basePage, subPage] = title.match(/(.*?)\s*\/\s*(.*)/) || []
     if (subPage) return basePage
     return title
