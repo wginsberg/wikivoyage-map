@@ -1,3 +1,4 @@
+import { useNavigate } from '@remix-run/react';
 import { type Map as LeafletMap, type FeatureGroup as LeafletFeatureGroup } from 'leaflet';
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Link } from "react-router-dom"
@@ -14,18 +15,22 @@ import useActiveWikivoyagePage from '~hooks/useActiveWikivoyagePage';
 import useGeolocation from '~hooks/useGeolocation';
 import useResetScrollPosition from "~hooks/useResetScrollPosition"
 import { type NodeMap } from "~types";
+import { getFormattedName } from '~utils';
 
 type MainPageComponentProps = {
+  activeId: string,
   nodes: NodeMap,
   loadingNodes: Boolean
 }
 
-function App({ nodes, loadingNodes }: MainPageComponentProps) {
+function App({ activeId, nodes, loadingNodes }: MainPageComponentProps) {
   useResetScrollPosition()
-  const { loadingActiveId, activeId, setActiveId, isFreshSession } = useActiveWikivoyagePage()
+  const isFreshSession = false
+  // const { loadingActiveId, activeId, setActiveId, isFreshSession } = useActiveWikivoyagePage(nodeId)
   const [hoverId, setHoverId] = useState<string | -1>(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
   const geolocation = useGeolocation()
+  const navigate = useNavigate()
 
   const mapRef = useRef<LeafletMap>(null)
   const isMapZoomedIn = mapRef.current && mapRef.current.getZoom() > 5
@@ -136,7 +141,7 @@ function App({ nodes, loadingNodes }: MainPageComponentProps) {
         }
       }
       const newActiveNodeId = closestNode ? closestNode.title: ""
-      setActiveId(newActiveNodeId)
+      // setActiveId(newActiveNodeId)
     }
 
     return (
@@ -166,7 +171,7 @@ function App({ nodes, loadingNodes }: MainPageComponentProps) {
             visibleNodes={visibleNodes}
             activeId={activeId}
             hoverId={hoverId}
-            setActiveId={setActiveId}
+            setActiveId={title => navigate(`/after/${getFormattedName(title)}`, { replace: true })}
             setHoverId={setHoverId}
             centerMapOnGeolocation={centerMapOnGeolocation}
             />
@@ -178,16 +183,15 @@ function App({ nodes, loadingNodes }: MainPageComponentProps) {
         activeNode={activeNode}
         activeEdges={activeEdges}
         hoverNode={hoverNode}
-        onClick={setActiveId}
         onMouseEnter={setHoverId}
         onMouseLeave={() => setHoverId(-1)}
         />
       <footer>
         <div className="links">
-          <Link to="settings">
+          <Link to="/settings">
             Settings
           </Link>
-          <Link to="about">
+          <Link to="/about">
             About
           </Link>
         </div>

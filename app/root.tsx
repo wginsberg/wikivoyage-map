@@ -23,9 +23,9 @@ export default function Root() {
       </head>
       <body>
         <div id="root">
+          <LiveReload />
           <Outlet />
           <Scripts />
-          <LiveReload />
         </div>
       </body>
     </html>

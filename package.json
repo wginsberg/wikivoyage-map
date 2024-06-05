@@ -34,6 +34,7 @@
     "xml-flow": "^1.0.4"
   },
   "dependencies": {
+    "@epic-web/invariant": "^1.0.0",
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
     "@remix-run/serve": "^2.9.2",

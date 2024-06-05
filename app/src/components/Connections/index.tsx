@@ -1,17 +1,18 @@
+import { Link } from "@remix-run/react"
 import { type Edge, type Node } from "~types"
+import { getFormattedName } from "~utils"
 
 type ConnectionsProps = {
     verbose: boolean
     activeNode?: Node
     activeEdges?: Edge[]
     hoverNode?: Node
-    onClick: (title: string) => void
     onMouseEnter: (title: string) => void
     onMouseLeave: () => void
 }
 
 function Connections(props: ConnectionsProps) {
-    const { verbose, activeNode, activeEdges, hoverNode, onClick, onMouseEnter, onMouseLeave } = props
+    const { verbose, activeNode, activeEdges, hoverNode, onMouseEnter, onMouseLeave } = props
     const activeTitle = activeNode?.title
     const hoverTitle = hoverNode?.title
 
@@ -19,10 +20,6 @@ function Connections(props: ConnectionsProps) {
         ?.map((edge) => [edge.origin.title, edge.destination.title])
         .flat()
         .filter(title => title !== activeTitle)
-
-    const uniqueTitles = [...new Set(titles)]
-
-    const sortedTitles = uniqueTitles.sort()
 
     return (
         <div className="connections">
@@ -35,14 +32,15 @@ function Connections(props: ConnectionsProps) {
             <ul>
                 {titles?.map(title => (
                     <li key={title}>
-                        <button
+                        <Link
                             className={title === hoverTitle ? "active" : ""}
-                            onClick={() => onClick(title)}
+                            to={`/after/${getFormattedName(title)}`}
                             onMouseEnter={() => onMouseEnter(title)}
                             onMouseLeave={onMouseLeave}
+                            replace
                         >
                             {title}
-                        </button>
+                        </Link>
                     </li>
                 ))}
             </ul>

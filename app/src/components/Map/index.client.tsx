@@ -31,7 +31,7 @@ type MapComponentProps = {
     centerMapOnGeolocation: () => void
 }
 
-export default function (props: MapComponentProps) {
+export default function ClientMap(props: MapComponentProps) {
     const {
         mapRef,
         featureGroupRef,

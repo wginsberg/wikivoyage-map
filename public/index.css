@@ -86,16 +86,19 @@ button.geolocation {
     margin: 8px;
 }
 
-.connections ul li button {
+.connections ul li a {
+    display: inline-block;
     padding: 4px;
     appearance: none;
     border: 1px solid lightgrey;
     background-color: whitesmoke;
     border-radius: 4px;
     color: black;
+    text-decoration: none;
+    font-size: 0.85em;
 }
 
-.connections ul li button.active {
+.connections ul li a.active {
     transform: scale(115%);
     box-shadow: 2px 2px 2px black;
 }
