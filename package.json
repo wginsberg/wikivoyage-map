@@ -28,7 +28,6 @@
     "@types/xml-flow": "^1.0.4",
     "better-sqlite3": "^9.6.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-remix-react-routes": "^1.0.5",
     "prettier": "^3.3.1",
     "vite-node": "^1.6.0",
     "wtf_wikipedia": "^10.3.0",
