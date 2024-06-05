@@ -45,8 +45,8 @@ export default function() {
     return (
         <MainPage 
             nodes={nodes}
-            loadingNodes={false}
             activeId=""
+            isFreshSession={true}
         />
     )
 }

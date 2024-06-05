@@ -18,6 +18,7 @@
     "dev": "remix dev",
     "start": "remix-serve build/index.js",
     "typecheck": "tsc",
+    "test": "vitest",
     "build-sitemap": "vite-node scripts/sitemap.ts https://whereugo.ing"
   },
   "devDependencies": {

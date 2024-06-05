@@ -20,13 +20,11 @@ import { getFormattedName } from '~utils';
 type MainPageComponentProps = {
   activeId: string,
   nodes: NodeMap,
-  loadingNodes: Boolean
+  isFreshSession: boolean
 }
 
-function App({ activeId, nodes, loadingNodes }: MainPageComponentProps) {
+function App({ activeId, nodes, isFreshSession }: MainPageComponentProps) {
   useResetScrollPosition()
-  const isFreshSession = false
-  // const { loadingActiveId, activeId, setActiveId, isFreshSession } = useActiveWikivoyagePage(nodeId)
   const [hoverId, setHoverId] = useState<string | -1>(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
   const geolocation = useGeolocation()
@@ -141,7 +139,6 @@ function App({ activeId, nodes, loadingNodes }: MainPageComponentProps) {
         }
       }
       const newActiveNodeId = closestNode ? closestNode.title: ""
-      // setActiveId(newActiveNodeId)
     }
 
     return (
@@ -151,11 +148,10 @@ function App({ activeId, nodes, loadingNodes }: MainPageComponentProps) {
     <div className="App">
       <div style={{ height: '100%', maxHeight: '75svh', display: 'flex', flexDirection: 'column' }}>
         {
-          !loadingNodes &&
           <Header
-          nodeTitle={activeId}
-          node={activeNode}
-          verbose={isFreshSession}
+            nodeTitle={activeId}
+            node={activeNode}
+            verbose={isFreshSession}
           />
         }
         <ClientOnly fallback={<p>fallback</p>}>

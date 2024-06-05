@@ -1,5 +1,5 @@
 import { test, expect } from "vitest"
-import { getFormattedName, parseFormattedName } from "./utils"
+import { getFormattedName, parseFormattedName, isExternalReferrer } from "./utils"
 
 test('getFormattedName returns the same URI fragment', () => {
     const actual = getFormattedName("Bogotá")
