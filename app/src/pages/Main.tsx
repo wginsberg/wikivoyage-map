@@ -154,7 +154,7 @@ function App({ activeId, nodes, isFreshSession }: MainPageComponentProps) {
             verbose={isFreshSession}
           />
         }
-        <ClientOnly fallback={<p>fallback</p>}>
+        <ClientOnly fallback={<div id="map" />}>
 
           {() =>
           <Map
