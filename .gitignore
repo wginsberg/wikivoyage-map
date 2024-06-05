@@ -10,6 +10,9 @@ TODO
 
 # production
 /dist
+/build
+/public/build
+/.cache
 
 # misc
 .DS_Store

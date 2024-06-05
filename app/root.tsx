@@ -1,4 +1,4 @@
-import { Outlet } from "@remix-run/react";
+import { LiveReload, Outlet, Scripts } from "@remix-run/react";
 
 export default function Root() {
   return (
@@ -19,10 +19,13 @@ export default function Root() {
         <link rel="manifest" href="/manifest.json" />
         <title>My React App</title>
         <link rel="stylesheet" href="/index.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
       </head>
       <body>
         <div id="root">
           <Outlet />
+          <Scripts />
+          <LiveReload />
         </div>
       </body>
     </html>

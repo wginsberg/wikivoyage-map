@@ -20,7 +20,7 @@ import MetaTitle from '~components/Meta/Title';
 // import { ClientOnly } from "~components/client-only"
 import { ClientOnly } from "remix-utils/client-only";
 
-// import Map from "~components/Map/index.client"
+import Map from "~components/Map/index.client"
 
 function App() {
   useResetScrollPosition()
@@ -157,10 +157,9 @@ function App() {
           />
         }
         <ClientOnly fallback={<p>fallback</p>}>
-          {
-            () => <p>client</p>
-          }
-          {/* {() => <Map
+
+          {() =>
+          <Map
             mapRef={mapRef}
             featureGroupRef={featureGroupRef}
             geolocation={geolocation}
@@ -173,7 +172,8 @@ function App() {
             setActiveId={setActiveId}
             setHoverId={setHoverId}
             centerMapOnGeolocation={centerMapOnGeolocation}
-            />} */}
+            />
+          }
         </ClientOnly>
       </div>
       <Connections

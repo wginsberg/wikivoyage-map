@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../app/routes/404.tsx"],
-  "sourcesContent": ["// REMIX HMR BEGIN\nimport * as __hmr__ from \"remix:hmr\";\nif (import.meta) {\nimport.meta.hot = __hmr__.createHotContext(\n//@ts-expect-error\n\"app/routes/404.tsx\"\n);\nimport.meta.hot.lastModified = \"1717543125596.5056\";\n}\n// REMIX HMR END\n\nimport { ClientOnly } from \"remix-utils/client-only\"\n\nexport default function() {\n    return (\n        <div>\n            <p>404</p>\n            <ClientOnly fallback={<p>Fallback</p>}>\n            {\n                () => <p>Client code</p>\n            }\n            </ClientOnly>\n        </div>\n    )\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;;;AAgBY;AAdZ,IAAI,aAAa;AACjB,cAAY,MAAc;AAAA;AAAA,IAE1B;AAAA,EACA;AACA,cAAY,IAAI,eAAe;AAC/B;AAKe,SAAR,YAAmB;AACtB,SACI,mDAAC,SACG;AAAA,uDAAC,OAAE,mBAAH;AAAA;AAAA;AAAA;AAAA,WAAM;AAAA,IACN,mDAAC,cAAW,UAAU,mDAAC,OAAE,wBAAH;AAAA;AAAA;AAAA;AAAA,WAAW,GAE7B,gBAAM,mDAAC,OAAE,2BAAH;AAAA;AAAA;AAAA;AAAA,WAAc,KAFxB;AAAA;AAAA;AAAA;AAAA,WAIA;AAAA,OANJ;AAAA;AAAA;AAAA;AAAA,SAOA;AAER;",
-  "names": []
-}
