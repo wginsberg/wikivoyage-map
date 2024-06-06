@@ -1,9 +1,11 @@
 import { type LoaderFunctionArgs } from '@remix-run/node'
 import { json } from "@remix-run/react";
-import nodes from "~nodes"
+import { getNodes } from "~nodes"
 import { type NodeMap } from '~types';
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
+    const nodes = await getNodes()
+
     const nodeList = Object.entries(nodes)
 
     const url = new URL(request.url)

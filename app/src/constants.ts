@@ -5,4 +5,7 @@ export const INITIAL_MAP_BOUNDS = "-275.62500000000006,-86.69798221404793,243.98
 export const MAX_BOUNDS = [[-360, -360], [360, 360]]
 export const GEOLOCATION_OPTION = "options.location"
 
-export const CLOUDFLARE_BUCKET_URL = "https://pub-5ba95de8cc2f4dada22bfe563b284734.r2.dev"
+export const CLOUDFLARE_R2_URL = {
+    PMTILES: "https://pub-5ba95de8cc2f4dada22bfe563b284734.r2.dev",
+    NODES: "https://pub-c2583bc9694b4d969c1ee4e9670aa0bd.r2.dev"
+}

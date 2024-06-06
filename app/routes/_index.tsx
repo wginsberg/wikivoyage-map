@@ -2,12 +2,13 @@ import { json, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 import capitals from "~capitals";
-import nodes from "~nodes"
+import { getNodes } from "~nodes"
 import MainPage from "~pages/Main";
 
 import { type NodeMap } from "~types";
 
 export async function loader() {
+    const nodes = await getNodes()
     const minimalNodeData: NodeMap = {}
 
     for (const nodeId of capitals) {
