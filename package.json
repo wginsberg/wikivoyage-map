@@ -14,9 +14,9 @@
     "prune-nodes": "vite-node scripts/prune_nodes.ts",
     "build-world-json": "vite-node scripts/world.ts",
     "build-data": "npm run init-db && npm run build-nodes && npm run build-redirects && npm run build-edges && npm run prune-edges && npm run prune-nodes && npm run build-world-json && npm run build-sitemap",
-    "build": "remix build",
+    "build": "remix vite:build",
     "dev": "remix dev",
-    "start": "remix-serve build/index.js",
+    "start": "remix-serve build/server/index.js",
     "typecheck": "tsc",
     "test": "vitest",
     "build-sitemap": "vite-node scripts/sitemap.ts https://whereugo.ing"
@@ -55,6 +55,7 @@
     "remix-utils": "^7.6.0",
     "vite": "^5.2.11",
     "vite-plugin-svgr": "^4.2.0",
+    "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0"
   },
   "eslintConfig": {
