@@ -51,33 +51,3 @@ for (const title in nodes) {
     const resultString = JSON.stringify(finalNodesWithEdges, null, 4)
     writeFileSync(TARGET_EDGES, resultString)
 }
-
-// stupid hacks to make this faster despite having tens of thousands of records
-const firstThreeCharNodeLookup: {
-    [key: string]: {
-        [key: string]: NodePlusEdgeArray
-    }
-} = {}
-for (const title in finalNodesWithEdges) {
-    const firstTwoChars = title.slice(0, 3)
-
-    const finalNode = {
-        ...finalNodesWithEdges[title],
-        byline: nodes[title].byline
-    }
-
-    // Don't bother optimizing for unconnected nodes
-    if (finalNode.edges.length === 0) continue
-
-    if (!firstThreeCharNodeLookup[firstTwoChars]) {
-        firstThreeCharNodeLookup[firstTwoChars] = {}
-    }
-    firstThreeCharNodeLookup[firstTwoChars][title] = finalNode
-}
-
-for (const prefix in firstThreeCharNodeLookup) {
-    const chunk = firstThreeCharNodeLookup[prefix]
-
-    const path = `public/nodes/${prefix}.json`
-    writeFileSync(path, JSON.stringify(chunk))
-}
