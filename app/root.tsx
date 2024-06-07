@@ -13,11 +13,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="theme-color" content="#000000" />
         <meta
           name="description"
-          content="My beautiful React app"
+          content="A simple map for travellers"
         />
         <link rel="apple-touch-icon" href="/logo192.png" />
         <link rel="manifest" href="/manifest.json" />
-        <title>My React App</title>
+        <title>where u going</title>
         <link rel="stylesheet" href="/index.css" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
       </head>
