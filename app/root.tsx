@@ -1,4 +1,4 @@
-import { LiveReload, Outlet, Scripts } from "@remix-run/react";
+import { Outlet, Scripts } from "@remix-run/react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -20,7 +20,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <title>My React App</title>
         <link rel="stylesheet" href="/index.css" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-        <LiveReload />
       </head>
       <body>
         {children}
