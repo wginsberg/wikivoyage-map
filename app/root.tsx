@@ -1,6 +1,6 @@
 import { LiveReload, Outlet, Scripts } from "@remix-run/react";
 
-export default function Root() {
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -20,14 +20,16 @@ export default function Root() {
         <title>My React App</title>
         <link rel="stylesheet" href="/index.css" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <LiveReload />
       </head>
       <body>
-        <div id="root">
-          <LiveReload />
-          <Outlet />
-          <Scripts />
-        </div>
+        {children}
+        <Scripts />
       </body>
     </html>
   );
+}
+
+export default function App() {
+  return <Outlet />;
 }
