@@ -49,3 +49,4 @@ for (const node of nodes) {
 }
 
 console.log(`Removed ${nodes.length} nodes`)
+process.exit(0)

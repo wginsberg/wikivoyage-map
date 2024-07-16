@@ -70,3 +70,5 @@ xmlStream.on('tag:page', page => {
         }
     }
 })
+
+xmlStream.on("end", () => process.exit(0))

@@ -48,3 +48,4 @@ for (const edge of edges) {
 }
 
 console.log(`Removed ${edges.length} edges`)
+process.exit(0)

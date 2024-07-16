@@ -49,3 +49,5 @@ xmlStream.on('tag:page', page => {
     // Add node to database
     insertNode.run(page.title, lat, lng, cleanByline, Number(isRegion))
 })
+
+xmlStream.on("end", () => process.exit(0))

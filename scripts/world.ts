@@ -51,3 +51,5 @@ for (const title in nodes) {
     const resultString = JSON.stringify(finalNodesWithEdges, null, 4)
     writeFileSync(TARGET_EDGES, resultString)
 }
+
+process.exit()

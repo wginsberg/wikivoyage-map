@@ -1,6 +1,6 @@
 import { writeFileSync, appendFileSync } from "fs"
-import nodes from "../public/world.json"
-import { getFormattedName } from "../src/utils"
+import { getFormattedName } from "../app/src/utils"
+import nodes from "../public/world_edges.json"
 
 const host = process.argv.slice(-1)[0]
 let url
@@ -61,3 +61,5 @@ appendFileSync(TARGET, TAIL)
 function getXMLNode(key: string, priority: number) {
     return `<url><loc>${host}/${key}</loc><priority>${priority}</priority></url>`
 }
+
+process.exit(0)
