@@ -59,7 +59,11 @@ for (const key in nodes) {
 appendFileSync(TARGET, TAIL)
 
 function getXMLNode(key: string, priority: number) {
-    return `<url><loc>${host}/${key}</loc><priority>${priority}</priority></url>`
+    return `<url>
+    <loc>${host}/after/${key}</loc>
+    <priority>${priority}</priority>
+</url>
+`
 }
 
 process.exit(0)
