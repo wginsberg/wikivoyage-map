@@ -53,10 +53,6 @@ button.geolocation {
     align-items: center;
     flex-direction: column;
     justify-content: center;
-
-    & svg * {
-        stroke: midnightblue;
-    }
 }
 
 .connections {
