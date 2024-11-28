@@ -28,6 +28,11 @@ const SimpleLine = (props: SimpleLineProps) => {
 
     // This is a little hack to make lines render nicely without intersecting the circle
     useEffect(() => {
+        const platform = navigator.platform || navigator.userAgent;
+        if (/iPhone|iPad|iPod/.test(platform)) return
+        const userAgent = navigator.userAgent
+        if (/Safari/.test(userAgent) && !/Chrome/.test(userAgent) && !/Firefox/.test(userAgent)) return
+
         const svg = ref.current?.getElement() as SVGGeometryElement
         const lineLength = svg?.getTotalLength()
         ref.current?.setStyle({
