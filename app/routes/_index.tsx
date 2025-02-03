@@ -29,7 +29,7 @@ export async function loader() {
 }
 
 export default function() {
-    const { nodes: minimalNodes } = useLoaderData<typeof loader>()
+    // const { nodes: minimalNodes } = useLoaderData<typeof loader>()
     const [allNodes, setAllNodes] = useState<NodeMap>({})
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function() {
     }, [])
 
     const nodes = {
-        ...minimalNodes,
+        // ...minimalNodes,
         ...allNodes
     }
 

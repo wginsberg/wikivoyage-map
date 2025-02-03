@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { ClientOnly } from "remix-utils/client-only";
 import capitals from '~capitals';
 import Connections from '~components/Connections/index'
+import ClimateWidget from '~components/Header/ClimateWidget';
 import Header from '~components/Header/index'
 import Map from "~components/Map/index.client"
 import MetaDescription from '~components/Meta/Description';
@@ -140,18 +141,18 @@ function App({ activeId, nodes, isFreshSession }: MainPageComponentProps) {
       }
       const newActiveNodeId = closestNode ? closestNode.title: ""
     }
-
+    
     return (
-    <>
+      <>
     <MetaTitle node={activeNode} />
     <MetaDescription node={activeNode} />
     <div className="App">
       <div style={{ height: '100%', maxHeight: '75svh', display: 'flex', flexDirection: 'column' }}>
         {
           <Header
-            nodeTitle={activeId}
-            node={activeNode}
-            verbose={isFreshSession}
+          nodeTitle={activeId}
+          node={activeNode}
+          verbose={isFreshSession}
           />
         }
         <ClientOnly fallback={<div id="map" />}>
@@ -182,6 +183,7 @@ function App({ activeId, nodes, isFreshSession }: MainPageComponentProps) {
         onMouseEnter={setHoverId}
         onMouseLeave={() => setHoverId(-1)}
         />
+      <ClimateWidget node={activeNode} />
       <footer>
         <div className="links">
           <Link to="/settings">

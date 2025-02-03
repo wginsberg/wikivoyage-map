@@ -147,3 +147,24 @@ footer a:visited {
     height: 48px;
     margin: 24px auto 8px auto;
 }
+
+.shimmer {
+    width: 100%;
+    animation: shimmer 1s infinite linear;
+    background: linear-gradient(
+        90deg,
+        rgba(211,211,211,0.5),
+        rgba(211,211,211,0.8),
+        rgba(211,211,211,0.5)
+    );
+    background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+    from {
+        background-position: -200% 0;
+    }
+    to {
+        background-position: 200% 0;
+    }
+}
