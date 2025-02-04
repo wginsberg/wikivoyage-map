@@ -1,45 +1,59 @@
-import useOpenMeto, { type Forecast } from "~hooks/useOpenMeto";
 import { type Node } from "../../types";
-import React from "react";
-import useTimezone, { TimezoneResponse } from "~hooks/useTimezone";
+import React, { Suspense } from "react";
 import useFormattedTime from "~hooks/useFormattedTime";
+import { Forecast } from "app/utils/climate";
+import { Await } from "@remix-run/react";
+import { TimezoneResponse } from "app/utils/timezone";
 
 type ClimateWidgetComponentProps = {
+    nodeId: string,
     node: Node
+    forecast: Promise<Forecast>
+    timezone: Promise<TimezoneResponse>
   }
 
-function ClimateWidget({ node }: ClimateWidgetComponentProps) {
-    const forecast = useOpenMeto(node)
-    const timezone = useTimezone(node)
-
+function ClimateWidget({ nodeId, node, forecast, timezone }: ClimateWidgetComponentProps) {
     return (
         <div style={{ margin: "auto", width: "280px" }}>
-            <ForecastWidget forecast={forecast} />
-            <LocalTimeWidget timezone={timezone} />
+            <ForecastWidget nodeId={nodeId} forecast={forecast} />
+            <LocalTimeWidget nodeId={nodeId} timezone={timezone} />
         </div>
     )
 }
 
-function ForecastWidget({ forecast }: { forecast?: Forecast }) {
-    if (!forecast) {
-        return (
-            <>
-                <Shimmer width="40%" />
-                <Shimmer width="75%" />
-            </>
-        )
-    }
+function ForecastWidget({ nodeId, forecast }: { nodeId: string, forecast?: Promise<Forecast> }) {
     return (
-        <>
-            <p>Current temperature: {`${forecast?.current.temperature_2m}`}{forecast?.current_units.temperature_2m}</p>
-            <p>Altitude: {`${forecast?.elevation}`}m</p>
-        </>
+        <Suspense key={nodeId} fallback={<><Shimmer width="40%" /><Shimmer width="75%" /></>}>
+            <Await resolve={forecast}>
+                {
+                    forecast => (
+                        <>
+                            <p>Current temperature: {`${forecast?.current.temperature_2m}`}{forecast?.current_units.temperature_2m}</p>
+                            <p>Altitude: {`${forecast?.elevation}`}m</p>
+                        </>
+                    )
+                }
+            </Await>
+        </Suspense>
     )
 }
 
-function LocalTimeWidget({ timezone }: { timezone?: TimezoneResponse}) {
-    const localTime = useFormattedTime(timezone?.zoneName)
-    if (!timezone) return <LocalTime><Shimmer width="50%" /></LocalTime>
+function LocalTimeWidget({ nodeId, timezone }: { nodeId: string, timezone?: Promise<TimezoneResponse>}) {
+    return (
+        <Suspense key={nodeId} fallback={<><Shimmer width="30%" /></>}>
+            <Await resolve={timezone}>
+                {
+                    timezone => (
+                        timezone && <LocalTimeWidgetConcrete nodeId={nodeId} timezone={timezone} />
+                    )
+                }
+            </Await>
+        </Suspense>
+    )
+}
+
+function LocalTimeWidgetConcrete({ nodeId, timezone }: { nodeId: string, timezone: TimezoneResponse}) {
+    const localTime = useFormattedTime(timezone.zoneName)
     return <LocalTime>Local time: {localTime}</LocalTime>
 }
 

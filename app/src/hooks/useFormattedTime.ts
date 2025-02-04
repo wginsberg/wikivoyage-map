@@ -1,19 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 
 function useFormattedTime(timezone?: string) {
-	const [result, setResult] = useState<string>()
+	const [result, setResult] = useState<string>(formatTime(timezone))
 
 	const updateTime = useCallback(() => {
-		const localTimeOptions = {
-			timeZone: timezone,
-			hour: 'numeric',
-			minute: 'numeric',
-		}
-
-		// the fuck it gives a type error
-		const localTime = timezone
-			? new Intl.DateTimeFormat('en-US', localTimeOptions).format(new Date())
-			: ''
+		const localTime = formatTime(timezone)
 		setResult(localTime)
 	}, [timezone, setResult])
 
@@ -24,6 +15,20 @@ function useFormattedTime(timezone?: string) {
 	}, [timezone, setResult])
 
 	return result
+}
+
+function formatTime(timezone?: string) {
+	if (!timezone) return ''
+
+	const formatter = new Intl.DateTimeFormat('en-US', {
+		timeZone: timezone,
+		hour: 'numeric',
+		minute: 'numeric',
+	})
+
+	const localTime = formatter.format(new Date())
+
+	return localTime
 }
 
 export default useFormattedTime

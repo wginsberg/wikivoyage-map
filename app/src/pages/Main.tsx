@@ -1,4 +1,6 @@
 import { useNavigate } from '@remix-run/react';
+import { Forecast } from 'app/utils/climate';
+import { type TimezoneResponse } from 'app/utils/timezone';
 import { type Map as LeafletMap, type FeatureGroup as LeafletFeatureGroup } from 'leaflet';
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Link } from "react-router-dom"
@@ -22,9 +24,11 @@ type MainPageComponentProps = {
   activeId: string,
   nodes: NodeMap,
   isFreshSession: boolean
+  forecast: Promise<Forecast>
+  timezone: Promise<TimezoneResponse>
 }
 
-function App({ activeId, nodes, isFreshSession }: MainPageComponentProps) {
+function App({ activeId, nodes, isFreshSession, forecast, timezone }: MainPageComponentProps) {
   useResetScrollPosition()
   const [hoverId, setHoverId] = useState<string | -1>(-1)
   const [mapBounds, setMapBounds] = useState(INITIAL_MAP_BOUNDS)
@@ -183,7 +187,7 @@ function App({ activeId, nodes, isFreshSession }: MainPageComponentProps) {
         onMouseEnter={setHoverId}
         onMouseLeave={() => setHoverId(-1)}
         />
-      <ClimateWidget node={activeNode} />
+      <ClimateWidget nodeId={activeId} node={activeNode} forecast={forecast} timezone={timezone} />
       <footer>
         <div className="links">
           <Link to="/settings">

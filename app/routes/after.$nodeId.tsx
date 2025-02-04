@@ -1,6 +1,8 @@
 import { invariantResponse } from "@epic-web/invariant"
 import { type LoaderFunctionArgs } from "@remix-run/node";
-import { json, useLoaderData } from "@remix-run/react";
+import { defer, json, useLoaderData } from "@remix-run/react";
+import { getForecast } from "app/utils/climate";
+import { getTimezone } from "app/utils/timezone";
 import { useState, useEffect }from "react"
 import { getNodes } from "~nodes"
 import MainPage from "~pages/Main";
@@ -32,15 +34,21 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
         criticalNodes[relatedNodeId] = nodes[relatedNodeId]
     }
 
-    return json({
+    const activeNode = criticalNodes[nodeId]
+    const forecast = getForecast(activeNode.lat, activeNode.lng)
+    const timezone = getTimezone(activeNode)
+
+    return defer({
         nodeId,
         nodes: criticalNodes as NodeMap,
-        isExternalReferrer
+        isExternalReferrer,
+        forecast,
+        timezone
     })
 }
 
 export default function() {
-    const { nodeId, nodes: minimalNodes, isExternalReferrer } = useLoaderData<typeof loader>()
+    const { nodeId, nodes: minimalNodes, isExternalReferrer, forecast, timezone } = useLoaderData<typeof loader>()
     const [allNodes, setAllNodes] = useState<NodeMap>({})
 
     useEffect(() => {
@@ -68,6 +76,8 @@ export default function() {
             nodes={nodes}
             activeId={nodeId}
             isFreshSession={isExternalReferrer}
+            forecast={forecast}
+            timezone={timezone}
         />
     )
 }
