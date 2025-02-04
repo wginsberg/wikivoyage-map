@@ -1,7 +1,7 @@
 import { type Node } from "../../types";
 import React, { Suspense } from "react";
 import useFormattedTime from "~hooks/useFormattedTime";
-import { Forecast } from "app/utils/climate";
+import { Forecast, weatherDescriptions, weatherEmoji } from "app/utils/climate";
 import { Await } from "@remix-run/react";
 import { TimezoneResponse } from "app/utils/timezone";
 
@@ -15,22 +15,34 @@ type ClimateWidgetComponentProps = {
 function ClimateWidget({ nodeId, node, forecast, timezone }: ClimateWidgetComponentProps) {
     return (
         <div style={{ margin: "auto", width: "280px" }}>
-            <ForecastWidget nodeId={nodeId} forecast={forecast} />
+            <ForecastWidget nodeId={nodeId} node={node}forecast={forecast} />
             <LocalTimeWidget nodeId={nodeId} timezone={timezone} />
         </div>
     )
 }
 
-function ForecastWidget({ nodeId, forecast }: { nodeId: string, forecast?: Promise<Forecast> }) {
+function ForecastWidget({ nodeId, node, forecast }: { nodeId: string, node: Node, forecast?: Promise<Forecast> }) {
     return (
         <Suspense key={nodeId} fallback={<><Shimmer width="40%" /><Shimmer width="75%" /></>}>
             <Await resolve={forecast}>
                 {
                     forecast => (
-                        <>
-                            <p>Current temperature: {`${forecast?.current.temperature_2m}`}{forecast?.current_units.temperature_2m}</p>
-                            <p>Altitude: {`${forecast?.elevation}`}m</p>
-                        </>
+                        <div>
+                            <p style={{ textAlign: "center" }}>Current conditions in <strong style={{ whiteSpace: "nowrap" }}>{node.title}</strong>:</p>
+                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                                <div
+                                    style={{ marginRight: "10px" }}
+                                    title={forecast?.current.weather_code ? weatherDescriptions[forecast?.current.weather_code] : ''}
+                                >
+                                    {forecast?.current.weather_code ? weatherEmoji[forecast?.current.weather_code] : ''}
+                                </div>
+                                <div>
+                                    {`${forecast?.current.temperature_2m}`}{forecast?.current_units.temperature_2m}
+                                </div>
+                            </div>
+                            <p style={{ textAlign: "center" }}>Altitude:</p>
+                            <p style={{ textAlign: "center" }}>{`${forecast?.elevation}`}m</p>
+                        </div>
                     )
                 }
             </Await>
@@ -54,7 +66,14 @@ function LocalTimeWidget({ nodeId, timezone }: { nodeId: string, timezone?: Prom
 
 function LocalTimeWidgetConcrete({ nodeId, timezone }: { nodeId: string, timezone: TimezoneResponse}) {
     const localTime = useFormattedTime(timezone.zoneName)
-    return <LocalTime>Local time: {localTime}</LocalTime>
+    return <LocalTime>
+        <p style={{ textAlign: "center" }}>
+            Local time:
+        </p>
+        <p style={{ textAlign: "center" }}>
+            {localTime}
+        </p>
+    </LocalTime>
 }
 
 function CurrentTemperature({ children }: React.ComponentProps<'p'>) {
