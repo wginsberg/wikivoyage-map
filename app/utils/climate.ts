@@ -10,7 +10,7 @@ export type Forecast = {
 	}
 }
 
-type WeatherCode =
+export type WeatherCode =
 	| 0
 	| 1
 	| 2

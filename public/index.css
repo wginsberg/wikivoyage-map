@@ -150,6 +150,7 @@ footer a:visited {
 
 .shimmer {
     width: 100%;
+    margin: auto;
     animation: shimmer 1s infinite linear;
     background: linear-gradient(
         90deg,
@@ -167,4 +168,27 @@ footer a:visited {
     to {
         background-position: 200% 0;
     }
+}
+
+.climate {
+    border-collapse: collapse;
+    margin: auto;
+    table-layout: fixed;
+}
+
+.climate, .climate th, .climate td {
+    border: 1px solid lightgrey;
+}
+
+.climate th {
+    width: 25%;
+}
+
+.climate th, .climate td {
+    text-align: center;
+    padding: 4px;
+}
+
+.climate td {
+    line-height: 1rem;
 }
