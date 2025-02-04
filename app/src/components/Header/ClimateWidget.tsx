@@ -35,7 +35,7 @@ function ClimateWidget({ nodeId, node, forecast, timezone }: ClimateWidgetCompon
                             <Suspense key={nodeId} fallback={<Shimmer width="40%" />}>
                                 <Await resolve={forecast}>
                                     {
-                                        forecast => `${forecast?.current.temperature_2m} ${forecast?.current_units.temperature_2m}`
+                                        forecast => `${forecast?.current?.temperature_2m} ${forecast?.current_units?.temperature_2m}`
                                     }
                                 </Await>
                             </Suspense>
@@ -44,7 +44,7 @@ function ClimateWidget({ nodeId, node, forecast, timezone }: ClimateWidgetCompon
                             <Suspense key={nodeId} fallback={<Shimmer width="75%" />}>
                                 <Await resolve={forecast}>
                                     {
-                                        forecast =>  <WeatherIcon weatherCode={forecast?.current.weather_code} />
+                                        forecast =>  <WeatherIcon weatherCode={forecast?.current?.weather_code} />
                                     }
                                 </Await>
                             </Suspense>
