@@ -83,3 +83,7 @@ pages_build_output_dir = "./build/client"
 # [[env.production.kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
 # id = "<PRODUCTION_NAMESPACE_ID>"
+
+# Docs: https://developers.cloudflare.com/workers/observability/logs/workers-logs/
+[observability]
+enabled = true
