@@ -106,7 +106,10 @@ export const weatherEmoji: WeatherDescription = {
 	99: '⛈',
 }
 
-export function getForecast(lat: number, lng: number): Promise<Forecast> {
+export async function getForecast(lat: number, lng: number): Promise<Forecast> {
+	console.log('getForecast', lat, lng)
 	const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,weather_code`
-	return fetch(url).then(response => response.json())
+	const forecast: Forecast = await fetch(url).then(response => response.json())
+	console.log('forecast', forecast)
+	return forecast
 }
