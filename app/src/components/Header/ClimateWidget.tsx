@@ -1,7 +1,7 @@
 import { type Node } from "../../types";
 import React, { Suspense } from "react";
 import useFormattedTime from "~hooks/useFormattedTime";
-import { Forecast, WeatherCode, weatherDescriptions, weatherEmoji } from "app/utils/climate";
+import { Forecast, TemperatureUnits, WeatherCode, weatherDescriptions, weatherEmoji } from "app/utils/climate";
 import { Await } from "@remix-run/react";
 import { TimezoneResponse } from "app/utils/timezone";
 
@@ -35,7 +35,7 @@ function ClimateWidget({ nodeId, node, forecast, timezone }: ClimateWidgetCompon
                             <Suspense key={nodeId} fallback={<Shimmer width="40%" />}>
                                 <Await resolve={forecast}>
                                     {
-                                        forecast => `${forecast?.current?.temperature_2m} ${forecast?.current_units?.temperature_2m}`
+                                        forecast => <Temperature forecast={forecast} />
                                     }
                                 </Await>
                             </Suspense>
@@ -53,9 +53,7 @@ function ClimateWidget({ nodeId, node, forecast, timezone }: ClimateWidgetCompon
                             <Suspense key={nodeId} fallback={<Shimmer width="40%" />}>
                                 <Await resolve={forecast}>
                                     {
-                                        forecast =>  forecast?.elevation
-                                            ? `${forecast.elevation} m`
-                                            : ''
+                                        forecast =>  <Altitude forecast={forecast} />
                                     }
                                 </Await>
                             </Suspense>
@@ -76,6 +74,16 @@ function ClimateWidget({ nodeId, node, forecast, timezone }: ClimateWidgetCompon
     )
 }
 
+function Temperature({ forecast }: { forecast: Forecast }) {
+    const temperature = forecast?.current?.temperature_2m
+    const units = forecast?.current_units?.temperature_2m
+
+    if (temperature === undefined) return "❓"
+    if (units === undefined) return "❓"
+
+    return `${temperature} ${units}`
+}
+
 function WeatherIcon({ weatherCode }: { weatherCode: WeatherCode }) {
     const emoji = weatherEmoji[weatherCode] || "❓"
     return (
@@ -83,6 +91,12 @@ function WeatherIcon({ weatherCode }: { weatherCode: WeatherCode }) {
             {emoji}
         </span>
     )
+}
+
+function Altitude({ forecast }: { forecast: Forecast }) {
+    const altitude = forecast?.elevation
+    if (altitude === undefined) return "❓"
+    return `${altitude} m`
 }
 
 function LocalClock({ timezone }: { timezone: TimezoneResponse}) {

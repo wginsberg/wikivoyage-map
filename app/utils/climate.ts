@@ -1,12 +1,12 @@
 export type Forecast = {
-	elevation: Number
+	elevation: number
 	current: {
-		temperature_2m: Number
+		temperature_2m: number
 		time: string
 		weather_code: WeatherCode
 	}
 	current_units: {
-		temperature_2m: string
+		temperature_2m: '°C' | '°F'
 	}
 }
 
@@ -105,6 +105,8 @@ export const weatherEmoji: WeatherDescription = {
 	96: '⛈',
 	99: '⛈',
 }
+
+export type TemperatureUnits = '°C' | '°F'
 
 export async function getForecast(lat: number, lng: number): Promise<Forecast> {
 	console.log('getForecast', lat, lng)
